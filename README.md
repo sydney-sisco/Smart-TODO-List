@@ -42,9 +42,6 @@ The following steps are only for _one_ of the group members to perform.
 - NPM 5.x or above
 - PG 6.x
 
-<<<<<<< HEAD
 
 ## Connie's Test
-=======
 ## Testing
->>>>>>> 9fff04f373123a4415876395da3ad91f5e73c655

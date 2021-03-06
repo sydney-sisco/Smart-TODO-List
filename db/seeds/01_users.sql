@@ -8,7 +8,7 @@ INSERT INTO categories (name) VALUES
 ('Eat'),
 ('Read'),
 ('Buy'),
-('Uncatergorized');
+('Uncategorized');
 
 INSERT INTO items (name, user_id, category_id) VALUES
 ('Mulan', 1, 1),

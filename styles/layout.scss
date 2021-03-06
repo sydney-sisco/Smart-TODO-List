@@ -4,6 +4,18 @@ body {
   background-color: #EEE;
 
   h1 {
+    text-align: center;
     color: #244751;
+  }
+
+  .form-group {
+    display: flex;
+    justify-content: center;
+    width: 50%;
+    margin: 0 auto;
+
+    button {
+      margin-left: 10px;
+    }
   }
 }

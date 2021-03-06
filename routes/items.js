@@ -25,7 +25,7 @@ module.exports = (db) => {
     db.query(text, values)
       .then(data => {
         const items = data.rows;
-        res.json(items);
+        res.json(items); // replace with res.render(__.ejs, data.rows) when home page complete
       })
       .catch(err => {
         res
@@ -42,7 +42,7 @@ module.exports = (db) => {
       return;
     }
 
-    // replace category id with whatever the api call gets us
+    // replace category id with whatever is passed from client
     const values = [userId, req.body.category_id, req.body.name];
     let text = `
     INSERT INTO items
@@ -69,23 +69,22 @@ module.exports = (db) => {
     }
 
     const values = [];
-
     let text = `
     UPDATE items
     SET`
 
     if (req.body.name) {
-      text += `name = $1`;
       values.push(req.body.name);
+      text += `name = $${values.length}`;
     }
 
     if (req.body.done) {
-      text += `done = $2`;
       values.push(req.body.done);
+      text += `done = $${values.length}`;
     }
 
-    text += `WHERE user_id = $3 AND id = $4 RETURNING *`;
     values.push(userId, Number(req.params.id));
+    text += `WHERE user_id = $${values.length - 1} AND id = $${values.length} RETURNING *`;
 
     db.query(text, values)
       .then(data => {

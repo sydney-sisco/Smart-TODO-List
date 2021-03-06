@@ -10,6 +10,7 @@ const sass       = require("node-sass-middleware");
 const app        = express();
 const morgan     = require('morgan');
 const cookieSession = require('cookie-session');
+const methodOverride = require('method-override');
 
 // PG database client/connection setup
 const { Pool } = require('pg');
@@ -35,6 +36,9 @@ app.use(cookieSession({
   name: 'session',
   keys: ['key1']
 }));
+
+// override for put, patch and delete methods
+app.use(methodOverride('_method'));
 
 // additional restful routes
 

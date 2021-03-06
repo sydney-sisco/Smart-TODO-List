@@ -46,7 +46,7 @@ module.exports = (db) => {
     const values = [userId, req.body.category_id, req.body.name];
     let text = `
     INSERT INTO items
-    VALUES ($1, $2, $2) RETURNING *;`
+    VALUES ($1, $2, $3) RETURNING *;`
 
     db.query(text, values)
       .then(data => {

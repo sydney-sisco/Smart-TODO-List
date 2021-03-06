@@ -51,7 +51,7 @@ const itemsRoutes = require("./routes/items");
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
 app.use("/users", usersRoutes(db));
-app.use("api/items", itemsRoutes(db));
+app.use("/items", itemsRoutes(db));
 // app.use("api", apiRoutes(db)); replace with api routes call when done
 // Note: mount other resources here, using the same pattern above
 

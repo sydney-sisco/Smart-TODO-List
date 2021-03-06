@@ -4,6 +4,7 @@
  *   these routes are mounted onto /widgets
  * See: https://expressjs.com/en/guide/using-middleware.html#middleware.router
  */
+const { categorizer } = require('../helpers/categorizer');
 
 const express = require('express');
 const router  = express.Router();
@@ -34,29 +35,30 @@ module.exports = (db) => {
       });
   });
 
-  router.post("/:id", (req, res) => {
+  router.post("/", (req, res) => {
     const userId = req.session.user_id;
 
     if (!userId) {
       res.send('Not logged in!');
       return;
     }
-
     // replace category id with whatever is passed from client
-    const values = [userId, req.body.category_id, req.body.name];
-    let text = `
-    INSERT INTO items
-    VALUES ($1, $2, $3) RETURNING *;`
+    categorizer(req.body.item).then((data) => {
+      const values = [userId, data, req.body.item];
+      let text = `
+      INSERT INTO items (user_id, category_id, name)
+      VALUES ($1, $2, $3) RETURNING *;`
 
-    db.query(text, values)
-      .then(data => {
-        res.json(data.rows[0]);
-      })
-      .catch(err => {
-        res
-          .status(500)
-          .json({ error: err.message });
-      });
+      db.query(text, values)
+        .then(data => {
+          res.json(data.rows[0]);
+        })
+        .catch(err => {
+          res
+            .status(500)
+            .json({ error: err.message });
+        });
+    });
   });
 
 

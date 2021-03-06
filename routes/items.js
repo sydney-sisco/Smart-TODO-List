@@ -9,13 +9,23 @@ const express = require('express');
 const router  = express.Router();
 
 module.exports = (db) => {
+  //gets all items for that user
   router.get("/", (req, res) => {
-    let query = `SELECT * FROM widgets`;
-    console.log(query);
-    db.query(query)
+    const userId = req.session.user_id;
+    if (!userId) {
+      res.send('Not logged in!');
+      return;
+    }
+
+    const text = `
+    SELECT * FROM items
+    WHERE user_id = $1`;
+    const values = [userId];
+
+    db.query(text, values)
       .then(data => {
-        const widgets = data.rows;
-        res.json({ widgets });
+        const items = data.rows;
+        res.json(items);
       })
       .catch(err => {
         res

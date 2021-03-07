@@ -31,7 +31,6 @@ router.post('/', (req, res) => {
     }
     res.status(400).send('Email already present in our database.');
   }).then(userID => {
-    console.log('USER ID HERE:', userID, '~~~~~~~~~~~~~~~~~~~~~');
     if (userID) {
       req.session.user_id = userID;
       res.redirect('/');

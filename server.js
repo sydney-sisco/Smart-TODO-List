@@ -13,9 +13,7 @@ const cookieSession = require('cookie-session');
 const methodOverride = require('method-override');
 
 // PG database client/connection setup
-const { Pool } = require('pg');
-const dbParams = require('./lib/db.js');
-const db = new Pool(dbParams);
+const db = require('./lib/db.js');
 db.connect();
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT

@@ -59,8 +59,55 @@ app.use("/items", itemsRoutes(db));
 // Home page
 // Warning: avoid creating more routes in this file!
 // Separate them into separate routes files (see above).
+
+const dataFetcher = (conditionType, condition) => {
+  const text = `
+  SELECT *
+  FROM users
+  WHERE ${conditionType} = $1;`
+  const values = [condition];
+
+  return db.query(text, values);
+};
+
 app.get("/", (req, res) => {
-  res.render("index");
+  if (!req.session.user_id) {
+    res.redirect('/login');
+    return;
+  }
+  dataFetcher('id', req.session.user_id).then(data => {
+    const templateVars = { user: data.rows[0] };
+    res.render("index", templateVars);
+  });
+});
+
+
+app.get("/login", (req, res) => {
+  if (!req.session.user_id) {
+    const templateVars = { user: null };
+    res.render('login', templateVars);
+    return;
+  }
+  res.redirect('../../items/');
+});
+
+app.post('/login', (req, res) => {
+  if(req.session.user_id) {
+    res.status(400).send('Can\'t login while logged in');
+    return;
+  }
+  const curEmail = req.body.loginEmail;
+  const curPassword = req.body.loginPassword;
+
+  dataFetcher('email', curEmail).then(data => {
+    const userData = data.rows[0];
+    // implement bcrypt (STRETCH)
+    if (data.rowCount > 0 && userData.password === curPassword) {
+      req.session.user_id = userData.id;
+      res.redirect('/');
+    }
+    res.send('Incorrect email/password');
+  }).catch(err => console.log('ERROR:', err));
 });
 
 app.listen(PORT, () => {

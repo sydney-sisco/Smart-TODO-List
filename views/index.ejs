@@ -18,14 +18,45 @@
 
   <body>
     <%- include('partials/_header') %>
-    <h1>Smart TODO List</h1>
+    <main>
+      <h1>Smart TODO List</h1>
 
-    <form class="main" action="/items/" method="POST">
-      <div class="form-group">
-        <input class="form-control" type="text" name="item">
-        <button type="submit" class="btn btn-primary">Add</button>
+      <form class="item" action="/items/" method="POST">
+        <div class="form-group">
+          <input class="form-control" type="text" name="item">
+          <button type="submit" class="btn btn-primary">Add</button>
+        </div>
+      </form>
+
+      <span class="error-text"></span>
+
+      <div class="pending">
+        <ul></ul>
       </div>
-    </form>
+
+      <div class="lists-container">
+        <div class="uncategorized id-5">
+          uncategorized
+          <ul></ul>
+        </div>
+        <div class="watch id-1">
+          watch
+          <ul></ul>
+        </div>
+        <div class="eat id-2">
+          eat
+          <ul></ul>
+        </div>
+        <div class="read id-3">
+          read
+          <ul></ul>
+        </div>
+        <div class="buy id-4">
+          buy
+          <ul></ul>
+        </div>
+      </div>
+    </main>
     <%- include('partials/_footer') %>
   </body>
 </html>

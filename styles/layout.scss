@@ -8,6 +8,11 @@ body {
   background-image: linear-gradient(100deg, $leftColor, $rightColor);
   font-family: 'Rubik', sans-serif;
 
+  main {
+    display: flex;
+    flex-direction: column;
+  }
+
   h1 {
     text-align: center;
     color: $textColor;
@@ -22,6 +27,29 @@ body {
     button {
       margin-left: 10px;
     }
+  }
+
+  .error-text {
+    text-align: center;
+    color: red;
+  }
+
+  .pending {
+    text-align: center;
+    margin: 0 auto;
+    width: 20%;
+  }
+
+  .lists-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    margin: 10%;
+  }
+
+  ul {
+    justify-content: center;
   }
 }
 

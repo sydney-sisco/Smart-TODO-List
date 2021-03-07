@@ -81,6 +81,47 @@ app.get("/", (req, res) => {
   });
 });
 
+app.get('/register', (req, res) => {
+  if (!req.session.user_id) {
+    const templateVars = { user: null };
+    res.render('register', templateVars);
+    return;
+  }
+  res.redirect('../../items/');
+})
+
+app.post('/register', (req, res) => {
+  if(req.session.user_id) {
+    res.status(400).send('Can\'t register while logged in');
+    return;
+  }
+  if (!req.body.registerEmail || !req.body.registerPassword || !req.body.registerFname || !req.body.registerLname) {
+    res.status(400).send('Empty Fields!');
+    return;
+  }
+  dataFetcher('email', req.body.registerEmail).then(data => {
+    if (data.rowCount > 0) {
+      res.status(400).send('Email already present in our database.');
+    }
+  }).then(() => {
+    const text = `
+    INSERT INTO users (first_name, last_name, email, password)
+    VALUES ($1, $2, $3, $4)
+    RETURNING *`
+    const values = [req.body.registerFname, req.body.registerLname, req.body.registerEmail, req.body.registerPassword];
+
+    return db.query(text, values);
+  }).then(data => {
+    req.session.user_id = data.rows[0].id;
+    res.redirect('/');
+  });
+
+});
+
+app.get('/logout', (req, res) => {
+  req.session.user_id = null;
+  res.redirect('/login');
+});
 
 app.get("/login", (req, res) => {
   if (!req.session.user_id) {

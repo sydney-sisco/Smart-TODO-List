@@ -1,6 +1,10 @@
 // See: https://sass-lang.com/
 
 body {
+  display: flex;
+  // justify-content: center;
+  flex-direction: column;
+
   background-color: #EEE;
 
   h1 {
@@ -17,5 +21,22 @@ body {
     button {
       margin-left: 10px;
     }
+  }
+
+  .error-text {
+    text-align: center;
+    color: red;
+  }
+
+  .pending {
+    text-align: center;
+  }
+
+  .lists-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    margin: 10%;
   }
 }

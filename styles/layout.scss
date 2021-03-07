@@ -57,6 +57,30 @@ body {
       background:$rightColor;
       border: 1px solid white;
     }
+
+    .header-details {
+      display: flex;
+      align-items: center;
+
+      .user-details {
+        color: $textColor;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        padding: 15px;
+
+        .details-name {
+          font-size: 1.2rem;
+          font-weight: bold;
+        }
+
+        .details-email {
+          font-size: 1rem;
+          font-style: italic;
+          opacity: 75%;
+        }
+      }
+    }
   }
 }
 
@@ -165,7 +189,8 @@ body {
       display: flex;
       flex-direction: column;
 
-      input {
+      input,
+      label {
         margin-top: 5px;
       }
 

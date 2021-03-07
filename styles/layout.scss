@@ -5,10 +5,13 @@ $textColor: white;
 $textColorAlt: rgba(95, 95, 95, 0.932);
 
 body {
-  display: flex;
-  flex-direction: column;
   background-image: linear-gradient(100deg, $leftColor, $rightColor);
   font-family: 'Rubik', sans-serif;
+
+  main {
+    display: flex;
+    flex-direction: column;
+  }
 
   h1 {
     text-align: center;

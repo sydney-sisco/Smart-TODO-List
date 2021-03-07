@@ -1,20 +1,8 @@
 $(() => {
-  // $('#submit-btn').on('click', (event) => {
-  //   event.preventDefault();
-  //   const inputStr = $('#item-input').val();
-  //   console.log($('#category-container').children());
-  //   $('.items-list').append(`<div>
-  //   <button class='complete-btn'>COMPLETE</button>
-  //   <li>${inputStr}</li>
-  //   <button class='delete-btn'>DELETE</button>
-  //   </div>`);
-  //   deleteBtnListener();
-  //   completeBtnListener();
-  // });
-  console.log('We are ready.');
+  console.log('Document ready.');
+
   // form submission for new items
   $('form.item').submit(formSubmissionHandler);
-
 });
 
 // handler for the new tweet form
@@ -23,7 +11,6 @@ const formSubmissionHandler = function(event) {
 
   // get the item text from the form
   const item = $('input').val();
-  // console.log(item);
 
   // if the form is empty, error
   if (!item) {
@@ -45,13 +32,10 @@ const formSubmissionHandler = function(event) {
   // POST the item to the server using AJAX
   $.post('/items/', $(this).serialize())
   .then(function(data){
-    console.log(data);
-    console.log('item:',item);
+    console.log('response from server:', data);
     // we now have the catagory from the server
     // add the element to the correct list
-    console.log('element text:',$newItem.text());
-    $newItem.remove();
-    $(`.id-${data.category_id}>ul`).append($newItem);
+    $newItem.detach().appendTo($(`.id-${data.category_id}>ul`));
   });
 
   // clear the form

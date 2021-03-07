@@ -2,9 +2,7 @@
 
 body {
   display: flex;
-  // justify-content: center;
   flex-direction: column;
-
   background-color: #EEE;
 
   h1 {
@@ -30,6 +28,8 @@ body {
 
   .pending {
     text-align: center;
+    margin: 0 auto;
+    width: 20%;
   }
 
   .lists-container {
@@ -38,5 +38,10 @@ body {
     justify-content: space-between;
 
     margin: 10%;
+  }
+
+  ul {
+    justify-content: center;
+    display: flex;
   }
 }

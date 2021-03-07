@@ -20,12 +20,12 @@ const categorizer = query => {
       if (buyArr.some(arrElem => elem.desc.indexOf(arrElem) !== -1)) return 4;
     }
     return 5;
-    }).catch(err => {
-      console.log(err);
-      return 5;
-    });
+  }).catch(err => {
+    console.log(err);
+    return 5;
+  });
 
-}
+};
 
 module.exports = {
   categorizer

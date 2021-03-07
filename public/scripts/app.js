@@ -1,9 +1,29 @@
 $(() => {
   console.log('Document ready.');
 
+  // load existing items from the database
+  loadItems();
+
   // form submission for new items
   $('form.item').submit(formSubmissionHandler);
 });
+
+
+const loadItems = () => {
+  $.get('/items/')
+  .then((items) => {
+    // console.log(items);
+    // console.log(typeof items);
+
+    for (item of items) {
+      // create a list element
+      const $newItem = $(`<li>${item.name}</li>`);
+
+      // add item to the correct list
+      $newItem.appendTo($(`.id-${item.category_id}>ul`));
+    }
+  });
+};
 
 // handler for the new tweet form
 const formSubmissionHandler = function(event) {

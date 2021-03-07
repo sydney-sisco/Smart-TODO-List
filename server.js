@@ -40,21 +40,17 @@ app.use(cookieSession({
 // override for put, patch and delete methods
 app.use(methodOverride('_method'));
 
-// additional restful routes
-
-
 // Separated Routes for each Resource
 // Note: Feel free to replace the example routes below with your own
-const usersRoutes = require("./routes/users");
-const itemsRoutes = require("./routes/items");
+const usersRouter = require("./routes/users.js");
+const itemsRouter = require("./routes/items.js");
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
-app.use("/users", usersRoutes(db));
-app.use("/items", itemsRoutes(db));
-// app.use("api", apiRoutes(db)); replace with api routes call when done
-// Note: mount other resources here, using the same pattern above
+app.use("/users", usersRouter);
+app.use("/items", itemsRouter);
 
+// app.use("api", apiRoutes(db)); replace with api routes call when done
 
 // Home page
 // Warning: avoid creating more routes in this file!

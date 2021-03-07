@@ -26,16 +26,17 @@ router.post('/', (req, res) => {
   }
   dataFetcher('email', req.body.registerEmail)
     .then(data => {
-    if (data.rowCount > 0) {
-      res.status(400).send('Email already present in our database.');
+    if (data.rowCount === 0) {
+      return insertUserAndReturn(req.body);
     }
-  })
-    .then(() => insertUserAndReturn(req.body))
-    .then(userID => {
-    req.session.user_id = userID;
-    res.redirect('/');
-  });
-
+    res.status(400).send('Email already present in our database.');
+  }).then(userID => {
+    console.log('USER ID HERE:', userID, '~~~~~~~~~~~~~~~~~~~~~');
+    if (userID) {
+      req.session.user_id = userID;
+      res.redirect('/');
+    }
+  }).catch(err => console.log(err));
 });
 
 router.post('/login', (req, res) => {

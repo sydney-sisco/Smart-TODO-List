@@ -18,42 +18,24 @@
 
   <body>
     <%- include('partials/_header') %>
-    <h1>Smart TODO List</h1>
-
-    <form class="item" action="/items/" method="POST">
-      <div class="form-group">
-        <input class="form-control" type="text" name="item">
-        <button type="submit" class="btn btn-primary">Add</button>
-      </div>
-    </form>
-
-    <span class="error-text"></span>
-
-    <div class="pending">
-      <ul></ul>
-    </div>
-
-    <div class="lists-container">
-      <div class="uncategorized id-5">
-        uncategorized
-        <ul></ul>
-      </div>
-      <div class="watch id-1">
-        watch
-        <ul></ul>
-      </div>
-      <div class="eat id-2">
-        eat
-        <ul></ul>
-      </div>
-      <div class="read id-3">
-        read
-        <ul></ul>
-      </div>
-      <div class="buy id-4">
-        buy
-        <ul></ul>
-      </div>
+    <div class="credential-card">
+      <header>
+        <h2>Register</h2>
+        <p><span>NotSoSmart</span> is not the smartest!</p>
+      </header>
+      <form action="/register" method="POST">
+        <div class='credential-input'>
+          <label for="registerFname">First name:</label>
+          <input type='text' name="registerFname" id="registerFname">
+          <label for="registerLname">Last name:</label>
+          <input type="text" name="registerLname" id="registerLname">
+          <label for="registerEmail">Email:</label>
+          <input type="email" name="registerEmail" id="registerEmail">
+          <label for="registerPassword">Password:</label>
+          <input type="password" name="registerPassword" id="registerPassword">
+        </div>
+        <button type="submit">Register</button>
+      </form>
     </div>
     <%- include('partials/_footer') %>
   </body>

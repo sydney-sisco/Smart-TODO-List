@@ -18,42 +18,20 @@
 
   <body>
     <%- include('partials/_header') %>
-    <h1>Smart TODO List</h1>
-
-    <form class="item" action="/items/" method="POST">
-      <div class="form-group">
-        <input class="form-control" type="text" name="item">
-        <button type="submit" class="btn btn-primary">Add</button>
-      </div>
-    </form>
-
-    <span class="error-text"></span>
-
-    <div class="pending">
-      <ul></ul>
-    </div>
-
-    <div class="lists-container">
-      <div class="uncategorized id-5">
-        uncategorized
-        <ul></ul>
-      </div>
-      <div class="watch id-1">
-        watch
-        <ul></ul>
-      </div>
-      <div class="eat id-2">
-        eat
-        <ul></ul>
-      </div>
-      <div class="read id-3">
-        read
-        <ul></ul>
-      </div>
-      <div class="buy id-4">
-        buy
-        <ul></ul>
-      </div>
+    <div class="credential-card">
+      <header>
+        <h2>Sign in</h2>
+        <p>Welcome to <span>NotSoSmart</span></p>
+      </header>
+      <form action="/login" method="POST">
+        <div class='credential-input'>
+          <label for="loginEmail">Email:</label>
+          <input type="email" name="loginEmail" id="loginEmail">
+          <label for="loginPassword">Password:</label>
+          <input type="password" name="loginPassword" id="loginPassword">
+        </div>
+        <button type="submit">Sign in</button>
+      </form>
     </div>
     <%- include('partials/_footer') %>
   </body>

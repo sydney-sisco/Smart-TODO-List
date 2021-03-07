@@ -13,9 +13,7 @@ const cookieSession = require('cookie-session');
 const methodOverride = require('method-override');
 
 // PG database client/connection setup
-const { Pool } = require('pg');
-const dbParams = require('./lib/db.js');
-const db = new Pool(dbParams);
+const db = require('./lib/db.js');
 db.connect();
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
@@ -40,27 +38,111 @@ app.use(cookieSession({
 // override for put, patch and delete methods
 app.use(methodOverride('_method'));
 
-// additional restful routes
-
-
 // Separated Routes for each Resource
 // Note: Feel free to replace the example routes below with your own
-const usersRoutes = require("./routes/users");
-const itemsRoutes = require("./routes/items");
+const usersRouter = require("./routes/users.js");
+const itemsRouter = require("./routes/items.js");
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
-app.use("/users", usersRoutes(db));
-app.use("/items", itemsRoutes(db));
-// app.use("api", apiRoutes(db)); replace with api routes call when done
-// Note: mount other resources here, using the same pattern above
+app.use("/users", usersRouter);
+app.use("/items", itemsRouter);
 
+// app.use("api", apiRoutes(db)); replace with api routes call when done
 
 // Home page
 // Warning: avoid creating more routes in this file!
 // Separate them into separate routes files (see above).
+
+const dataFetcher = (conditionType, condition) => {
+  const text = `
+  SELECT *
+  FROM users
+  WHERE ${conditionType} = $1;`
+  const values = [condition];
+
+  return db.query(text, values);
+};
+
 app.get("/", (req, res) => {
-  res.render("index");
+  if (!req.session.user_id) {
+    res.redirect('/login');
+    return;
+  }
+  dataFetcher('id', req.session.user_id).then(data => {
+    const templateVars = { user: data.rows[0] };
+    res.render("index", templateVars);
+  });
+});
+
+app.get('/register', (req, res) => {
+  if (!req.session.user_id) {
+    const templateVars = { user: null };
+    res.render('register', templateVars);
+    return;
+  }
+  res.redirect('../../items/');
+})
+
+app.post('/register', (req, res) => {
+  if(req.session.user_id) {
+    res.status(400).send('Can\'t register while logged in');
+    return;
+  }
+  if (!req.body.registerEmail || !req.body.registerPassword || !req.body.registerFname || !req.body.registerLname) {
+    res.status(400).send('Empty Fields!');
+    return;
+  }
+  dataFetcher('email', req.body.registerEmail).then(data => {
+    if (data.rowCount > 0) {
+      res.status(400).send('Email already present in our database.');
+    }
+  }).then(() => {
+    const text = `
+    INSERT INTO users (first_name, last_name, email, password)
+    VALUES ($1, $2, $3, $4)
+    RETURNING *`
+    const values = [req.body.registerFname, req.body.registerLname, req.body.registerEmail, req.body.registerPassword];
+
+    return db.query(text, values);
+  }).then(data => {
+    req.session.user_id = data.rows[0].id;
+    res.redirect('/');
+  });
+
+});
+
+app.get('/logout', (req, res) => {
+  req.session.user_id = null;
+  res.redirect('/login');
+});
+
+app.get("/login", (req, res) => {
+  if (!req.session.user_id) {
+    const templateVars = { user: null };
+    res.render('login', templateVars);
+    return;
+  }
+  res.redirect('../../items/');
+});
+
+app.post('/login', (req, res) => {
+  if(req.session.user_id) {
+    res.status(400).send('Can\'t login while logged in');
+    return;
+  }
+  const curEmail = req.body.loginEmail;
+  const curPassword = req.body.loginPassword;
+
+  dataFetcher('email', curEmail).then(data => {
+    const userData = data.rows[0];
+    // implement bcrypt (STRETCH)
+    if (data.rowCount > 0 && userData.password === curPassword) {
+      req.session.user_id = userData.id;
+      res.redirect('/');
+    }
+    res.send('Incorrect email/password');
+  }).catch(err => console.log('ERROR:', err));
 });
 
 app.listen(PORT, () => {

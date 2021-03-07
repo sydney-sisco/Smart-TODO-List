@@ -41,22 +41,3 @@ const formSubmissionHandler = function(event) {
   // clear the form
   $('input').val('');
 };
-
-
-
-
-const deleteBtnListener = () => {
-  $('.delete-btn').on('click', (event) => {
-    $(event.target).parent().remove();
-  });
-};
-
-const completeBtnListener = () => {
-  $('.complete-btn').on('click', (event) => {
-    $($(event.target).parent().parent().parent().siblings().children('ul')).append($(event.target).parent());
-
-    $(event.target).toggleClass('complete-fill');
-    $(event.target).next().toggleClass('complete-strike');
-    $(event.target).next().next().toggleClass('complete-gray');
-  });
-};

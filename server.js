@@ -55,8 +55,96 @@ app.use("/items", itemsRouter);
 // Home page
 // Warning: avoid creating more routes in this file!
 // Separate them into separate routes files (see above).
+
+const dataFetcher = (conditionType, condition) => {
+  const text = `
+  SELECT *
+  FROM users
+  WHERE ${conditionType} = $1;`
+  const values = [condition];
+
+  return db.query(text, values);
+};
+
 app.get("/", (req, res) => {
-  res.render("index");
+  if (!req.session.user_id) {
+    res.redirect('/login');
+    return;
+  }
+  dataFetcher('id', req.session.user_id).then(data => {
+    const templateVars = { user: data.rows[0] };
+    res.render("index", templateVars);
+  });
+});
+
+app.get('/register', (req, res) => {
+  if (!req.session.user_id) {
+    const templateVars = { user: null };
+    res.render('register', templateVars);
+    return;
+  }
+  res.redirect('../../items/');
+})
+
+app.post('/register', (req, res) => {
+  if(req.session.user_id) {
+    res.status(400).send('Can\'t register while logged in');
+    return;
+  }
+  if (!req.body.registerEmail || !req.body.registerPassword || !req.body.registerFname || !req.body.registerLname) {
+    res.status(400).send('Empty Fields!');
+    return;
+  }
+  dataFetcher('email', req.body.registerEmail).then(data => {
+    if (data.rowCount > 0) {
+      res.status(400).send('Email already present in our database.');
+    }
+  }).then(() => {
+    const text = `
+    INSERT INTO users (first_name, last_name, email, password)
+    VALUES ($1, $2, $3, $4)
+    RETURNING *`
+    const values = [req.body.registerFname, req.body.registerLname, req.body.registerEmail, req.body.registerPassword];
+
+    return db.query(text, values);
+  }).then(data => {
+    req.session.user_id = data.rows[0].id;
+    res.redirect('/');
+  });
+
+});
+
+app.get('/logout', (req, res) => {
+  req.session.user_id = null;
+  res.redirect('/login');
+});
+
+app.get("/login", (req, res) => {
+  if (!req.session.user_id) {
+    const templateVars = { user: null };
+    res.render('login', templateVars);
+    return;
+  }
+  res.redirect('../../items/');
+});
+
+app.post('/login', (req, res) => {
+  if(req.session.user_id) {
+    res.status(400).send('Can\'t login while logged in');
+    return;
+  }
+  const curEmail = req.body.loginEmail;
+  const curPassword = req.body.loginPassword;
+
+  dataFetcher('email', curEmail).then(data => {
+    const userData = data.rows[0];
+    // implement bcrypt (STRETCH)
+    if (data.rowCount > 0 && userData.password === curPassword) {
+      req.session.user_id = userData.id;
+      res.redirect('/');
+    }
+    res.send('Incorrect email/password');
+  }).catch(err => console.log('ERROR:', err));
 });
 
 app.listen(PORT, () => {

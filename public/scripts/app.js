@@ -43,7 +43,7 @@ const formSubmissionHandler = function(event) {
   }
 
   // if item text is too long, show error
-  if (item.length > 30) {
+  if (item.length > 100) {
     $('main header h2').text('That\'s way too long!');
     $('main header h2').addClass('error');
     return;

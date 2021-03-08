@@ -19,40 +19,41 @@
   <body>
     <%- include('partials/_header') %>
     <main>
-      <h1>Smart TODO List</h1>
-
-      <form class="item" action="/items/" method="POST">
-        <div class="form-group">
-          <input class="form-control" type="text" name="item">
-          <button type="submit" class="btn btn-primary">Add</button>
+      <header>
+        <h2>Let's get to sorting!</h2>
+        <form class="item" action="/items/" method="POST">
+          <span class="empty-cont"></span>
+          <div class="form-group">
+            <input class="form-control" type="text" name="item">
+            <button type="submit" class="btn btn-primary"><i class="fas fa-plus"></i></button>
+          </div>
+          <span id="input-counter">75</span>
+        </form>
+        <div class="pending">
+          <ul></ul>
         </div>
-      </form>
-
+      </header>
       <span class="error-text"></span>
 
-      <div class="pending">
-        <ul></ul>
-      </div>
-
       <div class="lists-container">
-        <div class="uncategorized id-5">
-          uncategorized
+        <div class="list-card id-1">
+          <h3>Watch</h3>
           <ul></ul>
         </div>
-        <div class="watch id-1">
-          watch
+        <div class="list-card id-2">
+          <h3>Eat</h3>
           <ul></ul>
         </div>
-        <div class="eat id-2">
-          eat
+        <div class="list-card id-3">
+          <h3>Read</h3>
           <ul></ul>
         </div>
-        <div class="read id-3">
-          read
+        <div class="list-card id-4">
+          <h3>Buy</h3>
           <ul></ul>
         </div>
-        <div class="buy id-4">
-          buy
+        <div class="list-card id-5">
+          <h3>General</h3>
           <ul></ul>
         </div>
       </div>

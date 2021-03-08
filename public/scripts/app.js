@@ -11,7 +11,7 @@ $(() => {
   $('form.item').submit(formSubmissionHandler);
 
   // mobile dropdown listener
-  $('select').change(dropdownChangeHander);
+  $('select').change(listSwitcherHander);
 
   // listen for resize events to switch layout
   $(window).resize(resizeHandler);
@@ -69,11 +69,13 @@ const formSubmissionHandler = function(event) {
   $('input').val('');
 };
 
-const dropdownChangeHander = (event) => {
+// called when the list switcher is used
+const listSwitcherHander = (event) => {
   const listID = $(event.target).val();
   showList(listID);
 };
 
+// called when the page is resized
 const resizeHandler = () => {
   // determine if mobile based on visibility of the dropdown
   const mobile = $('form.list-switcher').css('display') === 'block';

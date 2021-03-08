@@ -6,6 +6,9 @@ $(() => {
 
   // form submission for new items
   $('form.item').submit(formSubmissionHandler);
+
+  // mobile dropdown listener
+  $('select').change(dropdownChangeHander);
 });
 
 
@@ -60,4 +63,8 @@ const formSubmissionHandler = function(event) {
 
   // clear the form
   $('input').val('');
+};
+
+const dropdownChangeHander = (event) => {
+  console.log(event);
 };

@@ -841,7 +841,6 @@ const buy = {
   '/Health/Health Conditions/Pain Management': '/Health/Health Conditions/Pain Management',
   '/Health/Health Conditions/Respiratory Conditions': '/Health/Health Conditions/Respiratory Conditions',
   '/Health/Health Conditions/Skin Conditions': '/Health/Health Conditions/Skin Conditions',
-  '/Health/Health Conditions/Sleep Disorders': '/Health/Health Conditions/Sleep Disorders',
   '/Health/Health Education & Medical Training': '/Health/Health Education & Medical Training',
   '/Health/Health Foundations & Medical Research': '/Health/Health Foundations & Medical Research',
   '/Health/Medical Devices & Equipment': '/Health/Medical Devices & Equipment',
@@ -1078,6 +1077,7 @@ const eat = {
 }
 
 const general = {
+  '/Health/Health Conditions/Sleep Disorders': '/Health/Health Conditions/Sleep Disorders',
   '/Adult': '/Adult',
   '/Jobs & Education': '/Jobs & Education',
   '/Jobs & Education/Education': '/Jobs & Education/Education',

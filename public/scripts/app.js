@@ -1,6 +1,8 @@
 $(() => {
   console.log('Document ready.');
 
+  resizeHandler();
+
   // load existing items from the database
   loadItems();
 
@@ -69,12 +71,27 @@ const formSubmissionHandler = function(event) {
 };
 
 const dropdownChangeHander = (event) => {
-  // console.log(event.target);
   const listID = $(event.target).val();
-
-  // $( ".list-switcher option:selected" ).text();
-  // $( ".list-switcher option:selected" ).val();
   showList(listID);
+};
+
+const resizeHandler = () => {
+  // determine if mobile based on visibility of the dropdown
+  const mobile = $('form.list-switcher').css('display') === 'block';
+
+  if(mobile) {
+    // get the current value from  the dropdown
+    const listID = $( ".list-switcher option:selected" ).val();
+
+    showList(listID);
+  } else {
+    // desktop
+    // loop through the list-card elements and show all
+    const lists = $('.list-card')
+    for (list of lists) {
+      $(list).css('display', 'flex')
+    }
+  }
 };
 
 // show a specific list on mobile
@@ -86,47 +103,11 @@ const showList = (listID) => {
     var classList = $(list).attr("class");
     var classArr = classList.split(/\s+/);
 
-    // if the list isn't selected, hide it
-    if (!classArr.includes(`id-${listID}`)) {
-      $(list).css('display', 'none')
+    // loop through lists, show selected and hide the rest
+    if (classArr.includes(`id-${listID}`)) {
+      $(list).css('display', 'flex');
     } else {
-      $(list).css('display', 'flex')
-    }
-  }
-};
-
-const resizeHandler = (event) => {
-
-  // determine if mobile based on visibility of the dropdown
-  const mobile = $('form.list-switcher').css('display') === 'block';
-
-  if(mobile) {
-    console.log('mobile');
-
-    // get the current value from  the dropdown
-    const listID = $( ".list-switcher option:selected" ).val();
-
-    // iterate through the list-card elements
-    const lists = $('.list-card')
-
-    for (list of lists) {
-      var classList = $(list).attr("class");
-      var classArr = classList.split(/\s+/);
-
-      // if the list isn't selected, hide it
-      if (!classArr.includes(`id-${listID}`)) {
-        $(list).css('display', 'none')
-      }
-    }
-  } else {
-    // desktop, show all lists
-    console.log('desktop');
-
-    // iterate through the list-card elements
-    const lists = $('.list-card')
-
-    for (list of lists) {
-      $(list).css('display', 'flex')
+      $(list).css('display', 'none');
     }
   }
 };

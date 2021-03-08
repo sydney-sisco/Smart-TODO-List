@@ -29,8 +29,11 @@ const loadItems = () => {
 const formSubmissionHandler = function(event) {
   event.preventDefault();
 
+  // trim the input before evaluating it
+  $('input').val($.trim($('input').val()));
+
   // get the item text from the form
-  const item = $('input').val();
+  let item = $('input').val();
 
   // if the form is empty, error
   if (!item) {

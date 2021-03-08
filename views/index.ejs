@@ -15,6 +15,9 @@
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
     <script type="text/javascript" src="/scripts/app.js"></script>
     <script defer type="text/javascript" src="/scripts/modify-item.js"></script>
+
+    <!-- Character Count JS -->
+    <script type="text/javascript" src="/scripts/char-counter.js"></script>
   </head>
 
   <body>
@@ -28,13 +31,22 @@
             <input class="form-control" type="text" name="item">
             <button type="submit" class="btn btn-primary"><i class="fas fa-plus"></i></button>
           </div>
-          <span id="input-counter">75</span>
+          <span id="input-counter">100</span>
         </form>
         <div class="pending">
           <ul></ul>
         </div>
       </header>
-      <span class="error-text"></span>
+
+      <form class="list-switcher">
+        <select name="lists">
+          <option value="1">watch</option>
+          <option value="2">eat</option>
+          <option value="3">read</option>
+          <option value="4">buy</option>
+          <option value="5" selected="selected">general</option>
+        </select>
+      </form>
 
       <div class="lists-container">
         <div class="list-card id-1">

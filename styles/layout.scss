@@ -4,6 +4,7 @@ $rightColor: #da785d;
 $textColor: white;
 $textColorAlt: rgba(95, 95, 95, 0.932);
 $cardColor: white;
+$errorTextColor: red;
 
 body {
   background-image: linear-gradient(100deg, $leftColor, $rightColor);
@@ -16,6 +17,14 @@ main {
   flex-direction: column;
   align-items: center;
 
+  form.list-switcher {
+    display: none;
+
+  .error {
+    color: $errorTextColor;
+
+  }
+
   header {
     display: flex;
     flex-direction: column;
@@ -26,7 +35,7 @@ main {
       color: $textColor;
     }
 
-    form {
+    form.item {
       display: flex;
       align-items: center;
       margin-top: 10px;
@@ -119,7 +128,7 @@ main {
       background: $cardColor;
       max-height: 61vh;
       border-radius: 15px;
-      display: flex;
+      display: none;
       flex-direction: column;
       align-items: center;
 
@@ -335,6 +344,22 @@ main {
 
       input, label {
         margin-top: 5px;
+      }
+    }
+  }
+}
+
+ /* Desktop styles */
+@media only screen and (max-width: 1024px) {
+
+  main {
+    form.list-switcher {
+      display: inline;
+    }
+    .lists-container {
+
+      .list-card {
+        width: 75%;
       }
     }
   }

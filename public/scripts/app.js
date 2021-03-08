@@ -70,10 +70,29 @@ const formSubmissionHandler = function(event) {
 
 const dropdownChangeHander = (event) => {
   // console.log(event.target);
-  console.log($(event.target).val());
+  const listID = $(event.target).val();
 
   // $( ".list-switcher option:selected" ).text();
   // $( ".list-switcher option:selected" ).val();
+  showList(listID);
+};
+
+// show a specific list on mobile
+const showList = (listID) => {
+  // iterate through the list-card elements
+  const lists = $('.list-card')
+
+  for (list of lists) {
+    var classList = $(list).attr("class");
+    var classArr = classList.split(/\s+/);
+
+    // if the list isn't selected, hide it
+    if (!classArr.includes(`id-${listID}`)) {
+      $(list).css('display', 'none')
+    } else {
+      $(list).css('display', 'flex')
+    }
+  }
 };
 
 const resizeHandler = (event) => {

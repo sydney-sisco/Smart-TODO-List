@@ -20,7 +20,7 @@ const loadItems = () => {
       const $newItem = $(`<li>${item.name}</li>`);
 
       // add item to the correct list
-      $newItem.appendTo($(`.id-${item.category_id}>ul`));
+      $newItem.prependTo($(`.id-${item.category_id}>ul`));
     }
   });
 };
@@ -64,7 +64,7 @@ const formSubmissionHandler = function(event) {
     console.log('response from server:', data);
     // we now have the catagory from the server
     // add the element to the correct list
-    $newItem.detach().appendTo($(`.id-${data.category_id}>ul`));
+    $newItem.detach().prependTo($(`.id-${data.category_id}>ul`));
   });
 
   // clear the form

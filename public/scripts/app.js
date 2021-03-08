@@ -33,7 +33,7 @@ const formSubmissionHandler = function(event) {
   $('input').val($.trim($('input').val()));
 
   // get the item text from the form
-  let item = $('input').val();
+  const item = $('input').val();
 
   // if the form is empty, error
   if (!item) {

@@ -1,7 +1,7 @@
 const {getSearch} = require('./google-search.js')
-const {googleCategorize} = require('./natural-language-api.js')
+const {naturalLangCategorize} = require('./natural-language-api.js')
 const {buyDB, readDB, watchDB, eatDB, generalDB} = require('./categories_db.js')
-const item = 'time'
+const item = 'beetle juice'
 
 const dbCategorize = function(category) {
 
@@ -13,11 +13,18 @@ const dbCategorize = function(category) {
   return 5;
 }
 
+const googleCategorize = function(item) {
+  return getSearch(item)
+    .then(text => naturalLangCategorize(text))
+    .then(category => {
+      console.log(category)
+      return dbCategorize(category.name);
+    })
+    .catch(err => console.log('google categorizer failed:', err.message))
 
-getSearch(item)
-.then(text => googleCategorize(text))
-.then(category => {
-  console.log(category)
-  console.log(dbCategorize(category.name))
-})
+};
+
+module.exports = {
+  googleCategorize
+}
 

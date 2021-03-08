@@ -20,7 +20,7 @@ const loadItems = () => {
       const $newItem = $(`<li>${item.name}</li>`);
 
       // add item to the correct list
-      $newItem.appendTo($(`.id-${item.category_id}>ul`));
+      $newItem.prependTo($(`.id-${item.category_id}>ul`));
     }
   });
 };
@@ -29,20 +29,29 @@ const loadItems = () => {
 const formSubmissionHandler = function(event) {
   event.preventDefault();
 
+  // trim the input before evaluating it
+  $('input').val($.trim($('input').val()));
+
   // get the item text from the form
   const item = $('input').val();
 
   // if the form is empty, error
   if (!item) {
-    $('.error-text').text('Can\'t be blank!').show().fadeOut(1500);
+    $('main header h2').text('Can\'t be blank!');
+    $('main header h2').addClass('error');
     return;
   }
 
   // if item text is too long, show error
-  if (item.length > 140) {
-    $('.error-text').text('That\'s way too long!').show().fadeOut(1500);
+  if (item.length > 100) {
+    $('main header h2').text('That\'s way too long!');
+    $('main header h2').addClass('error');
     return;
   }
+
+  // reset error text
+  $('main header h2').text('Let\'s get to sorting!');
+  $('main header h2').removeClass('error');
 
   // create a list element
   const $newItem = $(`<li>${item}</li>`);
@@ -55,7 +64,7 @@ const formSubmissionHandler = function(event) {
     console.log('response from server:', data);
     // we now have the catagory from the server
     // add the element to the correct list
-    $newItem.detach().appendTo($(`.id-${data.category_id}>ul`));
+    $newItem.detach().prependTo($(`.id-${data.category_id}>ul`));
   });
 
   // clear the form

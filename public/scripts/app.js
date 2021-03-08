@@ -34,15 +34,21 @@ const formSubmissionHandler = function(event) {
 
   // if the form is empty, error
   if (!item) {
-    $('.error-text').text('Can\'t be blank!').show().fadeOut(1500);
+    $('main header h2').text('Can\'t be blank!');
+    $('main header h2').addClass('error');
     return;
   }
 
   // if item text is too long, show error
-  if (item.length > 140) {
-    $('.error-text').text('That\'s way too long!').show().fadeOut(1500);
+  if (item.length > 30) {
+    $('main header h2').text('That\'s way too long!');
+    $('main header h2').addClass('error');
     return;
   }
+
+  // reset error text
+  $('main header h2').text('Let\'s get to sorting!');
+  $('main header h2').removeClass('error');
 
   // create a list element
   const $newItem = $(`<li>${item}</li>`);

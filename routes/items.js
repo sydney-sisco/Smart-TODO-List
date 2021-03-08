@@ -47,7 +47,7 @@ router.patch("/:id", (req, res) => {
     return;
   }
 
-  editItem({...req.body, userrId: userId, itemId: Number(req.params.id)})
+  editItem({...req.body, userId: userId, itemId: Number(req.params.id)})
     .then(data => res.json(data))
     .catch(err => res.status(500).json({ error: err.message }));
 });
@@ -60,6 +60,7 @@ router.delete("/:id", (req, res) => {
     return;
   }
 
+  console.log(userId, Number(req.params.id))
   deleteItem(userId, Number(req.params.id))
     .then(data => res.send(data))
     .catch(err => res.status(500).json({ error: err.message }));

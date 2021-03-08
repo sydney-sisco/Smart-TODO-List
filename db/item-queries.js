@@ -26,16 +26,21 @@ const editItem = function(params) {
   const values = [];
   let text = `
   UPDATE items
-  SET`;
+  SET `;
 
   if (params.name) {
     values.push(params.name);
-    text += `name = $${values.length}`;
+    text += `name = $${values.length} `;
   }
 
   if (params.done) {
-    values.push(req.body.done);
-    text += `done = $${values.length}`;
+    values.push(params.done);
+    text += `done = $${values.length} `;
+  }
+
+  if (params.category_id) {
+    values.push(params.category_id);
+    text += `category_id = $${values.length} `;
   }
 
   values.push(params.userId, params.itemId);
@@ -52,11 +57,12 @@ const deleteItem = function(userId, itemId) {
   WHERE user_id = $1 AND id = $2 RETURNING *`;
   const values = [userId, itemId];
 
+  console.log(text)
+  console.log(values)
   return db.query(text, values)
     .then(data => 'Deleted')
     .catch(err => console.error(this, 'query failed', err.stack));
 };
-
 
 module.exports = {
   getUsersItems,

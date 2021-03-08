@@ -24,7 +24,7 @@ const loadItems = () => {
   .then((items) => {
     for (item of items) {
       // create a list element
-      const $newItem = $(`<li>${item.name}</li>`);
+      const $newItem = $(`<li id="item-id-${item.id}">${item.name}</li>`);
 
       // add item to the correct list
       $newItem.prependTo($(`.id-${item.category_id}>ul`));

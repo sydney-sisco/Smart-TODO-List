@@ -4,6 +4,7 @@ $rightColor: #da785d;
 $textColor: white;
 $textColorAlt: rgba(95, 95, 95, 0.932);
 $cardColor: white;
+$errorTextColor: red;
 
 body {
   background-image: linear-gradient(100deg, $leftColor, $rightColor);
@@ -18,6 +19,10 @@ main {
 
   form.list-switcher {
     display: none;
+
+  .error {
+    color: $errorTextColor;
+
   }
 
   header {

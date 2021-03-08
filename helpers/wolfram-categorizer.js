@@ -1,10 +1,12 @@
 const axios = require('axios');
 
+const wolframAPPID = process.env.WOLFRAM_APPID;
+
 const wolframCategorize = function(query) {
   let testingStr = query;
   testingStr = testingStr.split(' ').join('+');
 
-  const apiUrlRequest = `https://api.wolframalpha.com/v2/query?input=${testingStr}&format=plaintext&output=JSON&appid=3KJG9G-7KJ94PHXV6`;
+  const apiUrlRequest = `https://api.wolframalpha.com/v2/query?input=${testingStr}&format=plaintext&output=JSON&appid=${wolframAPPID}`;
   return axios.get(apiUrlRequest).then(res => {
     let assumptionsVar = res.data.queryresult.assumptions;
     Array.isArray(assumptionsVar) ? assumptionsVar = assumptionsVar[0].values : assumptionsVar = assumptionsVar.values;

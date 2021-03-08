@@ -35,6 +35,16 @@
       </header>
       <span class="error-text"></span>
 
+      <form class="list-switcher" method="post">
+        <select name="lists">
+          <option value="1">watch</option>
+          <option value="2">eat</option>
+          <option value="3">read</option>
+          <option value="4">buy</option>
+          <option value="5">general</option>
+        </select>
+      </form>
+
       <div class="lists-container">
         <div class="list-card id-1">
           <h3>Watch</h3>
@@ -58,15 +68,7 @@
         </div>
       </div>
 
-      <form class="list-switcher" method="post">
-        <select name="lists">
-          <option value="general">general</option>
-          <option value="watch">watch</option>
-          <option value="eat">eat</option>
-          <option value="read">read</option>
-          <option value="buy">buy</option>
-        </select>
-      </form>
+
     </main>
     <%- include('partials/_footer') %>
   </body>

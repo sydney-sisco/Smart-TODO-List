@@ -9,6 +9,9 @@ $(() => {
 
   // mobile dropdown listener
   $('select').change(dropdownChangeHander);
+
+  // listen for resize events to switch layout
+  $(window).resize(resizeHandler);
 });
 
 
@@ -66,5 +69,45 @@ const formSubmissionHandler = function(event) {
 };
 
 const dropdownChangeHander = (event) => {
-  console.log(event);
+  // console.log(event.target);
+  console.log($(event.target).val());
+
+  // $( ".list-switcher option:selected" ).text();
+  // $( ".list-switcher option:selected" ).val();
+};
+
+const resizeHandler = (event) => {
+
+  // determine if mobile based on visibility of the dropdown
+  const mobile = $('form.list-switcher').css('display') === 'block';
+
+  if(mobile) {
+    console.log('mobile');
+
+    // get the current value from  the dropdown
+    const listID = $( ".list-switcher option:selected" ).val();
+
+    // iterate through the list-card elements
+    const lists = $('.list-card')
+
+    for (list of lists) {
+      var classList = $(list).attr("class");
+      var classArr = classList.split(/\s+/);
+
+      // if the list isn't selected, hide it
+      if (!classArr.includes(`id-${listID}`)) {
+        $(list).css('display', 'none')
+      }
+    }
+  } else {
+    // desktop, show all lists
+    console.log('desktop');
+
+    // iterate through the list-card elements
+    const lists = $('.list-card')
+
+    for (list of lists) {
+      $(list).css('display', 'flex')
+    }
+  }
 };

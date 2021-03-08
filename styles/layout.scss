@@ -16,6 +16,10 @@ main {
   flex-direction: column;
   align-items: center;
 
+  form.list-switcher {
+    display: none;
+  }
+
   header {
     display: flex;
     flex-direction: column;
@@ -26,7 +30,7 @@ main {
       color: $textColor;
     }
 
-    form {
+    form.item {
       display: flex;
       align-items: center;
       margin-top: 10px;
@@ -335,6 +339,22 @@ main {
 
       input, label {
         margin-top: 5px;
+      }
+    }
+  }
+}
+
+ /* Desktop styles */
+@media only screen and (max-width: 1024px) {
+
+  main {
+    form.list-switcher {
+      display: inline;
+    }
+    .lists-container {
+
+      .list-card {
+        width: 75%;
       }
     }
   }

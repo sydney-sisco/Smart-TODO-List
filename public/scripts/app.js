@@ -1,6 +1,7 @@
 $(() => {
   console.log('Document ready.');
 
+  // call the resize handler when the page loads to draw the correct lists
   resizeHandler();
 
   // load existing items from the database
@@ -17,12 +18,10 @@ $(() => {
 });
 
 
+// Uses AJAX to fetch items from the server
 const loadItems = () => {
   $.get('/items/')
   .then((items) => {
-    // console.log(items);
-    // console.log(typeof items);
-
     for (item of items) {
       // create a list element
       const $newItem = $(`<li>${item.name}</li>`);
@@ -33,7 +32,7 @@ const loadItems = () => {
   });
 };
 
-// handler for the new tweet form
+// handler for the new item form
 const formSubmissionHandler = function(event) {
   event.preventDefault();
 
@@ -82,7 +81,6 @@ const resizeHandler = () => {
   if(mobile) {
     // get the current value from  the dropdown
     const listID = $( ".list-switcher option:selected" ).val();
-
     showList(listID);
   } else {
     // desktop
@@ -96,14 +94,13 @@ const resizeHandler = () => {
 
 // show a specific list on mobile
 const showList = (listID) => {
-  // iterate through the list-card elements
+  // get an array of list-card elements
   const lists = $('.list-card')
 
+  // loop through lists, show selected and hide the rest
   for (list of lists) {
-    var classList = $(list).attr("class");
-    var classArr = classList.split(/\s+/);
+    const classArr = $(list).attr("class").split(/\s+/);
 
-    // loop through lists, show selected and hide the rest
     if (classArr.includes(`id-${listID}`)) {
       $(list).css('display', 'flex');
     } else {

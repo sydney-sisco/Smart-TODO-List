@@ -61,7 +61,6 @@ const deleteItemHandler = function(e) {
   })
 }
 
-
 $(() => {
 
   $('#modify-item-form').hide();

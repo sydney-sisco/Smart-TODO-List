@@ -1,4 +1,5 @@
-const { getWatchDetails } = require('./the-movie-database-api');
+// const { getWatchDetails } = require('./the-movie-database-api');
+const { getWatchDetails } = require('./the-imdb-api');
 const { getEatDetails } = require('./eat-placeholder');
 const { getReadDetails } = require('./read-placeholder');
 const { getBuyDetails } = require('./buy-placeholder');

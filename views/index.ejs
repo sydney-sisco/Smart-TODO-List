@@ -22,133 +22,102 @@
 
   <body>
     <div class='body-container'>
-    <%- include('partials/_header') %>
-    <main>
-      <header>
-        <h2>Let's get to sorting!</h2>
-        <form class="item" action="/items/" method="POST">
-          <span class="empty-cont"></span>
-          <div class="form-group">
-            <input autocomplete='off'  class="form-control" type="text" name="item">
-            <button type="submit" class="btn btn-primary"><i class="fas fa-plus"></i></button>
+      <%- include('partials/_header') %>
+      <main>
+        <header>
+          <h2>Let's get to sorting!</h2>
+          <form class="item" action="/items/" method="POST">
+            <span class="empty-cont"></span>
+            <div class="form-group">
+              <input autocomplete='off'  class="form-control" type="text" name="item">
+              <button type="submit" class="btn btn-primary"><i class="fas fa-plus"></i></button>
+            </div>
+            <span id="input-counter">99</span>
+          </form>
+          <div class="pending">
+            <ul></ul>
           </div>
-          <span id="input-counter">99</span>
+        </header>
+
+        <form class="list-switcher">
+          <select name="lists">
+            <option value="1">watch</option>
+            <option value="2">eat</option>
+            <option value="3">read</option>
+            <option value="4">buy</option>
+            <option value="5" selected="selected">general</option>
+          </select>
         </form>
-        <div class="pending">
-          <ul></ul>
-        </div>
-      </header>
 
-      <form class="list-switcher">
-        <select name="lists">
-          <option value="1">watch</option>
-          <option value="2">eat</option>
-          <option value="3">read</option>
-          <option value="4">buy</option>
-          <option value="5" selected="selected">general</option>
-        </select>
-      </form>
-
-      <div class="lists-container">
-        <div class="list-card id-1">
-          <h3>Watch</h3>
-          <ul class="todo-list"></ul>
-          <div class="completed-list">
-            <div class="completed-title">
-              <span class="empty-cont2"></span>
-              <h3>Done</h3>
-              <i class="fas fa-chevron-down"></i>
-            </div>
-            <ul class='done-list'></ul>
-          </div>
-        </div>
-        <div class="list-card id-2">
-          <h3>Eat</h3>
-          <ul class="todo-list"></ul>
-          <div class="completed-list">
-            <div class="completed-title">
-              <span class="empty-cont2"></span>
-              <h3>Done</h3>
-              <i class="fas fa-chevron-down"></i>
-            </div>
-            <ul class='done-list'></ul>
-          </div>
-        </div>
-        <div class="list-card id-3">
-          <h3>Read</h3>
-          <ul class="todo-list"></ul>
-          <div class="completed-list">
-            <div class="completed-title">
-              <span class="empty-cont2"></span>
-              <h3>Done</h3>
-              <i class="fas fa-chevron-down"></i>
-            </div>
-            <ul class='done-list'></ul>
-          </div>
-        </div>
-        <div class="list-card id-4">
-          <h3>Buy</h3>
-          <ul class="todo-list"></ul>
-          <div class="completed-list">
-            <div class="completed-title">
-              <span class="empty-cont2"></span>
-              <h3>Done</h3>
-              <i class="fas fa-chevron-down"></i>
-            </div>
-            <ul class='done-list'></ul>
-          </div>
-        </div>
-        <div class="list-card id-5">
-          <h3>General</h3>
-          <ul class="todo-list"></ul>
-          <div class="completed-list">
-            <div class="completed-title">
-              <span class="empty-cont2"></span>
-              <h3>Done</h3>
-              <i class="fas fa-chevron-down"></i>
-            </div>
-            <ul class='done-list'></ul>
-          </div>
-        </div>
-      </div>
-      <!-- <div class="mod-items-wrapper card">
-        <div id="modify-item-form card-body">
-        <div>
-          <form id="edit-item-form" method="PATCH" action="/items/${num}">
-            <input type="text" name="name" placeholder="Click & Type to Update"></input>
-            <button class="submit-btn" form="edit-item-form" type="submit">EDIT</button>
-          </form>
-        </div>
-        <div>
-          <form id="delete-item-form" method="DELETE" action="/items/${num}"">
-            <label for="DELETE ME">DELETE ME</label>
-            <button class="submit-btn" form="delete-item-form" type="submit">DELETE</button>
-          </form>
-        </div>
-        <div>
-          <form id="change-cat-form" method="PATCH" action="/items/${num}"">
-            <div class="dropdown">
-              <a class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Change Categories
-              </a>
-              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" name="1" href="#">Watch</a>
-                <a class="dropdown-item" name="2" href="#">Eat</a>
-                <a class="dropdown-item" name="3" href="#">Read</a>
-                <a class="dropdown-item" name="4" href="#">Buy</a>
-                <a class="dropdown-item" name="5" href="#">General</a>
+        <div class="lists-container">
+          <div class="list-card id-1">
+            <h3>Watch</h3>
+            <ul class="todo-list"></ul>
+            <div class="completed-list">
+              <div class="completed-title">
+                <span class="empty-cont2"></span>
+                <h3>Done</h3>
+                <i class="fas fa-chevron-down"></i>
               </div>
+              <ul class='done-list'></ul>
             </div>
-            <input type="text" name="category_id" placeholder="CATEGORY ID BUT WILL BE A DROP DOWN LATER"></input>
-            <button class="submit-btn" form="change-cat-form" type="submit">CHANGE</button>
-          </form>
+          </div>
+          <div class="list-card id-2">
+            <h3>Eat</h3>
+            <ul class="todo-list"></ul>
+            <div class="completed-list">
+              <div class="completed-title">
+                <span class="empty-cont2"></span>
+                <h3>Done</h3>
+                <i class="fas fa-chevron-down"></i>
+              </div>
+              <ul class='done-list'></ul>
+            </div>
+          </div>
+          <div class="list-card id-3">
+            <h3>Read</h3>
+            <ul class="todo-list"></ul>
+            <div class="completed-list">
+              <div class="completed-title">
+                <span class="empty-cont2"></span>
+                <h3>Done</h3>
+                <i class="fas fa-chevron-down"></i>
+              </div>
+              <ul class='done-list'></ul>
+            </div>
+          </div>
+          <div class="list-card id-4">
+            <h3>Buy</h3>
+            <ul class="todo-list"></ul>
+            <div class="completed-list">
+              <div class="completed-title">
+                <span class="empty-cont2"></span>
+                <h3>Done</h3>
+                <i class="fas fa-chevron-down"></i>
+              </div>
+              <ul class='done-list'></ul>
+            </div>
+          </div>
+          <div class="list-card id-5">
+            <h3>General</h3>
+            <ul class="todo-list"></ul>
+            <div class="completed-list">
+              <div class="completed-title">
+                <span class="empty-cont2"></span>
+                <h3>Done</h3>
+                <i class="fas fa-chevron-down"></i>
+              </div>
+              <ul class='done-list'></ul>
+            </div>
+          </div>
         </div>
-        <button class="cancel-btn far fa-window-close"></button>
-        </div> -->
-        </div>
-    </main>
-    <%- include('partials/_footer') %>
-  </div>
+      </main>
+      <%- include('partials/_footer') %>
+    </div>
+
+    <!-- boostrap cdn for js-->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script> -->
   </body>
 </html>
 

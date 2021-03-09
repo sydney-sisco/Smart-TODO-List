@@ -95,7 +95,7 @@ const formSubmissionHandler = function(event) {
   .then(function(data){
     console.log('response from server:', data);
     const $itemToList = $(`
-    <li>
+    <li id="item-id-${data.id}">
       <button><i class="complete-btn far fa-circle"></i></button>
       <span>${data.name}</span>
       <button><i class="details-btn fas fa-info"></i></button>

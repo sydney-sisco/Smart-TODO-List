@@ -239,6 +239,11 @@ main {
           padding: 10px;
           border-top: 1px solid lighten($textColorAlt, 40%);
 
+          .rotate {
+            transition: all 0.4s;
+            transform: rotate(180deg);
+          }
+
           .empty-cont2 {
             padding: 0 17px;
           }

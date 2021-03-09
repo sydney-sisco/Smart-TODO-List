@@ -44,7 +44,12 @@ const loadItems = () => {
   .then((items) => {
     for (item of items) {
       // create a list element
-      const $newItem = $(`<li><button><i class="complete-btn far fa-circle"></i></button><span id="item-id-${item.id}">${item.name}</span><button><i class="details-btn fas fa-info"></i></button></li>`);
+      const $newItem = $(`
+      <li id="item-id-${item.id}">
+        <button><i class="complete-btn far fa-circle"></i></button>
+        <span>${item.name}</span>
+        <button><i class="details-btn fas fa-info"></i></button>
+      </li>`);
 
       // add item to the correct list
       $newItem.prependTo($(`.id-${item.category_id} .todo-list`));
@@ -89,7 +94,12 @@ const formSubmissionHandler = function(event) {
   $.post('/items/', $(this).serialize())
   .then(function(data){
     console.log('response from server:', data);
-    const $itemToList = $(`<li><button><i class="complete-btn far fa-circle"></i></button><span>${data.name}</span><button><i class="details-btn fas fa-info"></i></button></li>`);
+    const $itemToList = $(`
+    <li>
+      <button><i class="complete-btn far fa-circle"></i></button>
+      <span>${data.name}</span>
+      <button><i class="details-btn fas fa-info"></i></button>
+    </li>`);
     $newItem.remove();
     // we now have the catagory from the server
     // add the element to the correct list

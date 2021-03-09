@@ -6,6 +6,15 @@ $textColorAlt: rgba(95, 95, 95, 0.932);
 $cardColor: white;
 $errorTextColor: red;
 
+//Mix-ins
+@mixin flexCenter($justify:center, $direction:row) {
+  display: flex;
+  justify-content: $justify;
+  align-items: center;
+  flex-direction: $direction;
+}
+
+
 body {
   background-image: linear-gradient(100deg, $leftColor, $rightColor);
   font-family: 'Rubik', sans-serif;
@@ -14,6 +23,7 @@ body {
   flex-direction: column;
   height: 100vh;
 }
+
 
 main {
   height: 100%;
@@ -407,6 +417,21 @@ main {
       }
     }
   }
+}
+
+
+.mod-items-wrapper {
+  @include flexCenter();
+  width: 18.5%;
+}
+
+#modify-item-form {
+  position: fixed;
+  background-color: orange;
+}
+
+.body-container{
+
 }
 
  /* Desktop styles */

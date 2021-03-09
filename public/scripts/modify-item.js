@@ -13,6 +13,7 @@ const updateItemNameHandler = function(e) {
     $(`#${itemId} span`).text(`${data.name}`)
     $('#modify-item-form').empty();
     $('#modify-item-form').hide();
+    $('.body-container').css('filter','blur(0px)')
     console.log(data)
   })
 }
@@ -28,6 +29,7 @@ const completeItemHandler = function(e) {
   .then(data => {
     $('#modify-item-form').empty();
     $('#modify-item-form').hide();
+    $('.body-container').css('filter','blur(0px)')
     console.log(`marked as done! need to move to completed section`)
   })
 }
@@ -43,6 +45,7 @@ const updateCategoryHandler = function(e) {
   .then(data => {
     $('#modify-item-form').empty();
     $('#modify-item-form').hide();
+    $('.body-container').css('filter','blur(0px)')
     $(`#${itemId}`).detach().appendTo($(`.id-${data.category_id}>ul`))
   })
 }
@@ -57,6 +60,7 @@ const deleteItemHandler = function(e) {
   .then(data => {
     $('#modify-item-form').empty();
     $('#modify-item-form').hide();
+    $('.body-container').css('filter','blur(0px)')
     $(`#${itemId}`).remove()
   })
 }
@@ -68,8 +72,9 @@ $(() => {
   $(document).on('click','.details-btn',function(e) {
     itemId = $(this).parent().parent()[0].id
     num = itemId.split('item-id-')[1]
-    console.log(itemId)
-    console.log(num)
+
+    // if($('#modify-item-form').siblings().length) break;
+
     $('#modify-item-form').append(`
     <div>
       <form id="edit-item-form" method="PATCH" action="/items/${num}">
@@ -93,7 +98,9 @@ $(() => {
       <button form="cancel-modify">Cancel</button>
     </form>
     `);
+
     $('#modify-item-form').show();
+    $('.body-container').css('filter','blur(5px)')
   });
 
   $(document).on('submit','#edit-item-form', updateItemNameHandler)
@@ -101,6 +108,7 @@ $(() => {
   $(document).on('submit','#change-cat-form', updateCategoryHandler)
   $(document).on('submit','#cancel-modify', (e)=>{
     e.preventDefault();
+    $('.body-container').css('filter','blur(0px)')
     $('#modify-item-form').empty();
     $('#modify-item-form').hide();
   })

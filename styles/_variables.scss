@@ -5,3 +5,29 @@ $textColor: white;
 $textColorAlt: rgba(95, 95, 95, 0.932);
 $cardColor: white;
 $errorTextColor: rgb(255, 78, 78);
+$primaryFontSize: 1.3rem;
+
+
+//Mix-ins
+@mixin flexCenter($justify:center, $direction:row) {
+  display: flex;
+  justify-content: $justify;
+  align-items: center;
+  flex-direction: $direction;
+}
+
+@mixin buttonDefault {
+  border: none;
+  outline: none;
+  width: 100%;
+  background-color: transparent;
+  border: 1px solid $rightColor;
+  color: $rightColor;
+  border-radius: 5px;
+  align-self: center;
+
+  &:hover {
+    background-color: $rightColor;
+    color: white;
+  }
+}

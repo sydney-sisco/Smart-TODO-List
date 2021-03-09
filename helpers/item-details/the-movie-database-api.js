@@ -9,46 +9,28 @@ const getWatchDetails = (itemData) => {
   return axios.get(url).then(res => {
     // console.log(res.data);
 
-    for (const result of res.data.results) {
-      console.log(result.original_title);
+    // loop through results and find the most recent release
+    let latestMovie = res.data.results[0];
 
-      if (itemData.name.toLowerCase() === result.original_title.toLowerCase()) {
-        // return result;
-        itemData.details = {
-          title: result.original_title,
-          year: result.release_date.substring(0, 4),
-          rating: result.vote_average * 10,
-          thumbnail: `https://www.themoviedb.org/t/p/w188_and_h282_bestv2${result.poster_path}`
-        }
-        console.log('found match:', itemData)
-        return itemData
+    for (const result of res.data.results) {
+      console.log(result.original_title, 'from', Date(result.release_date));
+
+      if (new Date(result.release_date) > new Date(latestMovie.release_date)) {
+        latestMovie = result;
       }
     }
 
-    // return res.data.results[0];
-
     itemData.details = {
-      title: res.data.results[0].original_title,
-      year: res.data.results[0].release_date.substring(0, 4),
-      rating: res.data.results[0].vote_average * 10,
-      thumbnail: `https://www.themoviedb.org/t/p/w188_and_h282_bestv2${res.data.results[0].poster_path}`
+      title: latestMovie.original_title,
+      year: latestMovie.release_date.substring(0, 4),
+      rating: latestMovie.vote_average * 10,
+      thumbnail: `https://www.themoviedb.org/t/p/w188_and_h282_bestv2${latestMovie.poster_path}`
     }
     console.log('found:', itemData)
     return itemData
   }).catch(res => res);
 
 };
-
-// fetchMovieDetails(process.argv[2])
-// .then((res) => {
-//   console.log(res);
-//   console.log('User Input:', process.argv[2], 'Search Result:', res.original_title);
-//   if (process.argv[2].toLowerCase() === res.original_title.toLowerCase()) {
-//     console.log('Overview:',res.overview);
-//     console.log('Rating:', (res.vote_average * 10), '%');
-//     console.log('thumbname url:', `https://www.themoviedb.org/t/p/w188_and_h282_bestv2${res.poster_path}`)
-//   }
-// });
 
 module.exports = {
   getWatchDetails

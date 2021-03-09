@@ -27,12 +27,12 @@ const doneListToggle = function() {
   $todoList = $(this).parent().prev();
 
   if($this.hasClass('opened')) {
-    $todoList.slideDown();
-    $doneList.slideUp();
+    $todoList.slideDown(300);
+    $doneList.slideUp(300);
     $this.removeClass('opened');
   } else {
-    $todoList.slideUp();
-    $doneList.slideDown();
+    $todoList.slideUp(300);
+    $doneList.slideDown(300);
     $this.addClass('opened');
   }
 };
@@ -44,7 +44,7 @@ const loadItems = () => {
   .then((items) => {
     for (const item of items) {
       if (item.done) {
-        const $doneItem = $(`<li id="item-id-${item.id}" class='completed'><button><i class="complete-btn far fa-circle"></i></button><span>${item.name}</span><button><i class="details-btn fas fa-info"></i></button></li>`);
+        const $doneItem = $(`<li id="item-id-${item.id}" class='completed'><button><i class="complete-btn fas fa-circle"></i></button><span>${item.name}</span><button><i class="details-btn fas fa-info"></i></button></li>`);
 
         $doneItem.prependTo($(`.id-${item.category_id} .done-list`));
       } else {
@@ -78,9 +78,11 @@ const completedToggle = event => {
       if (item.done) {
         $listItem.detach().prependTo(`.id-${categoryId} .done-list`);
         $listItem.addClass('completed');
+        $listItem.find('.complete-btn').removeClass('far').addClass('fas');
       } else {
         $listItem.detach().prependTo(`.id-${categoryId} .todo-list`);
         $listItem.removeClass('completed');
+        $listItem.find('.complete-btn').removeClass('fas').addClass('far');
       }
     }).catch(err => console.log('AJAX patch error:', err));
   });

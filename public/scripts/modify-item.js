@@ -11,8 +11,7 @@ const updateItemNameHandler = function(e) {
   })
   .then(data => {
     $(`#${itemId} span`).text(`${data.name}`)
-    $('#modify-item-form').empty();
-    $('#modify-item-form').hide();
+    $('.mod-items-wrapper').remove();
     $('.body-container').css('filter','blur(0px)')
     console.log(data)
   })
@@ -27,8 +26,7 @@ const completeItemHandler = function(e) {
     data
   })
   .then(data => {
-    $('#modify-item-form').empty();
-    $('#modify-item-form').hide();
+    $('.mod-items-wrapper').remove();
     $('.body-container').css('filter','blur(0px)')
     console.log(`marked as done! need to move to completed section`)
   })
@@ -43,8 +41,7 @@ const updateCategoryHandler = function(e) {
     data
   })
   .then(data => {
-    $('#modify-item-form').empty();
-    $('#modify-item-form').hide();
+    $('.mod-items-wrapper').remove();
     $('.body-container').css('filter','blur(0px)')
     $(`#${itemId}`).detach().appendTo($(`.id-${data.category_id}>ul`))
   })
@@ -58,8 +55,7 @@ const deleteItemHandler = function(e) {
     url: `/items/${num}`,
   })
   .then(data => {
-    $('#modify-item-form').empty();
-    $('#modify-item-form').hide();
+    $('.mod-items-wrapper').remove();
     $('.body-container').css('filter','blur(0px)')
     $(`#${itemId}`).remove()
   })
@@ -67,15 +63,13 @@ const deleteItemHandler = function(e) {
 
 $(() => {
 
-  $('#modify-item-form').hide();
-
   $(document).on('click','.details-btn',function(e) {
     itemId = $(this).parent().parent()[0].id
     num = itemId.split('item-id-')[1]
 
-    // if($('#modify-item-form').siblings().length) break;
-
-    $('#modify-item-form').append(`
+    $('body').append(`
+    <div class="mod-items-wrapper">
+    <div id="modify-item-form">
     <div>
       <form id="edit-item-form" method="PATCH" action="/items/${num}">
         <input type="text" name="name" placeholder="Click & Type to Update"></input>
@@ -90,6 +84,18 @@ $(() => {
     </div>
     <div>
       <form id="change-cat-form" method="PATCH" action="/items/${num}"">
+        <div class="dropdown">
+          <a class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Change Categories
+          </a>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" name="1" href="#">Watch</a>
+            <a class="dropdown-item" name="2" href="#">Eat</a>
+            <a class="dropdown-item" name="3" href="#">Read</a>
+            <a class="dropdown-item" name="4" href="#">Buy</a>
+            <a class="dropdown-item" name="5" href="#">General</a>
+          </div>
+        </div>
         <input type="text" name="category_id" placeholder="CATEGORY ID BUT WILL BE A DROP DOWN LATER"></input>
         <button form="change-cat-form" type="submit">CHANGE</button>
       </form>
@@ -97,10 +103,19 @@ $(() => {
     <form id="cancel-modify">
       <button form="cancel-modify">Cancel</button>
     </form>
+    </div>
+    </div>
     `);
 
-    $('#modify-item-form').show();
     $('.body-container').css('filter','blur(5px)')
+
+    // clicking out of the form will exit
+    $('.body-container').click(e => {
+      e.preventDefault();
+      $('.mod-items-wrapper').remove();
+      $('.body-container').css('filter','blur(0px)')
+    })
+
   });
 
   $(document).on('submit','#edit-item-form', updateItemNameHandler)
@@ -109,7 +124,6 @@ $(() => {
   $(document).on('submit','#cancel-modify', (e)=>{
     e.preventDefault();
     $('.body-container').css('filter','blur(0px)')
-    $('#modify-item-form').empty();
-    $('#modify-item-form').hide();
+    $('.mod-items-wrapper').remove();
   })
 })

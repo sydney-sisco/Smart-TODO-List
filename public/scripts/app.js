@@ -99,16 +99,22 @@ const idFinder = str => {
   return Number(idStr);
 };
 
+const escape =  str => {
+  let div = document.createElement('div');
+  div.appendChild(document.createTextNode(str));
+  return div.innerHTML;
+};
+
 // handler for the new item form
 const formSubmissionHandler = function(event) {
   event.preventDefault();
 
   // get the item text from the form
-  const item = $('input').val().trim();
+  const item = escape($('input').val().trim());
 
   // error conditionals
   if (!item) {
-    $('main header h2').hide().fadeIn(200).text('Can\'t be blank!');
+    $('main header h2').hide().fadeIn(200).html('Input can\'t be blank!');
     $('main header h2').addClass('error');
     return;
   }

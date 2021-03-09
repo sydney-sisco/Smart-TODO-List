@@ -1,6 +1,6 @@
 $(document).ready(function() {
   $('form.item').on('input', function(event) {
-    const totalChars = 100;
+    const totalChars = 99;
     const currentChars = $(event.target).val().length
     const remainingChars = totalChars - currentChars;
 

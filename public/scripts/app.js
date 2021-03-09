@@ -70,7 +70,7 @@ const formSubmissionHandler = function(event) {
   }
 
   // if item text is too long, show error
-  if (item.length > 100) {
+  if (item.length > 99) {
     $('main header h2').text('That\'s way too long!');
     $('main header h2').addClass('error');
     return;
@@ -81,7 +81,7 @@ const formSubmissionHandler = function(event) {
   $('main header h2').removeClass('error');
 
   // create a list element
-  const $newItem = $(`<li><button><i class="complete-btn far fa-circle"></i></button><span>${item}</span><button><i class="details-btn fas fa-info"></i></button></li>`);
+  const $newItem = $(`<li>${item}</li>`);
   // move the item to the pending area
   $('.pending>ul').append($newItem);
 
@@ -89,9 +89,11 @@ const formSubmissionHandler = function(event) {
   $.post('/items/', $(this).serialize())
   .then(function(data){
     console.log('response from server:', data);
+    const $itemToList = $(`<li><button><i class="complete-btn far fa-circle"></i></button><span>${data.name}</span><button><i class="details-btn fas fa-info"></i></button></li>`);
+    $newItem.remove();
     // we now have the catagory from the server
     // add the element to the correct list
-    $newItem.detach().prependTo($(`.id-${data.category_id} .todo-list`));
+    $itemToList.prependTo($(`.id-${data.category_id} .todo-list`));
   });
 
   // clear the form

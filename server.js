@@ -89,6 +89,21 @@ app.get('/logout', (req, res) => {
   res.redirect('/login');
 });
 
+const {fetchMovieDetails} = require('./helpers/the-movie-database-api');
+
+app.get('/movie/:title', (req, res) => {
+  fetchMovieDetails(req.params.title)
+  .then((result) => {
+    console.log(result);
+    res.json({
+      title: result.original_title,
+      year: result.release_date.substring(0, 4),
+      rating: result.vote_average * 10,
+      thumbnail: `https://www.themoviedb.org/t/p/w188_and_h282_bestv2${result.poster_path}`
+    });
+  })
+});
+
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
 });

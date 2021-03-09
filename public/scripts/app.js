@@ -1,6 +1,4 @@
 $(() => {
-  console.log('Document ready.');
-
   // call the resize handler when the page loads to draw the correct lists
   resizeHandler();
 
@@ -65,7 +63,6 @@ const completedToggle = event => {
   const cardClassList = $(event.target).parents('.list-card').attr('class');
   const categoryId = Number(cardClassList.slice(cardClassList.length - 1));
   const elementId = $(event.target).parent().parent().attr('id');
-  console.log('elementId', elementId);
   const itemId = idFinder(elementId);
 
   $.get(`/items/${itemId}`).then(item => {

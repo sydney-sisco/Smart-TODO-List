@@ -2,7 +2,7 @@ const axios = require('axios');
 
 const movieAPIKEY = process.env.THE_MOVIE_DATABASE_API_KEY;
 
-const fetchMovieDetails = (movieTitle) => {
+const getWatchDetails = (movieTitle) => {
   movieTitleEncoded = encodeURI(movieTitle);
   const url = `https://api.themoviedb.org/3/search/movie?api_key=${movieAPIKEY}&query=${movieTitleEncoded}`
 
@@ -34,5 +34,5 @@ const fetchMovieDetails = (movieTitle) => {
 // });
 
 module.exports = {
-  fetchMovieDetails
+  getWatchDetails
 };

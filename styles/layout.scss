@@ -14,6 +14,11 @@ $errorTextColor: red;
   flex-direction: $direction;
 }
 
+@mixin buttonDefault {
+  border: none;
+  outline: none;
+  background-color: transparent;
+}
 
 body {
   background-image: linear-gradient(100deg, $leftColor, $rightColor);
@@ -422,12 +427,25 @@ main {
 
 .mod-items-wrapper {
   @include flexCenter();
-  width: 50%;
-  height: 50%;
+  width: 500px;
+  padding: 3rem 1rem;
   position: fixed;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
+}
+
+.submit-btn {
+  @include buttonDefault();
+}
+
+.cancel-btn {
+  @include buttonDefault();
+  color: $textColorAlt;
+  position: fixed;
+  z-index: 1;
+  right: 1rem;
+  top: 1rem;
 }
 
 #modify-item-form {

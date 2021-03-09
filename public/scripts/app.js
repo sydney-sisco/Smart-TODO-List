@@ -126,7 +126,7 @@ const formSubmissionHandler = function(event) {
   $('main header h2').removeClass('error');
 
   // item sent to pending
-  const $pendingNewItem = $(`<li>${item}</li>`);
+  const $pendingNewItem = $(`<li>${item}<i class="loader fas fa-spinner"></i></li>`);
   $('.pending>ul').append($pendingNewItem);
 
   // POST the item to the server using AJAX

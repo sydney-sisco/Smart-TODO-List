@@ -3,7 +3,7 @@ const language = require('@google-cloud/language');
 const client = new language.LanguageServiceClient();
 const categories = {}
 
-const googleCategorize = function (text) {
+const naturalLangCategorize = function (text) {
   const document = {
     content: text,
     type: 'PLAIN_TEXT',
@@ -15,7 +15,7 @@ const googleCategorize = function (text) {
 }
 
 module.exports = {
-  googleCategorize
+  naturalLangCategorize
 }
 
 // categorize('A banana is an elongated, edible fruit – botanically a berry – produced by several kinds of large herbaceous flowering plants in the genus Musa. In some countries, bananas used for cooking may be called "plantains", distinguishing them from dessert bananas.')

@@ -67,6 +67,12 @@ $(() => {
     itemId = $(this).parent().parent()[0].id
     num = itemId.split('item-id-')[1]
 
+    // make AJAX call to server to retrieve item details
+    getItemDetails(num)
+    .then((itemDetails)=>{
+      console.log('item details from server:', itemDetails);
+    });
+
     $('body').append(`
     <div class="mod-items-wrapper card">
         <div id="modify-item-form card-body">
@@ -126,3 +132,9 @@ $(() => {
     $('.mod-items-wrapper').remove();
   })
 })
+
+const getItemDetails = (itemID) => {
+  return $.get(`/items/${itemID}`)
+  .then((details) => details)
+  .catch((res)=>console.log(res))
+}

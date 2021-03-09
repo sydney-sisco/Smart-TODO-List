@@ -27,12 +27,12 @@ const doneListToggle = function() {
   $todoList = $(this).parent().prev();
 
   if($this.hasClass('opened')) {
-    $todoList.slideDown();
-    $doneList.slideUp();
+    $todoList.slideDown(300);
+    $doneList.slideUp(300);
     $this.removeClass('opened');
   } else {
-    $todoList.slideUp();
-    $doneList.slideDown();
+    $todoList.slideUp(300);
+    $doneList.slideDown(300);
     $this.addClass('opened');
   }
 };

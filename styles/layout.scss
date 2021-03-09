@@ -7,19 +7,6 @@
 @import 'item-details.scss';
 
 
-//Mix-ins
-@mixin flexCenter($justify:center, $direction:row) {
-  display: flex;
-  justify-content: $justify;
-  align-items: center;
-  flex-direction: $direction;
-}
-
-@mixin buttonDefault {
-  border: none;
-  outline: none;
-  background-color: transparent;
-}
 
 body {
   background-image: linear-gradient(100deg, $leftColor, $rightColor);
@@ -311,41 +298,6 @@ main {
   }
 }
 
-
-.mod-items-wrapper {
-  @include flexCenter();
-  width: 500px;
-  padding: 3rem 1rem;
-  position: fixed;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.submit-btn {
-  @include buttonDefault();
-}
-
-.cancel-btn {
-  @include buttonDefault();
-  color: $textColorAlt;
-  position: fixed;
-  z-index: 1;
-  right: 1rem;
-  top: 1rem;
-}
-
-#modify-item-form {
-  @include flexCenter($direction:column, $justify:space-around);
-  background-color: orange;
-  width: 100%;
-  height: 100%;
-}
-
-
-.body-container{
-
-}
 
  /* Desktop styles */
 @media only screen and (max-width: 1024px) {

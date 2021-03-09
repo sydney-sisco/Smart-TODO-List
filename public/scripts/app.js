@@ -98,6 +98,9 @@ const formSubmissionHandler = function(event) {
 
   // clear the form
   $('input').val('');
+
+  // trigger an input event to update the counter
+  $('form.item').trigger('input');
 };
 
 // called when the list switcher is used

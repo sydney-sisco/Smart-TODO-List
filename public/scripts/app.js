@@ -10,12 +10,32 @@ $(() => {
   // form submission for new items
   $('form.item').submit(formSubmissionHandler);
 
+  // Done list hide/show functionality
+  $('.done-list').hide();
+  $('.completed-title').click(doneListToggle);
+
   // mobile dropdown listener
   $('select').change(listSwitcherHander);
 
   // listen for resize events to switch layout
   $(window).resize(resizeHandler);
 });
+
+const doneListToggle = function() {
+  $this = $(this);
+  $doneList = $(this).next();
+  $todoList = $(this).parent().prev();
+
+  if($this.hasClass('opened')) {
+    $todoList.slideDown();
+    $doneList.slideUp();
+    $this.removeClass('opened');
+  } else {
+    $todoList.slideUp();
+    $doneList.slideDown();
+    $this.addClass('opened');
+  }
+};
 
 
 // Uses AJAX to fetch items from the server
@@ -24,10 +44,10 @@ const loadItems = () => {
   .then((items) => {
     for (item of items) {
       // create a list element
-      const $newItem = $(`<li id="item-id-${item.id}">${item.name}</li>`);
+      const $newItem = $(`<li><button><i class="complete-btn far fa-circle"></i></button><span id="item-id-${item.id}">${item.name}</span><button><i class="details-btn fas fa-info"></i></button></li>`);
 
       // add item to the correct list
-      $newItem.prependTo($(`.id-${item.category_id}>ul`));
+      $newItem.prependTo($(`.id-${item.category_id} .todo-list`));
     }
   });
 };
@@ -50,7 +70,7 @@ const formSubmissionHandler = function(event) {
   }
 
   // if item text is too long, show error
-  if (item.length > 100) {
+  if (item.length > 99) {
     $('main header h2').text('That\'s way too long!');
     $('main header h2').addClass('error');
     return;
@@ -69,9 +89,11 @@ const formSubmissionHandler = function(event) {
   $.post('/items/', $(this).serialize())
   .then(function(data){
     console.log('response from server:', data);
+    const $itemToList = $(`<li><button><i class="complete-btn far fa-circle"></i></button><span>${data.name}</span><button><i class="details-btn fas fa-info"></i></button></li>`);
+    $newItem.remove();
     // we now have the catagory from the server
     // add the element to the correct list
-    $newItem.detach().prependTo($(`.id-${data.category_id}>ul`));
+    $itemToList.prependTo($(`.id-${data.category_id} .todo-list`));
   });
 
   // clear the form

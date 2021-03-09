@@ -70,12 +70,6 @@ $(() => {
     itemId = $(this).parent().parent()[0].id
     num = itemId.split('item-id-')[1]
 
-    // make AJAX call to server to retrieve item details
-    getItemDetails(num)
-    .then((itemDetails)=>{
-      console.log('item details from server:', itemDetails);
-    });
-
     $('body').append(`
     <div class="mod-items-wrapper card">
     <div id="modify-item-form" class="card-body">
@@ -130,11 +124,20 @@ $(() => {
         </form>
       </div>
       <hr>
-      <p> Placeholder for details</p>
-
+      <div id="item-details">
+        <p> Placeholder for details</p>
+      </div>
     </div>
   </div>
     `);
+
+    // make AJAX call to server to retrieve item details
+    getItemDetails(num)
+    .then((item)=>{
+      console.log('item details from server:', item.details);
+      // $('#details').text('');
+      $('#item-details').text(`${item.details.title} (${item.details.year}) ${item.details.rating}/10`);
+    });
 
     $('#edit-item-form').hide()
 

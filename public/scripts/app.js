@@ -42,14 +42,56 @@ const doneListToggle = function() {
 const loadItems = () => {
   $.get('/items/')
   .then((items) => {
-    for (item of items) {
-      // create a list element
-      const $newItem = $(`<li><button><i class="complete-btn far fa-circle"></i></button><span id="item-id-${item.id}">${item.name}</span><button><i class="details-btn fas fa-info"></i></button></li>`);
+    for (const item of items) {
+      if (item.done) {
+        const $doneItem = $(`<li class='completed'><button><i class="complete-btn far fa-circle"></i></button><span id="item-id-${item.id}">${item.name}</span><button><i class="details-btn fas fa-info"></i></button></li>`);
 
-      // add item to the correct list
-      $newItem.prependTo($(`.id-${item.category_id} .todo-list`));
+        $doneItem.prependTo($(`.id-${item.category_id} .done-list`));
+      } else {
+        const $newItem = $(`<li><button><i class="complete-btn far fa-circle"></i></button><span id="item-id-${item.id}">${item.name}</span><button><i class="details-btn fas fa-info"></i></button></li>`);
+
+        $newItem.prependTo($(`.id-${item.category_id} .todo-list`));
+      }
     }
+    $('.complete-btn').on('click', completedToggle);
+  })
+};
+
+const completedToggle = event => {
+  const cardClassList = $(event.target).parents('.list-card').attr('class');
+  const categoryId = Number(cardClassList.slice(cardClassList.length - 1));
+  const elementId = $(event.target).parent().next().attr('id');
+  const itemId = idFinder(elementId);
+  $.get(`/items/${itemId}`).then(item => {
+    item.done ? item.done = false : item.done = true;
+    const data = {
+      done: item.done
+    };
+    $.ajax({
+      url: `/items/${itemId}`,
+      method: 'PATCH',
+      data: data
+    }).then(function() {
+      $listItem = $(event.target).parent().parent();
+      if (item.done) {
+        $listItem.detach().prependTo(`.id-${categoryId} .done-list`);
+        $listItem.addClass('completed');
+      } else {
+        $listItem.detach().prependTo(`.id-${categoryId} .todo-list`);
+        $listItem.removeClass('completed');
+      }
+    });
   });
+};
+
+// helper to extract ID from element ID
+const idFinder = str => {
+  let idStr = '';
+  for (let i = str.length - 1; i >= 0; i--) {
+    if (str[i] === '-') break;
+    idStr = str[i] + idStr;
+  }
+  return Number(idStr);
 };
 
 // handler for the new item form

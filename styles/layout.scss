@@ -9,9 +9,13 @@ body {
   background-image: linear-gradient(100deg, $leftColor, $rightColor);
   font-family: 'Rubik', sans-serif;
   color: $textColor;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
 }
 
 main {
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -48,8 +52,7 @@ main {
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 60px;
-      margin-top: 10px;
+      height: 50px;
       font-size: 1.2rem;
 
       ul {
@@ -109,6 +112,7 @@ main {
   }
 
   .lists-container {
+    height: 100%;
     width: 100%;
     display: flex;
     justify-content: space-evenly;
@@ -116,42 +120,18 @@ main {
 
     .list-card {
       width: 18.5%;
+      max-height: 670px;
       background: $cardColor;
-      max-height: 61vh;
       border-radius: 15px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
 
       h3 {
         font-size: 2.5rem;
         text-align: center;
         color: $rightColor;
-        width: 92%;
+        width: 100%;
         border-bottom: 1px solid lighten($textColorAlt, 40%);
         padding: 10px 0;
         margin: 0;
-      }
-
-      ul {
-        font-size: 1.3rem;
-        list-style: none;
-        padding: 0;
-        width: 100%;
-        max-height: 92%;
-        overflow: scroll;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-
-        li {
-          margin-left: 6px;
-          width: 88%;
-          padding: 10px 0;
-          display: flex;
-          justify-content: center;
-          border-bottom: 1px solid lighten($textColorAlt, 40%);
-        }
       }
 
       ul::-webkit-scrollbar {
@@ -167,6 +147,78 @@ main {
         background: lighten($textColorAlt, 40%);
         border-radius: 100px;
       }
+
+      .todo-list {
+        font-size: 1.3rem;
+        list-style: none;
+        padding: 0;
+        margin-bottom: 0;
+        width: 100%;
+        height: 79%;
+        overflow-x: hidden;
+        overflow-y: scroll;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+
+        li {
+          margin-left: 6px;
+          width: 92%;
+          padding: 10px 0;
+          display: flex;
+          justify-content: space-between;
+          border-bottom: 1px solid lighten($textColorAlt, 40%);
+
+          span {
+            padding: 0 10px;
+          }
+
+          button {
+            color: lighten($textColorAlt, 20%);
+            outline: none;
+            background: $cardColor;
+            border: none;
+            padding: 0;
+          }
+        }
+      }
+
+      // write here for div
+      .completed-list {
+        // check later
+
+        .completed-title {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          margin: 0;
+          padding: 10px;
+          border-top: 1px solid lighten($textColorAlt, 40%);
+
+          .empty-cont2 {
+            padding: 0 17px;
+          }
+
+          h3 {
+            color: $textColorAlt;
+            margin: 0;
+            padding: 0;
+            width: 83%;
+            border: none;
+          }
+
+          i {
+            font-size: 1.8rem;
+            color: $rightColor;
+            justify-self: flex-end;
+          }
+        }
+
+      }
+
+
+
     }
   }
 }
@@ -230,8 +282,8 @@ main {
 }
 
 .main-footer {
-  position: fixed;
-  bottom: 0;
+  padding: 20px 0;
+  margin-top: auto;
   width: 100%;
   height: 5.5rem;
   display: flex;
@@ -250,31 +302,36 @@ main {
     max-width: 170px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-end;
     align-items: center;
     color: $textColor;
     font-weight: bolder;
     font-size: 1.2rem;
-  }
 
-  .icons-container {
-    padding-bottom: 10px;
-    width: 100%;
-    display: flex;
-    justify-content: space-evenly;
-    font-size: 1.5rem;
+    .icons-container {
+      padding-bottom: 10px;
+      width: 100%;
+      display: flex;
+      justify-content: space-evenly;
+      font-size: 1.5rem;
 
-    i:hover {
-      cursor: pointer;
-      color: darken($rightColor, 13%);
+      i:hover {
+        cursor: pointer;
+        color: darken($rightColor, 13%);
+      }
+    }
+
+    p {
+      padding: 0;
+      margin: 0;
     }
   }
-
 }
 
 .credential-card {
   background: $cardColor;
-  padding: 30px;
+  padding-bottom: 45px;
+  padding-top: 15px;
   margin: auto;
   font-size: 1.2rem;
   width: 80%;
@@ -282,7 +339,7 @@ main {
   min-height: 400px;
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: space-around;
   align-items: center;
   background: $textColor;
   border-radius: 20px;
@@ -319,8 +376,8 @@ main {
       color: $textColor;
       border-radius: 5px;
       align-self: center;
-      padding: 15px;
-      margin-top: 20px;
+      padding: 10px 15px;
+      margin: 20px;
     }
 
     button:hover {

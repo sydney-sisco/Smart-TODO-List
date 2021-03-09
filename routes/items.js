@@ -43,7 +43,10 @@ router.get('/:id', (req, res) => {
 
       // return res.json(data);
     })
-    .then(data => res.json(data))
+    .then(data => {
+      console.log('sending:', data);
+      res.json(data);
+    })
     .catch(err => res.status(500).json({ error: err.message }));
 });
 

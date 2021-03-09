@@ -2,22 +2,39 @@ const axios = require('axios');
 
 const movieAPIKEY = process.env.THE_MOVIE_DATABASE_API_KEY;
 
-const getWatchDetails = (movieTitle) => {
-  movieTitleEncoded = encodeURI(movieTitle);
+const getWatchDetails = (itemData) => {
+  movieTitleEncoded = encodeURI(itemData.name);
   const url = `https://api.themoviedb.org/3/search/movie?api_key=${movieAPIKEY}&query=${movieTitleEncoded}`
 
   return axios.get(url).then(res => {
-    console.log(res.data);
+    // console.log(res.data);
 
     for (const result of res.data.results) {
       console.log(result.original_title);
 
-      if (movieTitle.toLowerCase() === result.original_title.toLowerCase()) {
-        return result;
+      if (itemData.name.toLowerCase() === result.original_title.toLowerCase()) {
+        // return result;
+        itemData.details = {
+          title: result.original_title,
+          year: result.release_date.substring(0, 4),
+          rating: result.vote_average * 10,
+          thumbnail: `https://www.themoviedb.org/t/p/w188_and_h282_bestv2${result.poster_path}`
+        }
+        console.log('found match:', itemData)
+        return itemData
       }
     }
 
-    return res.data.results[0];
+    // return res.data.results[0];
+
+    itemData.details = {
+      title: res.data.results[0].original_title,
+      year: res.data.results[0].release_date.substring(0, 4),
+      rating: res.data.results[0].vote_average * 10,
+      thumbnail: `https://www.themoviedb.org/t/p/w188_and_h282_bestv2${res.data.results[0].poster_path}`
+    }
+    console.log('found:', itemData)
+    return itemData
   }).catch(res => res);
 
 };

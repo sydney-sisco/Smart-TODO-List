@@ -1,6 +1,4 @@
 $(() => {
-  console.log('Document ready.');
-
   // call the resize handler when the page loads to draw the correct lists
   resizeHandler();
 
@@ -29,10 +27,14 @@ const doneListToggle = function() {
   if($this.hasClass('opened')) {
     $todoList.slideDown(300);
     $doneList.slideUp(300);
+    $(this).find('i').removeClass('rotate');
+    $(this).removeClass('open-border');
     $this.removeClass('opened');
   } else {
     $todoList.slideUp(300);
     $doneList.slideDown(300);
+    $(this).find('i').addClass('rotate');
+    $(this).addClass('open-border');
     $this.addClass('opened');
   }
 };
@@ -61,7 +63,6 @@ const completedToggle = event => {
   const cardClassList = $(event.target).parents('.list-card').attr('class');
   const categoryId = Number(cardClassList.slice(cardClassList.length - 1));
   const elementId = $(event.target).parent().parent().attr('id');
-  console.log('elementId', elementId);
   const itemId = idFinder(elementId);
 
   $.get(`/items/${itemId}`).then(item => {
@@ -98,21 +99,27 @@ const idFinder = str => {
   return Number(idStr);
 };
 
+const escape =  str => {
+  let div = document.createElement('div');
+  div.appendChild(document.createTextNode(str));
+  return div.innerHTML;
+};
+
 // handler for the new item form
 const formSubmissionHandler = function(event) {
   event.preventDefault();
 
   // get the item text from the form
-  const item = $('input').val().trim();
+  const item = escape($('input').val().trim());
 
   // error conditionals
   if (!item) {
-    $('main header h2').text('Can\'t be blank!');
+    $('main header h2').hide().fadeIn(200).html('Input can\'t be blank!');
     $('main header h2').addClass('error');
     return;
   }
   if (item.length > 99) {
-    $('main header h2').text('That\'s way too long!');
+    $('main header h2').hide().fadeIn(200).text('That\'s way too long!');
     $('main header h2').addClass('error');
     return;
   }
@@ -122,7 +129,7 @@ const formSubmissionHandler = function(event) {
   $('main header h2').removeClass('error');
 
   // item sent to pending
-  const $pendingNewItem = $(`<li>${item}</li>`);
+  const $pendingNewItem = $(`<li>${item}<i class="loader fas fa-spinner"></i></li>`);
   $('.pending>ul').append($pendingNewItem);
 
   // POST the item to the server using AJAX

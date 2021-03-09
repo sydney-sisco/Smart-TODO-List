@@ -111,12 +111,12 @@ const formSubmissionHandler = function(event) {
 
   // error conditionals
   if (!item) {
-    $('main header h2').text('Can\'t be blank!');
+    $('main header h2').hide().fadeIn(200).text('Can\'t be blank!');
     $('main header h2').addClass('error');
     return;
   }
   if (item.length > 99) {
-    $('main header h2').text('That\'s way too long!');
+    $('main header h2').hide().fadeIn(200).text('That\'s way too long!');
     $('main header h2').addClass('error');
     return;
   }

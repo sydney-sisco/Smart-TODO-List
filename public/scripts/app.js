@@ -6,7 +6,28 @@ $(() => {
 
   // form submission for new items
   $('form.item').submit(formSubmissionHandler);
+
+  // Done list hide/show functionality
+  $('.done-list').hide();
+  $('.completed-title').click(doneListToggle);
+
 });
+
+const doneListToggle = function() {
+  $this = $(this);
+  $doneList = $(this).next();
+  $todoList = $(this).parent().prev();
+
+  if($this.hasClass('opened')) {
+    $todoList.slideDown();
+    $doneList.slideUp();
+    $this.removeClass('opened');
+  } else {
+    $todoList.slideUp();
+    $doneList.slideDown();
+    $this.addClass('opened');
+  }
+};
 
 
 const loadItems = () => {
@@ -17,10 +38,10 @@ const loadItems = () => {
 
     for (item of items) {
       // create a list element
-      const $newItem = $(`<li>${item.name}</li>`);
+      const $newItem = $(`<li><button><i class="complete-btn far fa-circle"></i></button><span>${item.name}</span><button><i class="details-btn fas fa-info"></i></button></li>`);
 
       // add item to the correct list
-      $newItem.appendTo($(`.id-${item.category_id}>ul`));
+      $newItem.prependTo($(`.id-${item.category_id} .todo-list`));
     }
   });
 };
@@ -45,7 +66,7 @@ const formSubmissionHandler = function(event) {
   }
 
   // create a list element
-  const $newItem = $(`<li>${item}</li>`);
+  const $newItem = $(`<li><button><i class="complete-btn far fa-circle"></i></button><>span${item}</span><button><i class="details-btn fas fa-info"></i></button></li>`);
   // move the item to the pending area
   $('.pending>ul').append($newItem);
 
@@ -55,7 +76,7 @@ const formSubmissionHandler = function(event) {
     console.log('response from server:', data);
     // we now have the catagory from the server
     // add the element to the correct list
-    $newItem.detach().appendTo($(`.id-${data.category_id}>ul`));
+    $newItem.detach().prependTo($(`.id-${data.category_id} .todo-list`));
   });
 
   // clear the form

@@ -44,7 +44,7 @@ const loadItems = () => {
   .then((items) => {
     for (item of items) {
       // create a list element
-      const $newItem = $(`<li><button><i class="complete-btn far fa-circle"></i></button><span id="item-id-${item.id}>${item.name}</span><button><i class="details-btn fas fa-info"></i></button></li>`);
+      const $newItem = $(`<li><button><i class="complete-btn far fa-circle"></i></button><span id="item-id-${item.id}">${item.name}</span><button><i class="details-btn fas fa-info"></i></button></li>`);
 
       // add item to the correct list
       $newItem.prependTo($(`.id-${item.category_id} .todo-list`));
@@ -81,7 +81,7 @@ const formSubmissionHandler = function(event) {
   $('main header h2').removeClass('error');
 
   // create a list element
-  const $newItem = $(`<li><button><i class="complete-btn far fa-circle"></i></button><>span${item}</span><button><i class="details-btn fas fa-info"></i></button></li>`);
+  const $newItem = $(`<li><button><i class="complete-btn far fa-circle"></i></button><span>${item}</span><button><i class="details-btn fas fa-info"></i></button></li>`);
   // move the item to the pending area
   $('.pending>ul').append($newItem);
 

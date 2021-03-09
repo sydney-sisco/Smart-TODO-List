@@ -30,11 +30,13 @@ const doneListToggle = function() {
     $todoList.slideDown(300);
     $doneList.slideUp(300);
     $(this).find('i').removeClass('rotate');
+    $(this).removeClass('open-border');
     $this.removeClass('opened');
   } else {
     $todoList.slideUp(300);
     $doneList.slideDown(300);
     $(this).find('i').addClass('rotate');
+    $(this).addClass('open-border');
     $this.addClass('opened');
   }
 };

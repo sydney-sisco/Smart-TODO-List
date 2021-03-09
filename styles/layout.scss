@@ -231,6 +231,11 @@ main {
         width: 100%;
         overflow-y: hidden;
 
+        .open-border {
+          border-top: none;
+          border-bottom: 1px solid lighten($textColorAlt, 40%);
+        }
+
         .completed-title {
           display: flex;
           justify-content: center;

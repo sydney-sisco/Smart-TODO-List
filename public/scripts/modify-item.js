@@ -100,7 +100,9 @@ $(() => {
             <button class="submit-btn" form="change-cat-form" type="submit">CHANGE</button>
           </form>
         </div>
-        <button class="cancel-btn far fa-window-close"></button>
+        <form id="cancel-modify">
+        <button type="submit" form="cancel-modify" class="cancel-btn far fa-window-close"></button>
+        </form>
         </div>
     `);
 

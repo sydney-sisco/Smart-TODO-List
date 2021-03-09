@@ -21,6 +21,7 @@
   </head>
 
   <body>
+    <div class='body-container'>
     <%- include('partials/_header') %>
     <main>
       <header>
@@ -82,12 +83,7 @@
               <h3>Done</h3>
               <i class="fas fa-chevron-down"></i>
             </div>
-            <ul class='done-list'>
-              <li>test</li>
-              <li>test</li>
-              <li>test</li>
-              <li>test</li>
-            </ul>
+            <ul class='done-list'></ul>
           </div>
         </div>
         <div class="list-card id-4">
@@ -114,28 +110,45 @@
             <ul class='done-list'></ul>
           </div>
         </div>
-
       </div>
+      <!-- <div class="mod-items-wrapper card">
+        <div id="modify-item-form card-body">
+        <div>
+          <form id="edit-item-form" method="PATCH" action="/items/${num}">
+            <input type="text" name="name" placeholder="Click & Type to Update"></input>
+            <button class="submit-btn" form="edit-item-form" type="submit">EDIT</button>
+          </form>
+        </div>
+        <div>
+          <form id="delete-item-form" method="DELETE" action="/items/${num}"">
+            <label for="DELETE ME">DELETE ME</label>
+            <button class="submit-btn" form="delete-item-form" type="submit">DELETE</button>
+          </form>
+        </div>
+        <div>
+          <form id="change-cat-form" method="PATCH" action="/items/${num}"">
+            <div class="dropdown">
+              <a class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Change Categories
+              </a>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" name="1" href="#">Watch</a>
+                <a class="dropdown-item" name="2" href="#">Eat</a>
+                <a class="dropdown-item" name="3" href="#">Read</a>
+                <a class="dropdown-item" name="4" href="#">Buy</a>
+                <a class="dropdown-item" name="5" href="#">General</a>
+              </div>
+            </div>
+            <input type="text" name="category_id" placeholder="CATEGORY ID BUT WILL BE A DROP DOWN LATER"></input>
+            <button class="submit-btn" form="change-cat-form" type="submit">CHANGE</button>
+          </form>
+        </div>
+        <button class="cancel-btn far fa-window-close"></button>
+        </div> -->
+        </div>
     </main>
-    <div>
-      <!-- <form id="item-id-3" class="edit-item" method="PATCH" action="/items/3">
-        <label for="EDIT ME">EDIT MY NAME</label>
-        <input type="text" name="name" placeholder="Update Item Name"></input>
-        <button type="submit">Update</button>
-      </form> -->
-      <!-- <form id="item-id-3" class="edit-item" method="DELETE" action="/items/3">
-        <label for="DELETE ME">DELETE ME</label>
-        <input name="3" type="hidden">
-        <button type="submit">DELETE</button>
-      </form> -->
-      <!-- <form id="item-id-3" class="edit-item" method="PATCH" action="/items/3">
-        <label for="CHANGE CATEGORIES">CHANGE CATEGORIES</label>
-        <input type="text" name="category_id" placeholder="CATEGORY ID BUT WILL BE A DROP DOWN LATER"></input>
-        <button type="submit">CHANGE</button>
-      </form> -->
-
-    </div>
-
     <%- include('partials/_footer') %>
+  </div>
   </body>
 </html>
+

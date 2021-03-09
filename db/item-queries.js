@@ -11,6 +11,17 @@ const getUsersItems = function(userId) {
     .catch(err => console.error(this, 'query failed', err.stack));
 };
 
+const getItem = function(itemId) {
+  const text = `
+  SELECT * FROM items
+  WHERE id = $1;`;
+  const values = [itemId];
+
+  return db.query(text, values)
+    .then(data => data.rows[0])
+    .catch(err => console.error(this, 'query failed', err.stack))
+};
+
 const addItem = function(userId, categoryId = 5, name) {
   const text = `
   INSERT INTO items (user_id, category_id, name)
@@ -67,6 +78,7 @@ const deleteItem = function(userId, itemId) {
 module.exports = {
   getUsersItems,
   addItem,
+  getItem,
   editItem,
   deleteItem
 };

@@ -1,0 +1,68 @@
+.credential-card {
+  background: $cardColor;
+  padding-bottom: 45px;
+  padding-top: 15px;
+  margin: auto;
+  font-size: 1.2rem;
+  width: 80%;
+  max-width: 600px;
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  background: $textColor;
+  border-radius: 20px;
+  color: $textColorAlt;
+
+  header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    h2 {
+      color: $rightColor;
+      font-size: 3.5rem;
+      font-weight: bold;
+    }
+
+    span {
+      color: $rightColor;
+    }
+  }
+
+  form {
+    width: 60%;
+    height: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+
+
+    button {
+      border: 1px solid $rightColor;
+      background-color: $rightColor;
+      color: $textColor;
+      border-radius: 5px;
+      align-self: center;
+      padding: 10px 15px;
+      margin: 20px;
+    }
+
+    button:hover {
+      border: 1px solid $rightColor;
+      background: none;
+      color: $rightColor;
+    }
+
+    .credential-input {
+      display: flex;
+      flex-direction: column;
+
+      input, label {
+        margin-top: 5px;
+      }
+    }
+  }
+}

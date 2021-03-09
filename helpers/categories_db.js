@@ -994,7 +994,6 @@ const watch = {
   '/Arts & Entertainment/Entertainment Industry/Film & TV Industry': '/Arts & Entertainment/Entertainment Industry/Film & TV Industry',
   '/Arts & Entertainment/Entertainment Industry/Recording Industry': '/Arts & Entertainment/Entertainment Industry/Recording Industry',
   '/Arts & Entertainment/Events & Listings': '/Arts & Entertainment/Events & Listings',
-  '/Arts & Entertainment/Events & Listings/Bars, Clubs & Nightlife': '/Arts & Entertainment/Events & Listings/Bars, Clubs & Nightlife',
   '/Arts & Entertainment/Events & Listings/Concerts & Music Festivals': '/Arts & Entertainment/Events & Listings/Concerts & Music Festivals',
   '/Arts & Entertainment/Events & Listings/Expos & Conventions': '/Arts & Entertainment/Events & Listings/Expos & Conventions',
   '/Arts & Entertainment/Events & Listings/Film Festivals': '/Arts & Entertainment/Events & Listings/Film Festivals',
@@ -1052,6 +1051,7 @@ const watch = {
 }
 
 const eat = {
+  '/Arts & Entertainment/Events & Listings/Bars, Clubs & Nightlife': '/Arts & Entertainment/Events & Listings/Bars, Clubs & Nightlife',
   '/Food & Drink': '/Food & Drink',
   '/Food & Drink/Beverages': '/Food & Drink/Beverages',
   '/Food & Drink/Beverages/Alcoholic Beverages': '/Food & Drink/Beverages/Alcoholic Beverages',

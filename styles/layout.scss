@@ -1,3 +1,5 @@
+@import 'item-details.scss';
+
 // Variables
 $leftColor: #e2c35d;
 $rightColor: #da785d;
@@ -5,6 +7,20 @@ $textColor: white;
 $textColorAlt: rgba(95, 95, 95, 0.932);
 $cardColor: white;
 $errorTextColor: red;
+
+//Mix-ins
+@mixin flexCenter($justify:center, $direction:row) {
+  display: flex;
+  justify-content: $justify;
+  align-items: center;
+  flex-direction: $direction;
+}
+
+@mixin buttonDefault {
+  border: none;
+  outline: none;
+  background-color: transparent;
+}
 
 body {
   background-image: linear-gradient(100deg, $leftColor, $rightColor);
@@ -14,6 +30,7 @@ body {
   flex-direction: column;
   height: 100vh;
 }
+
 
 main {
   height: 100%;
@@ -407,6 +424,42 @@ main {
       }
     }
   }
+}
+
+
+.mod-items-wrapper {
+  @include flexCenter();
+  width: 500px;
+  padding: 3rem 1rem;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.submit-btn {
+  @include buttonDefault();
+}
+
+.cancel-btn {
+  @include buttonDefault();
+  color: $textColorAlt;
+  position: fixed;
+  z-index: 1;
+  right: 1rem;
+  top: 1rem;
+}
+
+#modify-item-form {
+  @include flexCenter($direction:column, $justify:space-around);
+  background-color: orange;
+  width: 100%;
+  height: 100%;
+}
+
+
+.body-container{
+
 }
 
  /* Desktop styles */

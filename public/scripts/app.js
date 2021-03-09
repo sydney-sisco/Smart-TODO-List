@@ -42,34 +42,72 @@ const doneListToggle = function() {
 const loadItems = () => {
   $.get('/items/')
   .then((items) => {
-    for (item of items) {
-      // create a list element
-      const $newItem = $(`<li><button><i class="complete-btn far fa-circle"></i></button><span id="item-id-${item.id}">${item.name}</span><button><i class="details-btn fas fa-info"></i></button></li>`);
+    for (const item of items) {
+      if (item.done) {
+        const $doneItem = $(`<li class='completed'><button><i class="complete-btn far fa-circle"></i></button><span id="item-id-${item.id}">${item.name}</span><button><i class="details-btn fas fa-info"></i></button></li>`);
 
-      // add item to the correct list
-      $newItem.prependTo($(`.id-${item.category_id} .todo-list`));
+        $doneItem.prependTo($(`.id-${item.category_id} .done-list`));
+      } else {
+        const $newItem = $(`<li><button><i class="complete-btn far fa-circle"></i></button><span id="item-id-${item.id}">${item.name}</span><button><i class="details-btn fas fa-info"></i></button></li>`);
+
+        $newItem.prependTo($(`.id-${item.category_id} .todo-list`));
+      }
     }
+    $('.complete-btn').on('click', completedToggle);
+  })
+};
+
+const completedToggle = event => {
+  const cardClassList = $(event.target).parents('.list-card').attr('class');
+  const categoryId = Number(cardClassList.slice(cardClassList.length - 1));
+  const elementId = $(event.target).parent().next().attr('id');
+  const itemId = idFinder(elementId);
+
+  $.get(`/items/${itemId}`).then(item => {
+    item.done ? item.done = false : item.done = true;
+    const data = {
+      done: item.done
+    };
+    $.ajax({
+      url: `/items/${itemId}`,
+      method: 'PATCH',
+      data: data
+    }).then(function() {
+      $listItem = $(event.target).parent().parent();
+      if (item.done) {
+        $listItem.detach().prependTo(`.id-${categoryId} .done-list`);
+        $listItem.addClass('completed');
+      } else {
+        $listItem.detach().prependTo(`.id-${categoryId} .todo-list`);
+        $listItem.removeClass('completed');
+      }
+    }).catch(err => console.log('AJAX patch error:', err));
   });
+};
+
+// helper to extract ID from element ID
+const idFinder = str => {
+  let idStr = '';
+  for (let i = str.length - 1; i >= 0; i--) {
+    if (str[i] === '-') break;
+    idStr = str[i] + idStr;
+  }
+  return Number(idStr);
 };
 
 // handler for the new item form
 const formSubmissionHandler = function(event) {
   event.preventDefault();
 
-  // trim the input before evaluating it
-  $('input').val($.trim($('input').val()));
-
   // get the item text from the form
-  const item = $('input').val();
+  const item = $('input').val().trim();
 
-  // if the form is empty, error
+  // error conditionals
   if (!item) {
     $('main header h2').text('Can\'t be blank!');
     $('main header h2').addClass('error');
     return;
   }
-
-  // if item text is too long, show error
   if (item.length > 99) {
     $('main header h2').text('That\'s way too long!');
     $('main header h2').addClass('error');
@@ -80,20 +118,20 @@ const formSubmissionHandler = function(event) {
   $('main header h2').text('Let\'s get to sorting!');
   $('main header h2').removeClass('error');
 
-  // create a list element
-  const $newItem = $(`<li>${item}</li>`);
-  // move the item to the pending area
-  $('.pending>ul').append($newItem);
+  // item sent to pending
+  const $pendingNewItem = $(`<li>${item}</li>`);
+  $('.pending>ul').append($pendingNewItem);
 
   // POST the item to the server using AJAX
   $.post('/items/', $(this).serialize())
   .then(function(data){
-    console.log('response from server:', data);
-    const $itemToList = $(`<li><button><i class="complete-btn far fa-circle"></i></button><span>${data.name}</span><button><i class="details-btn fas fa-info"></i></button></li>`);
-    $newItem.remove();
-    // we now have the catagory from the server
-    // add the element to the correct list
+    const $itemToList = $(`<li><button><i class="complete-btn far fa-circle"></i></button><span id="item-id-${data.id}">${data.name}</span><button><i class="details-btn fas fa-info"></i></button></li>`);
+
+    $pendingNewItem.remove();
     $itemToList.prependTo($(`.id-${data.category_id} .todo-list`));
+
+    // complete btn listener for finished
+    $('.complete-btn').on('click', completedToggle);
   });
 
   // clear the form

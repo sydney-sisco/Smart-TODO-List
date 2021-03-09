@@ -8,7 +8,7 @@ const { categorizer } = require('../helpers/categorizer');
 
 const express = require('express');
 const router  = express.Router();
-const { getUsersItems, addItem, editItem, deleteItem } = require('../db/item-queries.js');
+const { getUsersItems, addItem, getItem,  editItem, deleteItem } = require('../db/item-queries.js');
 
 
 router.get("/", (req, res) => {
@@ -22,6 +22,20 @@ router.get("/", (req, res) => {
     .then(data => res.json(data))
     .catch(err => res.status(500).json({ error: err.message }));
 
+});
+
+router.get('/:id', (req, res) => {
+  const userId = req.session.user_id;
+  const itemId = Number(req.params.id);
+
+  if (!userId) {
+    res.send('Not logged in!');
+    return;
+  }
+
+  getItem(itemId)
+    .then(data => res.json(data))
+    .catch(err => res.status(500).json({ error: err.message }));
 });
 
 router.post("/", (req, res) => {

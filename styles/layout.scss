@@ -320,15 +320,17 @@ ul::-webkit-scrollbar-thumb {
 
  /* Desktop styles */
 @media only screen and (max-width: 1024px) {
+  .body-container {
+    main {
+      form.list-switcher {
+        background: blue;
+        display: inline;
+      }
+      .lists-container {
 
-  main {
-    form.list-switcher {
-      display: inline;
-    }
-    .lists-container {
-
-      .list-card {
-        width: 75%;
+        .list-card {
+          width: 75%;
+        }
       }
     }
   }

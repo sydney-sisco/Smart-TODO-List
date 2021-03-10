@@ -43,11 +43,13 @@ app.use(methodOverride('_method'));
 // Note: Feel free to replace the example routes below with your own
 const usersRouter = require("./routes/users.js");
 const itemsRouter = require("./routes/items.js");
+const detailsRouter = require("./routes/details.js");
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
 app.use("/users", usersRouter);
 app.use("/items", itemsRouter);
+app.use("/details", detailsRouter);
 
 // app.use("api", apiRoutes(db)); replace with api routes call when done
 
@@ -88,36 +90,6 @@ app.get('/logout', (req, res) => {
   req.session.user_id = null;
   res.redirect('/login');
 });
-
-// TEMP ROUTE - move to new file
-const { getItem } = require('./db/item-queries');
-const { getItemDetails } = require('./helpers/item-details')
-
-app.get('/details/:id', (req, res) => {
-  const userId = req.session.user_id;
-  const itemId = Number(req.params.id);
-
-  if (!userId) {
-    res.send('Not logged in!');
-    return;
-  }
-
-  getItem(itemId)
-  .then(data => {
-    console.log('item data:', data);
-
-    // get additional details from external API
-    return getItemDetails(data);
-  })
-  .then(data => {
-    console.log('sending:', data);
-    res.json(data);
-  })
-  .catch(err => res.status(500).json({ error: err.message }));
-})
-// END OF TEMP ROUTE
-
-
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);

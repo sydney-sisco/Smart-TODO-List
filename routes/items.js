@@ -10,7 +10,6 @@ const express = require('express');
 const router  = express.Router();
 const { getUsersItems, addItem, getItem,  editItem, deleteItem } = require('../db/item-queries.js');
 
-const { getItemDetails } = require('../helpers/item-details');
 
 router.get("/", (req, res) => {
   const userId = req.session.user_id;
@@ -35,18 +34,7 @@ router.get('/:id', (req, res) => {
   }
 
   getItem(itemId)
-    .then(data => {
-      console.log('item data:', data);
-
-      // get additional details from external API
-      return getItemDetails(data);
-
-      // return res.json(data);
-    })
-    .then(data => {
-      console.log('sending:', data);
-      res.json(data);
-    })
+    .then(data => res.json(data))
     .catch(err => res.status(500).json({ error: err.message }));
 });
 

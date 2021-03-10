@@ -65,10 +65,13 @@ const deleteItemHandler = function(e) {
 }
 
 $(() => {
-
   $(document).on('click','.details-btn',function(e) {
-    itemId = $(this).parent().parent()[0].id
-    num = itemId.split('item-id-')[1]
+    const $parentCard = $(this).parents('.list-card');
+    const classesStr = $parentCard.attr('class');
+    const strSplit = classesStr.split('list-card id-')[1];
+    const categoryId = Number(strSplit);
+    itemId = $(this).parent().parent()[0].id;
+    num = itemId.split('item-id-')[1];
 
     $('body').append(`
     <div class="mod-items-wrapper card">
@@ -124,55 +127,10 @@ $(() => {
         </form>
       </div>
       <hr>
-      <div id="item-details">
-        <i class="loader fas fa-spinner"></i>
-      </div>
+      <div id='extra-details'><i class="loader fas fa-spinner"></i></div>
     </div>
   </div>
     `);
-
-    // make AJAX call to server to retrieve item details
-    getItemDetails(num)
-    .then((item)=>{
-      console.log('item details from server:', item.details);
-
-      // remove spinner from details area
-      $('#item-details').empty();
-
-      // add class for correct styling
-      $('#item-details').addClass('watch');
-
-      // build html for details
-      let watchHTML = '';
-      watchHTML += `<a href="${item.details.url}" target="_blank" ><img src="${item.details.thumbnail}"/></a>`;
-      watchHTML += `<div id="details">`;
-      watchHTML += `<p>${item.details.title}</p>`;
-      watchHTML += `<p>${item.details.year}</p>`;
-      watchHTML += `<p>${item.details.rating}/10⭐️</p>`;
-      watchHTML += `<a href="${item.details.url}" target="_blank" >More details...</a>`;
-      watchHTML += `</div>`;
-
-
-
-      // add html to container div
-      $('#item-details').html(watchHTML);
-
-
-      // const $img = $('<img>');
-      // $img.attr('src', item.details.thumbnail);
-      // $img.appendTo('#item-details');
-
-
-
-      // const $detailsDiv = $('<div>');
-      // $detailsDiv.append(item.details.title);
-      // $detailsDiv.appendTo('#item-details');
-
-
-
-      // $('#item-details').text(`${item.details.title} (${item.details.year}) ${item.details.rating}/10`);
-
-    });
 
     $('#edit-item-form').hide()
 
@@ -185,6 +143,13 @@ $(() => {
       $('.mod-items-wrapper').remove();
       $('.body-container').css('filter','blur(0px)')
     })
+
+    // TODO: add the other functions from the other apis.
+    $.get(`/details/${num}`).then(data => {
+      console.log('data returned from server:', data);
+      if (categoryId === 1) watchDetailStructure(data);
+      if (categoryId === 3) readDetailStructure(data);
+    });
   });
 
   // Cancelling as normal will exit too
@@ -232,8 +197,39 @@ $(() => {
 
 })
 
-const getItemDetails = (itemID) => {
-  return $.get(`/details/${itemID}`)
-  .then((details) => details)
-  .catch((res)=>console.log(res))
+const readDetailStructure = bookInfo => {
+  const authorStr = bookInfo.authors.join(", ");
+  const categoriesStr = bookInfo.categories.join(", ");
+  let $readHtml = '';
+
+  if (bookInfo.title) $readHtml += `<p>Title: ${bookInfo.title}</p>`;
+  if (bookInfo.subtitle) $readHtml += `<p>Subtitle: ${bookInfo.subtitle}</p>`;
+  if (bookInfo.authors) $readHtml += `<p>Authors: ${authorStr}</p>`;
+  if (bookInfo.categories) $readHtml += `<p>Categories: ${categoriesStr}</p>`;
+  if (bookInfo.link) $readHtml += `<p>Link: <a target="_blank" href='${bookInfo.link}'>Click to preview</a></p>`;
+  if (bookInfo.thumbnail) $readHtml += `<img src="${bookInfo.thumbnail}">`;
+
+  $('#extra-details').html($readHtml);
+  // TODO: add and remove classes here when you get to styling.
+};
+
+const watchDetailStructure = itemInfo => {
+  // remove spinner from details area
+  $('#extra-details').empty();
+
+  // add class for correct styling
+  $('#extra-details').addClass('watch');
+
+  // build html for details
+  let watchHTML = '';
+  watchHTML += `<a href="${itemInfo.url}" target="_blank" ><img src="${itemInfo.thumbnail}"/></a>`;
+  watchHTML += `<div id="details">`;
+  watchHTML += `<p>${itemInfo.title}</p>`;
+  watchHTML += `<p>${itemInfo.year}</p>`;
+  watchHTML += `<p>${itemInfo.rating}/10⭐️</p>`;
+  if (itemInfo.url) watchHTML += `<a href="${itemInfo.url}" target="_blank" >More details...</a>`;
+  watchHTML += `</div>`;
+
+  // add html to container div
+  $('#extra-details').html(watchHTML);
 }

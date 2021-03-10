@@ -97,15 +97,15 @@ $(() => {
       </div>
 
       <div>
-        <form id="delete-item-form" method="DELETE" action="/items/${num}"></form>
-          <button class="submit-btn" form="delete-item-form" type="submit">Delete</button>
+        <form id="edit-item-form" method="PATCH" action="/items/${num}">
+          <input type="text" name="name" placeholder="New Item Name"></input>
+          <button class="submit-btn" form="edit-item-form" type="submit">Update</button>
         </form>
       </div>
 
       <div>
-        <form id="edit-item-form" method="PATCH" action="/items/${num}">
-          <input type="text" name="name" placeholder="New Item Name"></input>
-          <button class="submit-btn" form="edit-item-form" type="submit">Update</button>
+        <form id="delete-item-form" method="DELETE" action="/items/${num}"></form>
+          <button class="submit-btn" form="delete-item-form" type="submit">Delete</button>
         </form>
       </div>
 

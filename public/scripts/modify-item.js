@@ -185,11 +185,13 @@ $(() => {
       if (categoryId === 1) watchDetailStructure(data);
       if (categoryId === 2) eatDetailStructure(data);
       if (categoryId === 3) readDetailStructure(data);
+      if (categoryId === 4) buyDetailStructure(data);
       if (categoryId === 5) generalDetailStructure(data);
     }).catch(err => {
       console.log('catch:',err);
       const $failHtml = `<p>Could not retrieve relevant details!</p>`;
       $('#extra-details').html($failHtml);
+      console.log('GET error for extra details', err);
     });
   });
 
@@ -249,17 +251,16 @@ $(() => {
 const readDetailStructure = bookInfo => {
   const authorStr = bookInfo.authors.join(", ");
   const categoriesStr = bookInfo.categories.join(", ");
-  let $readHtml = '';
+  let $buyHtml = '';
 
-  if (bookInfo.title) $readHtml += `<p>Title: ${bookInfo.title}</p>`;
-  if (bookInfo.subtitle) $readHtml += `<p>Subtitle: ${bookInfo.subtitle}</p>`;
-  if (bookInfo.authors) $readHtml += `<p>Authors: ${authorStr}</p>`;
-  if (bookInfo.categories) $readHtml += `<p>Categories: ${categoriesStr}</p>`;
-  if (bookInfo.link) $readHtml += `<p>Link: <a target="_blank" href='${bookInfo.link}'>Click to preview</a></p>`;
-  if (bookInfo.thumbnail) $readHtml += `<img src="${bookInfo.thumbnail}">`;
+  if (bookInfo.thumbnail) $buyHtml += `<img src="${bookInfo.thumbnail}">`;
+  if (bookInfo.title) $buyHtml += `<p>Title: ${bookInfo.title}</p>`;
+  if (bookInfo.subtitle) $buyHtml += `<p>Subtitle: ${bookInfo.subtitle}</p>`;
+  if (bookInfo.authors) $buyHtml += `<p>Authors: ${authorStr}</p>`;
+  if (bookInfo.categories) $buyHtml += `<p>Categories: ${categoriesStr}</p>`;
+  if (bookInfo.link) $buyHtml += `<p>Read a sample preview <a target="_blank" href='${bookInfo.link}'>here</a></p>`;
 
-  $('#extra-details').html($readHtml);
-  // TODO: add and remove classes here when you get to styling.
+  $('#extra-details').html($buyHtml);
 };
 
 const eatDetailStructure = itemInfo => {
@@ -304,6 +305,19 @@ const watchDetailStructure = itemInfo => {
   $('#extra-details').html(watchHTML);
 };
 
+const buyDetailStructure = productInfo => {
+  let $readHtml = '';
+
+  if (productInfo.thumbnail) $readHtml += `<img src="${productInfo.thumbnail}">`;
+  if (productInfo.title) $readHtml += `<p>Title: ${productInfo.title}</p>`;
+  if (productInfo.price) $readHtml += `<p>Price: ${productInfo.price}</p>`;
+  if (productInfo.rating) $readHtml += `<p>Rating: ${productInfo.rating}/5 ⭐️</p>`;
+  if (productInfo.link) $readHtml += `<p>Amazon.ca: <a target="_blank" href='${productInfo.link}'>View here</a></p>`;
+
+  $('#extra-details').html($readHtml);
+};
+
 const generalDetailStructure = () => {
-  const $generalHtml = `<p>Could not retrieve relevant details!</p>`
+  const $generalHtml = `<p>Can not retrieve details!</p>`
+  $('#extra-details').html($generalHtml);
 };

@@ -12,7 +12,7 @@ const updateItemNameHandler = function(e) {
     data
   })
   .then(data => {
-    $(`#${itemId} span`).text(`${data.name}`)
+    $(`#${itemId} span`).html(`${data.priority? `<span class="fas fa-exclamation"></span>${data.name}`: data.name}`)
     $('#mod-items-wrapper').remove();
     $('.body-container').css('filter','blur(0px)')
     console.log(data)

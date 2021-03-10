@@ -46,11 +46,20 @@ const loadItems = () => {
   .then((items) => {
     for (const item of items) {
       if (item.done) {
-        const $doneItem = $(`<li id="item-id-${item.id}" class='completed'><button><i class="complete-btn fas fa-circle"></i></button><span>${item.name}</span><button><i class="details-btn fas fa-info"></i></button></li>`);
+        const $doneItem = $(`
+        <li id="item-id-${item.id}" class='completed'>
+          <button><i class="complete-btn fas fa-circle"></i></button>
+          <span>${item.name}</span>
+          <div class="details-btn-circle"><button class="details-btn fas fa-ellipsis-h"></button></div>
+          </li>`);
 
         $doneItem.prependTo($(`.id-${item.category_id} .done-list`));
       } else {
-        const $newItem = $(`<li id="item-id-${item.id}"><button><i class="complete-btn far fa-circle"></i></button><span>${item.name}</span><button><i class="details-btn fas fa-info"></i></button></li>`);
+        const $newItem = $(`
+        <li id="item-id-${item.id}"><button>
+          <i class="complete-btn far fa-circle"></i></button><span>${item.name}</span>
+          <div class="details-btn-container"><button class="details-btn fas fa-ellipsis-h"></button></div>
+        </li>`);
 
         $newItem.prependTo($(`.id-${item.category_id} .todo-list`));
       }
@@ -135,7 +144,12 @@ const formSubmissionHandler = function(event) {
   // POST the item to the server using AJAX
   $.post('/items/', $(this).serialize())
   .then(function(data){
-    const $itemToList = $(`<li id="item-id-${data.id}"><button><i class="complete-btn far fa-circle"></i></button><span>${data.name}</span><button><i class="details-btn fas fa-info"></i></button></li>`);
+    const $itemToList = $(`
+      <li id="item-id-${data.id}">
+        <button><i class="complete-btn far fa-circle"></i></button>
+        <span>${data.name}</span>
+        <div class="details-btn-container"><button class="details-btn fas fa-ellipsis-h"></button></div>
+      </li>`);
 
     $pendingNewItem.remove();
     $itemToList.prependTo($(`.id-${data.category_id} .todo-list`));

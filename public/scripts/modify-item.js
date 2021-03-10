@@ -12,53 +12,34 @@ const updateItemNameHandler = function(e) {
   })
   .then(data => {
     $(`#${itemId} span`).text(`${data.name}`)
-    $('.mod-items-wrapper').remove();
+    $('#mod-items-wrapper').remove();
     $('.body-container').css('filter','blur(0px)')
     console.log(data)
   })
 }
 
-// const completeItemHandler = function(e) {
-//   e.preventDefault();
-//   const data = $(this).serialize();
-//   $.ajax({
-//     method: 'PATCH',
-//     url: `/items/${num}`,
-//     data
-//   })
-//   .then(data => {
-//     $('.mod-items-wrapper').remove();
-//     $('.body-container').css('filter','blur(0px)')
-//     console.log(`marked as done! need to move to completed section`)
-//   })
-// }
-
 const updateCategoryHandler = function(e) {
   e.preventDefault();
-  // const data = $(this).serialize();
-  // console.log(data)
   $.ajax({
     method: 'PATCH',
     url: `/items/${num}`,
     data: `category_id=${newCat}`
   })
   .then(data => {
-    $('.mod-items-wrapper').remove();
+    $('#mod-items-wrapper').remove();
     $('.body-container').css('filter','blur(0px)')
-    console.log('in here')
-    $(`#${itemId}`).detach().appendTo($(`.id-${data.category_id}>ul`))
+    $(`#${itemId}`).detach().prependTo($(`.id-${data.category_id}>ul`))
   })
 }
 
 const deleteItemHandler = function(e) {
   e.preventDefault();
-  console.log('in this handler')
   $.ajax({
     method: 'DELETE',
     url: `/items/${num}`,
   })
   .then(data => {
-    $('.mod-items-wrapper').remove();
+    $('#mod-items-wrapper').remove();
     $('.body-container').css('filter','blur(0px)')
     $(`#${itemId}`).remove()
   })
@@ -74,7 +55,7 @@ $(() => {
     num = itemId.split('item-id-')[1];
 
     $('body').append(`
-    <div class="mod-items-wrapper card">
+    <div id="mod-items-wrapper" class="mod-items-wrapper card">
     <div id="modify-item-form" class="card-body">
       <h3 class="card-title">Item Name</h3>
       <div>
@@ -141,7 +122,7 @@ $(() => {
     // clicking out of the form will exit
     $('.body-container').click(e => {
       e.preventDefault();
-      $('.mod-items-wrapper').remove();
+      $('#mod-items-wrapper').remove();
       $('.body-container').css('filter','blur(0px)')
     })
 
@@ -155,7 +136,7 @@ $(() => {
   $(document).on('submit','#cancel-modify', (e)=>{
     e.preventDefault();
     $('.body-container').css('filter','blur(0px)')
-    $('.mod-items-wrapper').remove();
+    $('#mod-items-wrapper').remove();
   })
 
 

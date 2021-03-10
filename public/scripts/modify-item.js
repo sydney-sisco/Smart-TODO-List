@@ -204,8 +204,6 @@ const readDetailStructure = bookInfo => {
 };
 
 const eatDetailStructure = itemInfo => {
-  console.log('data from server:', itemInfo);
-
   // remove spinner from details area
   $('#extra-details').empty();
 

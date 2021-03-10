@@ -1,2 +1,3 @@
 ## Stylistic Features
-* If a task is past the deadline, change the color to red for example
+* [Drag and drop list] (https://www.jqueryscript.net/demo/reorder-list-dragndrop/)
+* Details appear on hover

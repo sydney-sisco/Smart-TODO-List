@@ -46,6 +46,7 @@ const deleteItemHandler = function(e) {
 }
 
 $(() => {
+
   $(document).on('click','.details-btn',function(e) {
     const $parentCard = $(this).parents('.list-card');
     const classesStr = $parentCard.attr('class');
@@ -114,23 +115,24 @@ $(() => {
   </div>
     `);
 
+    //  clicking out of the form will exit
+    $('body').click(function(e) {
+      if (!$(e.target).closest("#mod-items-wrapper").length){
+          $("#mod-items-wrapper").remove();
+          $('.body-container').css('filter','blur(0px)')
+      }
+   });
+
+
     $('#edit-item-form').hide()
-
-
     $('.body-container').css('filter','blur(1rem)')
-
-    // clicking out of the form will exit
-    $('.body-container').click(e => {
-      e.preventDefault();
-      $('#mod-items-wrapper').remove();
-      $('.body-container').css('filter','blur(0px)')
-    })
 
     // TODO: add the other functions from the other apis.
     $.get(`/details/${num}`).then(data => {
       if (categoryId === 3) readDetailStructure(data);
     });
   });
+
 
   // Cancelling as normal will exit too
   $(document).on('submit','#cancel-modify', (e)=>{

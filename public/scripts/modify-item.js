@@ -1,6 +1,7 @@
 let itemId = null;
 let num = null;
 let newCat = null;
+let highPriority = false;
 
 const updateItemNameHandler = function(e) {
   e.preventDefault();
@@ -11,10 +12,39 @@ const updateItemNameHandler = function(e) {
     data
   })
   .then(data => {
-    $(`#${itemId} span`).text(`${data.name}`)
+    $(`#${itemId} span`).html(`${data.priority? `<span class="fas fa-exclamation"></span>${data.name}`: data.name}`)
     $('#mod-items-wrapper').remove();
     $('.body-container').css('filter','blur(0px)')
     console.log(data)
+  })
+}
+
+const changePriorityHandler = function(e) {
+  e.preventDefault();
+  const data = $(this).serialize();
+  $.ajax({
+    method: 'PATCH',
+    url: `/items/${num}`,
+    data: `priority=${highPriority}`
+  })
+  .then(data => {
+    const itemHTMLelem = $(`#${itemId}`);
+
+    if(data.priority & !itemHTMLelem.hasClass("priority")){
+      // adds the priority class if priority is set to high and class does not exist already
+      $(`#${itemId} span`).html(`<span class="fas fa-exclamation"></span>${data.name}`)
+      itemHTMLelem.addClass("priority");
+      itemHTMLelem.detach().prependTo($(`.id-${data.category_id}>ul`))
+
+    } else if (!data.priority & itemHTMLelem.hasClass("priority")){
+      $(`#${itemId} span`).html(`${data.name}`)
+      console.log('remove priority class')
+      itemHTMLelem.removeClass("priority");
+      itemHTMLelem.detach().appendTo($(`.id-${data.category_id}>ul`))
+    }
+
+    $('#mod-items-wrapper').remove();
+    $('.body-container').css('filter','blur(0px)')
   })
 }
 
@@ -28,7 +58,9 @@ const updateCategoryHandler = function(e) {
   .then(data => {
     $('#mod-items-wrapper').remove();
     $('.body-container').css('filter','blur(0px)')
-    $(`#${itemId}`).detach().prependTo($(`.id-${data.category_id}>ul`))
+    const $itemToMove = $(`#${itemId}`)
+    $itemToMove.detach()
+    addAfterPriority(data.category_id, $itemToMove)
   })
 }
 
@@ -62,16 +94,17 @@ $(() => {
       <div>
         <button class="submit-btn" id="edit-item-toggle" type="submit">Edit</button>
       </div>
-      <div>
-        <form id="edit-item-form" method="PATCH" action="/items/${num}">
-          <input type="text" name="name" placeholder="New Item Name"></input>
-          <button class="submit-btn" form="edit-item-form" type="submit">Update</button>
-        </form>
-      </div>
 
       <div>
         <form id="delete-item-form" method="DELETE" action="/items/${num}"></form>
           <button class="submit-btn" form="delete-item-form" type="submit">Delete</button>
+        </form>
+      </div>
+
+      <div>
+        <form id="edit-item-form" method="PATCH" action="/items/${num}">
+          <input type="text" name="name" placeholder="New Item Name"></input>
+          <button class="submit-btn" form="edit-item-form" type="submit">Update</button>
         </form>
       </div>
 
@@ -99,6 +132,23 @@ $(() => {
           <form class="" id="change-to-general" method="PATCH" action="/items/${num}"">
             <input type="hidden" name="category_id" value="5"></input>
             <button class="submit-btn" form="change-to-general" type="submit">General</button>
+          </form>
+        </div>
+      </div>
+
+
+      <div class="dropdown mod-dropdown" id="change-priority-form">
+        <button class="submit-btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Set Priority
+        </button>
+        <div class="dropdown-menu mod-dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <form class="" id="change-to-high" method="PATCH" action="/items/${num}"">
+            <input type="hidden" name="category_id" value="true"></input>
+            <button class="submit-btn" form="change-to-high" type="submit">High</button>
+          </form>
+          <form class="" id="change-to-low" method="PATCH" action="/items/${num}"">
+            <input type="hidden" name="category_id" value="false"></input>
+            <button class="submit-btn" form="change-to-low" type="submit">Low</button>
           </form>
         </div>
       </div>
@@ -157,9 +207,7 @@ $(() => {
   $(document).on('submit','#edit-item-form', updateItemNameHandler)
   $(document).on('submit','#delete-item-form', deleteItemHandler)
 
-
-  // change categories depending which drop down is selected and update styling
-
+  // change categories depending which drop down is selected
   $(document).on('submit','#change-to-watch', (e) => {
     newCat = 1;
     updateCategoryHandler(e)
@@ -180,6 +228,17 @@ $(() => {
     newCat = 5;
     updateCategoryHandler(e)
   })
+
+  // change priorities depending on if high or low is selected
+  $(document).on('submit','#change-to-low', (e) => {
+    highPriority = false;
+    changePriorityHandler(e)
+  })
+  $(document).on('submit','#change-to-high', (e) => {
+    highPriority = true;
+    changePriorityHandler(e)
+  })
+
 
 
 

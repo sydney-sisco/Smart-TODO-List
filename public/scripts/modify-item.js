@@ -22,17 +22,22 @@ const updateItemNameHandler = function(e) {
 const changePriorityHandler = function(e) {
   e.preventDefault();
   const data = $(this).serialize();
-  console.log('in this handler')
-  // console.log(data)
   $.ajax({
     method: 'PATCH',
     url: `/items/${num}`,
     data: `priority=${highPriority}`
   })
   .then(data => {
-    if(data.priority){
-      $(`#${itemId} span`).css('color', 'red');
+    const itemHTMLelem = $(`#${itemId}`);
+
+    if(data.priority & !itemHTMLelem.hasClass("priority")){
+      // adds the priority class if priority is set to high and class does not exist already
+      itemHTMLelem.addClass("priority");
+    } else if (!data.priority & itemHTMLelem.hasClass("priority")){
+      console.log('remove priority class')
+      itemHTMLelem.removeClass("priority");
     }
+
     $('#mod-items-wrapper').remove();
     $('.body-container').css('filter','blur(0px)')
   })

@@ -38,7 +38,6 @@ const changePriorityHandler = function(e) {
 
     } else if (!data.priority & itemHTMLelem.hasClass("priority")){
       $(`#${itemId} span`).html(`${data.name}`)
-      console.log('remove priority class')
       itemHTMLelem.removeClass("priority");
       itemHTMLelem.detach().appendTo($(`.id-${data.category_id}>ul`))
     }
@@ -86,11 +85,13 @@ $(() => {
     const categoryId = Number(strSplit);
     itemId = $(this).parent().parent()[0].id;
     num = itemId.split('item-id-')[1];
+    const itemName = $(this).parents('li').text()
+    console.log('in the item details')
 
     $('body').append(`
     <div id="mod-items-wrapper" class="mod-items-wrapper card">
     <div id="modify-item-form" class="card-body">
-      <h3 class="card-title">Item Name</h3>
+      <h3 class="card-title">${itemName}</h3>
       <div>
         <button class="submit-btn" id="edit-item-toggle" type="submit">Edit</button>
       </div>
@@ -171,7 +172,7 @@ $(() => {
           $("#mod-items-wrapper").remove();
           $('.body-container').css('filter','blur(0px)')
       }
-   });
+    });
 
 
     $('#edit-item-form').hide()
@@ -198,6 +199,7 @@ $(() => {
     $('#edit-item-form').slideToggle();
   })
 
+  //edit item name and delete item submit forms
   $(document).on('submit','#edit-item-form', updateItemNameHandler)
   $(document).on('submit','#delete-item-form', deleteItemHandler)
 
@@ -232,9 +234,6 @@ $(() => {
     highPriority = true;
     changePriorityHandler(e)
   })
-
-
-
 
 })
 

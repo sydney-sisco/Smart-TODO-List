@@ -54,6 +54,11 @@ const editItem = function(params) {
     text += `category_id = $${values.length} `;
   }
 
+  if (params.priority) {
+    values.push(params.priority);
+    text += `priority = $${values.length} `;
+  }
+
   values.push(params.userId, params.itemId);
   text += `WHERE user_id = $${values.length - 1} AND id = $${values.length} RETURNING *`;
 

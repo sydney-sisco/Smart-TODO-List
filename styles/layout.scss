@@ -85,20 +85,6 @@ main {
           padding: 3px 15px;
           margin: 0 5px;
 
-          .loader {
-            color: $rightColor;
-            margin-left: 10px;
-            animation: spin 1s linear infinite;
-          }
-
-          @keyframes spin {
-            from {
-                transform:rotate(0deg);
-            }
-            to {
-                transform:rotate(360deg);
-            }
-          }
         }
       }
     }
@@ -323,6 +309,21 @@ main {
         }
       }
     }
+  }
+}
+
+.loader {
+  color: $rightColor;
+  margin-left: 10px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+      transform:rotate(0deg);
+  }
+  to {
+      transform:rotate(360deg);
   }
 }
 

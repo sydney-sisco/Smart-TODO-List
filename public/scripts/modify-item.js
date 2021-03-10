@@ -110,7 +110,6 @@ $(() => {
       </div>
       <hr>
       <div id='extra-details'><i class="loader fas fa-spinner"></i></div>
-
     </div>
   </div>
     `);
@@ -129,6 +128,8 @@ $(() => {
 
     // TODO: add the other functions from the other apis.
     $.get(`/details/${num}`).then(data => {
+      console.log('data returned from server:', data);
+      if (categoryId === 1) watchDetailStructure(data);
       if (categoryId === 3) readDetailStructure(data);
     });
   });
@@ -194,3 +195,24 @@ const readDetailStructure = bookInfo => {
   $('#extra-details').html($readHtml);
   // TODO: add and remove classes here when you get to styling.
 };
+
+const watchDetailStructure = itemInfo => {
+  // remove spinner from details area
+  $('#extra-details').empty();
+
+  // add class for correct styling
+  $('#extra-details').addClass('watch');
+
+  // build html for details
+  let watchHTML = '';
+  watchHTML += `<a href="${itemInfo.url}" target="_blank" ><img src="${itemInfo.thumbnail}"/></a>`;
+  watchHTML += `<div id="details">`;
+  watchHTML += `<p>${itemInfo.title}</p>`;
+  watchHTML += `<p>${itemInfo.year}</p>`;
+  watchHTML += `<p>${itemInfo.rating}/10⭐️</p>`;
+  if (itemInfo.url) watchHTML += `<a href="${itemInfo.url}" target="_blank" >More details...</a>`;
+  watchHTML += `</div>`;
+
+  // add html to container div
+  $('#extra-details').html(watchHTML);
+}

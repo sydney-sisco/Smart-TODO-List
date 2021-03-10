@@ -11,6 +11,23 @@
   transform: translate(-50%, -50%);
   border-radius: 15px;
   border: 1px solid $rightColor;
+
+  .watch {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    img {
+      width: 10rem;
+    }
+
+    #details {
+      display: flex;
+      flex-direction: column;
+      // justify-content: flex-start;
+      text-align: left;
+    }
+  }
 }
 
 

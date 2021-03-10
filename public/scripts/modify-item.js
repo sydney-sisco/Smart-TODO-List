@@ -60,11 +60,7 @@ const updateCategoryHandler = function(e) {
     $('.body-container').css('filter','blur(0px)')
     const $itemToMove = $(`#${itemId}`)
     $itemToMove.detach()
-
     addAfterPriority(data.category_id, $itemToMove)
-
-
-    // .prependTo($(`.id-${data.category_id}>ul`))
   })
 }
 

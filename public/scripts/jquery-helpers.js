@@ -13,4 +13,4 @@ const addAfterPriority = function(categoryId, $newItem){
      //appends new item after the last priority item
      listNode.after($newItem);
    }
- }
+}

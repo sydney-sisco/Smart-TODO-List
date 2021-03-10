@@ -86,7 +86,6 @@ $(() => {
     itemId = $(this).parent().parent()[0].id;
     num = itemId.split('item-id-')[1];
     const itemName = $(this).parents('li').text()
-    console.log('in the item details')
 
     $('body').append(`
     <div id="mod-items-wrapper" class="mod-items-wrapper card">

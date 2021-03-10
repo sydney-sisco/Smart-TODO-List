@@ -65,10 +65,13 @@ const deleteItemHandler = function(e) {
 }
 
 $(() => {
-
   $(document).on('click','.details-btn',function(e) {
-    itemId = $(this).parent().parent()[0].id
-    num = itemId.split('item-id-')[1]
+    const $parentCard = $(this).parents('.list-card');
+    const classesStr = $parentCard.attr('class');
+    const strSplit = classesStr.split('list-card id-')[1];
+    const categoryId = Number(strSplit);
+    itemId = $(this).parent().parent()[0].id;
+    num = itemId.split('item-id-')[1];
 
     $('body').append(`
     <div class="mod-items-wrapper card">
@@ -124,7 +127,7 @@ $(() => {
         </form>
       </div>
       <hr>
-      <p> Placeholder for details</p>
+      <div id='extra-details'><i class="loader fas fa-spinner"></i></div>
 
     </div>
   </div>
@@ -141,6 +144,11 @@ $(() => {
       $('.mod-items-wrapper').remove();
       $('.body-container').css('filter','blur(0px)')
     })
+
+    // TODO: add the other functions from the other apis.
+    $.get(`/details/${num}`).then(data => {
+      if (categoryId === 3) readDetailStructure(data);
+    });
   });
 
   // Cancelling as normal will exit too
@@ -187,3 +195,19 @@ $(() => {
 
 
 })
+
+const readDetailStructure = bookInfo => {
+  const authorStr = bookInfo.authors.join(", ");
+  const categoriesStr = bookInfo.categories.join(", ");
+  let $readHtml = '';
+
+  if (bookInfo.title) $readHtml += `<p>Title: ${bookInfo.title}</p>`;
+  if (bookInfo.subtitle) $readHtml += `<p>Subtitle: ${bookInfo.subtitle}</p>`;
+  if (bookInfo.authors) $readHtml += `<p>Authors: ${authorStr}</p>`;
+  if (bookInfo.categories) $readHtml += `<p>Categories: ${categoriesStr}</p>`;
+  if (bookInfo.link) $readHtml += `<p>Link: <a target="_blank" href='${bookInfo.link}'>Click to preview</a></p>`;
+  if (bookInfo.thumbnail) $readHtml += `<img src="${bookInfo.thumbnail}">`;
+
+  $('#extra-details').html($readHtml);
+  // TODO: add and remove classes here when you get to styling.
+};

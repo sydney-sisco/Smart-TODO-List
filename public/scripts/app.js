@@ -64,7 +64,6 @@ const loadItems = () => {
           <span>${itemPriorityDiv}${item.name}</span>
           <div class="details-btn-circle"><button class="details-btn fas fa-ellipsis-h"></button></div>
         </li>`);
-
         $doneItem.prependTo($(`.id-${item.category_id} .done-list`));
       } else {
         const $newItem = $(`
@@ -74,7 +73,8 @@ const loadItems = () => {
           <div class="details-btn-container"><button class="details-btn fas fa-ellipsis-h"></button></div>
         </li>`);
 
-        $newItem.prependTo($(`.id-${item.category_id} .todo-list`));
+        addAfterPriority(item.category_id, $newItem)
+        // $newItem.prependTo($(`.id-${item.category_id} .todo-list`));
       }
     }
     $('.complete-btn').on('click', completedToggle);
@@ -175,19 +175,7 @@ const formSubmissionHandler = function(event) {
 
     $pendingNewItem.remove();
 
-    const categoriesChildren = $(`.id-${data.category_id} .todo-list`).children()
-
-    if (!categoriesChildren.length){
-      $itemToList.prependTo($(`.id-${data.category_id} .todo-list`)); // if the list is empty, prepend normally
-    } else {
-      let listNode = $(categoriesChildren[0]); //gets the first child
-      //continues traversing through all children until there is no priority class
-      while (listNode.next().hasClass("priority")) {
-        listNode = $(listNode.next());
-      }
-      //appends after the last priority item
-      listNode.after($itemToList);
-    }
+    addAfterPriority(data.category_id, $itemToList)
 
     // Prepend to beginning; uncomment if this priority thing is no good
     // $itemToList.prependTo($(`.id-${data.category_id} .todo-list`));
@@ -244,3 +232,35 @@ const showList = (listID) => {
     }
   }
 };
+
+// const getLastPriority = function(categoryId) {
+//   const categoriesChildren = $(`.id-${categoryId} .todo-list`).children()
+
+//   if(!categoriesChildren.length){
+//     return;
+//   }
+
+//   //continues traversing through all children until there is no priority class
+//   while (listNode.next().hasClass("priority")) {
+//     listNode = $(listNode.next());
+//   }
+
+//   return listNode;
+// }
+
+const addAfterPriority = function(categoryId, $newItem){
+ debugger;
+  const categoriesChildren = $(`.id-${categoryId} .todo-list`).children()
+
+  if (!categoriesChildren.length || $newItem.hasClass("priority")){
+    $newItem.prependTo($(`.id-${categoryId} .todo-list`)); // if the list is empty, prepend normally
+  } else {
+    let listNode = $(categoriesChildren[0]); //gets the first child
+    //continues traversing through all children until there is no priority class
+    while (listNode.next().hasClass("priority")) {
+      listNode = $(listNode.next());
+    }
+    //appends new item after the last priority item
+    listNode.after($newItem);
+  }
+}

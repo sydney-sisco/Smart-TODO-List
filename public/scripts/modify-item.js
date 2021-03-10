@@ -210,11 +210,12 @@ const eatDetailStructure = itemInfo => {
   $('#extra-details').empty();
 
   // add class for correct styling
-  // TODO: add this class?
-  $('#extra-details').addClass('eat');
+  $('#extra-details').addClass('watch');
 
   // build html for details
   let eatHTML = '';
+  eatHTML += `<a href="${itemInfo.url}" target="_blank" ><img src="${itemInfo.thumbnail}"/></a>`;
+  eatHTML += `<div id="details">`;
   eatHTML += `<p>${itemInfo.name}</p>`;
   eatHTML += `<p>${itemInfo.rating}/5⭐️</p>`;
   eatHTML += `<p>Distance: ${Math.round(num * 10) / 100} km</p>`;

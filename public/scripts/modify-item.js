@@ -58,7 +58,13 @@ const updateCategoryHandler = function(e) {
   .then(data => {
     $('#mod-items-wrapper').remove();
     $('.body-container').css('filter','blur(0px)')
-    $(`#${itemId}`).detach().prependTo($(`.id-${data.category_id}>ul`))
+    const $itemToMove = $(`#${itemId}`)
+    $itemToMove.detach()
+
+    addAfterPriority(data.category_id, $itemToMove)
+
+
+    // .prependTo($(`.id-${data.category_id}>ul`))
   })
 }
 

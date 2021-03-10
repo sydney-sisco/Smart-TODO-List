@@ -109,7 +109,8 @@ $(() => {
         </form>
       </div>
       <hr>
-      <div id='extra-details'><i class="loader fas fa-spinner"></i></div>
+      <div id='extra-details'>Retrieving more details<i class="loader fas fa-spinner"></i></div>
+
     </div>
   </div>
     `);
@@ -131,6 +132,10 @@ $(() => {
       console.log('data returned from server:', data);
       if (categoryId === 1) watchDetailStructure(data);
       if (categoryId === 3) readDetailStructure(data);
+      if (categoryId === 5) generalDetailStructure(data);
+    }).catch(err => {
+      const $failHtml = `<p>Could not retrieve relevant details!</p>`;
+      $('#extra-details').html($failHtml);
     });
   });
 
@@ -215,4 +220,8 @@ const watchDetailStructure = itemInfo => {
 
   // add html to container div
   $('#extra-details').html(watchHTML);
-}
+};
+
+const generalDetailStructure = () => {
+  const $generalHtml = `<p>Could not retrieve relevant details!</p>`
+};

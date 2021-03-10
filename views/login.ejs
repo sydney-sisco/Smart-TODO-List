@@ -17,22 +17,24 @@
   </head>
 
   <body>
-    <%- include('partials/_header') %>
-    <div class="credential-card">
-      <header>
-        <h2>Sign in</h2>
-        <p>Welcome to <span>NotSoSmart</span></p>
-      </header>
-      <form action="/users/login" method="POST">
-        <div class='credential-input'>
-          <label for="loginEmail">Email:</label>
-          <input type="email" name="loginEmail" id="loginEmail">
-          <label for="loginPassword">Password:</label>
-          <input type="password" name="loginPassword" id="loginPassword">
-        </div>
-        <button type="submit">Sign in</button>
-      </form>
+    <div class='body-container'>
+      <%- include('partials/_header') %>
+      <div class="credential-card">
+        <header>
+          <h2>Sign in</h2>
+          <p>Welcome to <span>NotSoSmart</span></p>
+        </header>
+        <form action="/users/login" method="POST">
+          <div class='credential-input'>
+            <label for="loginEmail">Email:</label>
+            <input type="email" name="loginEmail" id="loginEmail">
+            <label for="loginPassword">Password:</label>
+            <input type="password" name="loginPassword" id="loginPassword">
+          </div>
+          <button type="submit">Sign in</button>
+        </form>
+      </div>
+      <%- include('partials/_footer') %>
     </div>
-    <%- include('partials/_footer') %>
   </body>
 </html>

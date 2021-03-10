@@ -12,265 +12,195 @@ body {
   background-image: linear-gradient(135deg, $leftColor, $rightColor);
   font-family: 'Rubik', sans-serif;
   color: $textColor;
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  height: 100%;
 }
 
+ul::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
 
-main {
-  height: 100%;
+ul::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+ul::-webkit-scrollbar-thumb {
+  background: lighten($textColorAlt, 40%);
+  border-radius: 100px;
+}
+
+.loader {
+  color: $rightColor;
+  margin-left: 10px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+      transform:rotate(0deg);
+  }
+  to {
+      transform:rotate(360deg);
+  }
+}
+
+.body-container {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  height: 100%;
+  height: 100vh;
+  position: relative;
 
-  form.list-switcher {
-    display: none;
-  }
-
-  header {
+  main {
+    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-bottom: 88px;
+    // padding-bottom: 88px;
 
-    h2 {
-      font-size: 2rem;
-      padding: 5px;
-      color: $textColor;
-    }
-
-    .error {
-      background: $errorTextColor;
-      border-radius: 5px;
-    }
-
-    form.item {
-      display: flex;
-      align-items: center;
-
-      span {
-        font-size: 1.2rem;
-        padding: 0;
-        margin: 0;
-        margin-left: 1rem;
-        background: none;
-      }
-
-      .empty-cont {
-        padding: 0 18px;
-      }
-    }
-
-    .pending {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 50px;
-      font-size: 1.2rem;
-
-      ul {
-        display: flex;
-        list-style: none;
-        padding: 0;
-        margin: 0;
-
-        li {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          border-radius: 100px;
-          color: $textColorAlt;
-          background: $cardColor;
-          padding: 3px 15px;
-          margin: 0 5px;
-
-        }
-      }
-    }
-
-    #input-counter {
-      width: 35px;
-    }
-
-    .form-group {
-      display: flex;
-      justify-content: center;
-      background: $cardColor;
-      border-radius: 5px;
-
-      input, button {
-        font-size: 1.5rem;
-        border: none;
-      }
-
-      input:focus {
-        background: $cardColor;
-        color: $textColorAlt;
-        box-shadow: none;
-      }
-
-      button {
-        color: $rightColor;
-        background: $cardColor;
-        border-radius: 0 5px 5px 0;
-      }
-
-      button:hover {
-        color: $textColor;
-        background: $rightColor;
-      }
-
-      button:focus {
-        box-shadow: none;
-        background: $cardColor;
-        color: $rightColor;
-      }
-    }
-  }
-
-  .lists-container {
-    height: 100%;
-    width: 100%;
-    display: flex;
-    justify-content: space-evenly;
-    color: $textColorAlt;
-
-    .list-card {
-      width: 18.5%;
-      max-height: 670px;
-      background: $cardColor;
-      border-radius: 15px;
+    form.list-switcher {
       display: none;
+    }
+
+    header {
+      display: flex;
       flex-direction: column;
       align-items: center;
 
-      h3 {
-        font-size: 2.5rem;
-        text-align: center;
-        color: $rightColor;
-        width: 100%;
-        border-bottom: 1px solid lighten($textColorAlt, 40%);
-        padding: 10px 0;
-        margin: 0;
+      h2 {
+        font-size: 2rem;
+        padding: 5px;
+        color: $textColor;
       }
 
-      ul::-webkit-scrollbar {
-        width: 6px;
-        height: 6px;
+      .error {
+        background: $errorTextColor;
+        border-radius: 5px;
       }
 
-      ul::-webkit-scrollbar-track {
-        background: transparent;
-      }
-
-      ul::-webkit-scrollbar-thumb {
-        background: lighten($textColorAlt, 40%);
-        border-radius: 100px;
-      }
-
-      .todo-list {
-        font-size: 1.3rem;
-        list-style: none;
-        padding: 0;
-        margin-bottom: 0;
-        width: 100%;
-        height: 79%;
-        overflow-x: hidden;
-        overflow-y: scroll;
+      form.item {
         display: flex;
+        align-items: center;
+
+        span {
+          font-size: 1.2rem;
+          padding: 0;
+          margin: 0;
+          margin-left: 1rem;
+          background: none;
+        }
+
+        .empty-cont {
+          padding: 0 18px;
+        }
+      }
+
+      .pending {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 50px;
+        font-size: 1.2rem;
+
+        ul {
+          display: flex;
+          list-style: none;
+          padding: 0;
+          margin: 0;
+
+          li {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 100px;
+            color: $textColorAlt;
+            background: $cardColor;
+            padding: 3px 15px;
+            margin: 0 5px;
+          }
+        }
+      }
+
+      #input-counter {
+        width: 35px;
+      }
+
+      .form-group {
+        display: flex;
+        justify-content: center;
+        background: $cardColor;
+        border-radius: 5px;
+
+        input, button {
+          font-size: 1.5rem;
+          border: none;
+        }
+
+        input:focus {
+          background: $cardColor;
+          color: $textColorAlt;
+          box-shadow: none;
+        }
+
+        button {
+          color: $rightColor;
+          background: $cardColor;
+          border-radius: 0 5px 5px 0;
+        }
+
+        button:hover {
+          color: $textColor;
+          background: $rightColor;
+        }
+
+        button:focus {
+          box-shadow: none;
+          background: $cardColor;
+          color: $rightColor;
+        }
+      }
+    }
+
+    .lists-container {
+      height: 100%;
+      width: 100%;
+      display: flex;
+      justify-content: space-evenly;
+      color: $textColorAlt;
+
+      .list-card {
+        justify-self: stretch;
+        width: 18.5%;
+        max-height: 60vh;
+        background: $cardColor;
+        border-radius: 15px;
+        display: none;
         flex-direction: column;
         align-items: center;
 
-
-        li {
-          margin-left: 6px;
-          width: 92%;
-          padding: 10px 0;
-          display: flex;
-          justify-content: space-between;
-          border-bottom: 1px solid lighten($textColorAlt, 40%);
-
-          span {
-            padding: 0 10px;
-          }
-
-          button {
-            color: lighten($textColorAlt, 20%);
-            outline: none;
-            background: $cardColor;
-            border: none;
-            padding: 0;
-          }
-        }
-      }
-
-      .completed {
-        .complete-btn {
+        h3 {
+          font-size: 2.5rem;
+          text-align: center;
           color: $rightColor;
-        }
-
-        span {
-          text-decoration: line-through;
-        }
-      }
-
-      .completed-list {
-        width: 100%;
-        overflow-y: hidden;
-
-        .open-border {
-          border-top: none;
+          width: 100%;
           border-bottom: 1px solid lighten($textColorAlt, 40%);
-        }
-
-        .completed-title {
-          display: flex;
-          justify-content: center;
-          align-items: center;
+          padding: 10px 0;
           margin: 0;
-          padding: 10px;
-          border-top: 1px solid lighten($textColorAlt, 40%);
-
-          .rotate {
-            transition: all 0.4s;
-            transform: rotate(180deg);
-          }
-
-          .empty-cont2 {
-            padding: 0 17px;
-          }
-
-          h3 {
-            color: $textColorAlt;
-            margin: 0;
-            padding: 0;
-            width: 83%;
-            border: none;
-          }
-
-          i {
-            font-size: 1.8rem;
-            color: $rightColor;
-            justify-self: flex-end;
-          }
         }
 
-        .completed-title:hover {
-          cursor: pointer;
-        }
-
-        .done-list {
+        .todo-list {
+          font-size: 1.3rem;
+          list-style: none;
           padding: 0;
-          height: 88%;
-          overflow-y: scroll;
+          margin-bottom: 0;
+          width: 100%;
+          height: 79%;
           overflow-x: hidden;
+          overflow-y: scroll;
           display: flex;
           flex-direction: column;
           align-items: center;
-          font-size: 1.3rem;
-          list-style: none;
-          width: 100%;
+
 
           li {
             margin-left: 6px;
@@ -294,39 +224,99 @@ main {
           }
         }
 
-        ul::-webkit-scrollbar {
-          width: 6px;
-          height: 6px;
+        .completed {
+          .complete-btn {
+            color: $rightColor;
+          }
+
+          span {
+            text-decoration: line-through;
+          }
         }
 
-        ul::-webkit-scrollbar-track {
-          background: transparent;
-        }
+        .completed-list {
+          width: 100%;
+          overflow-y: hidden;
 
-        ul::-webkit-scrollbar-thumb {
-          background: lighten($textColorAlt, 40%);
-          border-radius: 100px;
+          .open-border {
+            border-top: none;
+            border-bottom: 1px solid lighten($textColorAlt, 40%);
+          }
+
+          .completed-title {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            padding: 10px;
+            border-top: 1px solid lighten($textColorAlt, 40%);
+
+            .rotate {
+              transition: all 0.4s;
+              transform: rotate(180deg);
+            }
+
+            .empty-cont2 {
+              padding: 0 17px;
+            }
+
+            h3 {
+              color: $textColorAlt;
+              margin: 0;
+              padding: 0;
+              width: 83%;
+              border: none;
+            }
+
+            i {
+              font-size: 1.8rem;
+              color: $rightColor;
+              justify-self: flex-end;
+            }
+          }
+
+          .completed-title:hover {
+            cursor: pointer;
+          }
+
+          .done-list {
+            padding: 0;
+            height: 88%;
+            overflow-y: scroll;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 1.3rem;
+            list-style: none;
+            width: 100%;
+
+            li {
+              margin-left: 6px;
+              width: 92%;
+              padding: 10px 0;
+              display: flex;
+              justify-content: space-between;
+              border-bottom: 1px solid lighten($textColorAlt, 40%);
+
+              span {
+                padding: 0 10px;
+              }
+
+              button {
+                color: lighten($textColorAlt, 20%);
+                outline: none;
+                background: $cardColor;
+                border: none;
+                padding: 0;
+              }
+            }
+          }
         }
       }
     }
   }
 }
-
-.loader {
-  color: $rightColor;
-  margin-left: 10px;
-  animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  from {
-      transform:rotate(0deg);
-  }
-  to {
-      transform:rotate(360deg);
-  }
-}
-
 
  /* Desktop styles */
 @media only screen and (max-width: 1024px) {
@@ -341,5 +331,11 @@ main {
         width: 75%;
       }
     }
+  }
+}
+
+@media only screen and (max-height: 875px) {
+  .main-footer {
+    display: none;
   }
 }

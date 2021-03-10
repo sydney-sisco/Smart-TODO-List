@@ -15,7 +15,6 @@ const updateItemNameHandler = function(e) {
     $(`#${itemId} span`).html(`${data.priority? `<span class="fas fa-exclamation"></span>${data.name}`: data.name}`)
     $('#mod-items-wrapper').remove();
     $('.body-container').css('filter','blur(0px)')
-    console.log(data)
   })
 }
 
@@ -38,7 +37,6 @@ const changePriorityHandler = function(e) {
 
     } else if (!data.priority & itemHTMLelem.hasClass("priority")){
       $(`#${itemId} span`).html(`${data.name}`)
-      console.log('remove priority class')
       itemHTMLelem.removeClass("priority");
       itemHTMLelem.detach().appendTo($(`.id-${data.category_id}>ul`))
     }
@@ -86,25 +84,26 @@ $(() => {
     const categoryId = Number(strSplit);
     itemId = $(this).parent().parent()[0].id;
     num = itemId.split('item-id-')[1];
+    const itemName = $(this).parents('li').text()
 
     $('body').append(`
     <div id="mod-items-wrapper" class="mod-items-wrapper card">
     <div id="modify-item-form" class="card-body">
-      <h3 class="card-title">Item Name</h3>
+      <h3 class="card-title">${itemName}</h3>
       <div>
         <button class="submit-btn" id="edit-item-toggle" type="submit">Edit</button>
-      </div>
-
-      <div>
-        <form id="delete-item-form" method="DELETE" action="/items/${num}"></form>
-          <button class="submit-btn" form="delete-item-form" type="submit">Delete</button>
-        </form>
       </div>
 
       <div>
         <form id="edit-item-form" method="PATCH" action="/items/${num}">
           <input type="text" name="name" placeholder="New Item Name"></input>
           <button class="submit-btn" form="edit-item-form" type="submit">Update</button>
+        </form>
+      </div>
+
+      <div>
+        <form id="delete-item-form" method="DELETE" action="/items/${num}"></form>
+          <button class="submit-btn" form="delete-item-form" type="submit">Delete</button>
         </form>
       </div>
 
@@ -171,7 +170,7 @@ $(() => {
           $("#mod-items-wrapper").remove();
           $('.body-container').css('filter','blur(0px)')
       }
-   });
+    });
 
 
     $('#edit-item-form').hide()
@@ -204,6 +203,7 @@ $(() => {
     $('#edit-item-form').slideToggle();
   })
 
+  //edit item name and delete item submit forms
   $(document).on('submit','#edit-item-form', updateItemNameHandler)
   $(document).on('submit','#delete-item-form', deleteItemHandler)
 
@@ -238,9 +238,6 @@ $(() => {
     highPriority = true;
     changePriorityHandler(e)
   })
-
-
-
 
 })
 

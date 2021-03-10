@@ -174,7 +174,23 @@ const formSubmissionHandler = function(event) {
       </li>`);
 
     $pendingNewItem.remove();
-    $itemToList.prependTo($(`.id-${data.category_id} .todo-list`));
+
+    const categoriesChildren = $(`.id-${data.category_id} .todo-list`).children()
+
+    if (!categoriesChildren.length){
+      $itemToList.prependTo($(`.id-${data.category_id} .todo-list`)); // if the list is empty, prepend normally
+    } else {
+      let listNode = $(categoriesChildren[0]); //gets the first child
+      //continues traversing through all children until there is no priority class
+      while (listNode.next().hasClass("priority")) {
+        listNode = $(listNode.next());
+      }
+      //appends after the last priority item
+      listNode.after($itemToList);
+    }
+
+    // Prepend to beginning; uncomment if this priority thing is no good
+    // $itemToList.prependTo($(`.id-${data.category_id} .todo-list`));
 
     // complete btn listener for finished
     $('.complete-btn').on('click', completedToggle);

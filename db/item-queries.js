@@ -73,8 +73,6 @@ const deleteItem = function(userId, itemId) {
   WHERE user_id = $1 AND id = $2 RETURNING *`;
   const values = [userId, itemId];
 
-  console.log(text)
-  console.log(values)
   return db.query(text, values)
     .then(data => 'Deleted')
     .catch(err => console.error(this, 'query failed', err.stack));

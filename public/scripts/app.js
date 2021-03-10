@@ -1,3 +1,6 @@
+let itemPriorityClass = ''
+let itemPriorityDiv = '';
+
 $(() => {
   // call the resize handler when the page loads to draw the correct lists
   resizeHandler();
@@ -45,23 +48,33 @@ const loadItems = () => {
   $.get('/items/')
   .then((items) => {
     for (const item of items) {
+
+      if(item.priority){
+        itemPriorityClass = "priority"
+        itemPriorityDiv = '<span class="fas fa-exclamation"></span>'
+      } else {
+        itemPriorityClass = ""
+        itemPriorityDiv = ""
+      }
+
       if (item.done) {
         const $doneItem = $(`
-        <li id="item-id-${item.id}" class='completed'>
+        <li class="${itemPriorityClass}" id="item-id-${item.id}" class='completed'>
           <button><i class="complete-btn fas fa-circle"></i></button>
-          <span>${item.name}</span>
+          <span>${itemPriorityDiv}${item.name}</span>
           <div class="details-btn-circle"><button class="details-btn fas fa-ellipsis-h"></button></div>
-          </li>`);
-
+        </li>`);
         $doneItem.prependTo($(`.id-${item.category_id} .done-list`));
       } else {
         const $newItem = $(`
-        <li id="item-id-${item.id}"><button>
-          <i class="complete-btn far fa-circle"></i></button><span>${item.name}</span>
+        <li class="${itemPriorityClass}" id="item-id-${item.id}"><button>
+          <i class="complete-btn far fa-circle"></i></button>
+          <span>${itemPriorityDiv}${item.name}</span>
           <div class="details-btn-container"><button class="details-btn fas fa-ellipsis-h"></button></div>
         </li>`);
 
-        $newItem.prependTo($(`.id-${item.category_id} .todo-list`));
+        addAfterPriority(item.category_id, $newItem)
+        // $newItem.prependTo($(`.id-${item.category_id} .todo-list`));
       }
     }
     $('.complete-btn').on('click', completedToggle);
@@ -144,15 +157,28 @@ const formSubmissionHandler = function(event) {
   // POST the item to the server using AJAX
   $.post('/items/', $(this).serialize())
   .then(function(data){
+
+    if(data.priority){
+      itemPriorityClass = "priority"
+      itemPriorityDiv = '<span class="fas fa-exclamation"></span>'
+    } else {
+      itemPriorityClass = ""
+      itemPriorityDiv = ""
+    }
+
     const $itemToList = $(`
-      <li id="item-id-${data.id}">
+      <li class="${itemPriorityClass}" id="item-id-${data.id}">
         <button><i class="complete-btn far fa-circle"></i></button>
-        <span>${data.name}</span>
+        <span>${itemPriorityDiv}${data.name}</span>
         <div class="details-btn-container"><button class="details-btn fas fa-ellipsis-h"></button></div>
       </li>`);
 
     $pendingNewItem.remove();
-    $itemToList.prependTo($(`.id-${data.category_id} .todo-list`));
+
+    addAfterPriority(data.category_id, $itemToList)
+
+    // Prepend to beginning; uncomment if this priority thing is no good
+    // $itemToList.prependTo($(`.id-${data.category_id} .todo-list`));
 
     // complete btn listener for finished
     $('.complete-btn').on('click', completedToggle);

@@ -3,7 +3,8 @@ const db = require('../lib/db.js');
 const getUsersItems = function(userId) {
   const text = `
   SELECT * FROM items
-  WHERE user_id = $1`;
+  WHERE user_id = $1
+  ORDER BY priority`;
   const values = [userId];
 
   return db.query(text, values)
@@ -54,6 +55,11 @@ const editItem = function(params) {
     text += `category_id = $${values.length} `;
   }
 
+  if (params.priority) {
+    values.push(params.priority);
+    text += `priority = $${values.length} `;
+  }
+
   values.push(params.userId, params.itemId);
   text += `WHERE user_id = $${values.length - 1} AND id = $${values.length} RETURNING *`;
 
@@ -68,8 +74,6 @@ const deleteItem = function(userId, itemId) {
   WHERE user_id = $1 AND id = $2 RETURNING *`;
   const values = [userId, itemId];
 
-  console.log(text)
-  console.log(values)
   return db.query(text, values)
     .then(data => 'Deleted')
     .catch(err => console.error(this, 'query failed', err.stack));

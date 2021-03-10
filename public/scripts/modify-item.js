@@ -1,6 +1,7 @@
 let itemId = null;
 let num = null;
 let newCat = null;
+let highPriority = false;
 
 const updateItemNameHandler = function(e) {
   e.preventDefault();
@@ -11,10 +12,37 @@ const updateItemNameHandler = function(e) {
     data
   })
   .then(data => {
-    $(`#${itemId} span`).text(`${data.name}`)
+    $(`#${itemId} span`).html(`${data.priority? `<span class="fas fa-exclamation"></span>${data.name}`: data.name}`)
     $('#mod-items-wrapper').remove();
     $('.body-container').css('filter','blur(0px)')
-    console.log(data)
+  })
+}
+
+const changePriorityHandler = function(e) {
+  e.preventDefault();
+  const data = $(this).serialize();
+  $.ajax({
+    method: 'PATCH',
+    url: `/items/${num}`,
+    data: `priority=${highPriority}`
+  })
+  .then(data => {
+    const itemHTMLelem = $(`#${itemId}`);
+
+    if(data.priority & !itemHTMLelem.hasClass("priority")){
+      // adds the priority class if priority is set to high and class does not exist already
+      $(`#${itemId} span`).html(`<span class="fas fa-exclamation"></span>${data.name}`)
+      itemHTMLelem.addClass("priority");
+      itemHTMLelem.detach().prependTo($(`.id-${data.category_id}>ul`))
+
+    } else if (!data.priority & itemHTMLelem.hasClass("priority")){
+      $(`#${itemId} span`).html(`${data.name}`)
+      itemHTMLelem.removeClass("priority");
+      itemHTMLelem.detach().appendTo($(`.id-${data.category_id}>ul`))
+    }
+
+    $('#mod-items-wrapper').remove();
+    $('.body-container').css('filter','blur(0px)')
   })
 }
 
@@ -28,7 +56,9 @@ const updateCategoryHandler = function(e) {
   .then(data => {
     $('#mod-items-wrapper').remove();
     $('.body-container').css('filter','blur(0px)')
-    $(`#${itemId}`).detach().prependTo($(`.id-${data.category_id}>ul`))
+    const $itemToMove = $(`#${itemId}`)
+    $itemToMove.detach()
+    addAfterPriority(data.category_id, $itemToMove)
   })
 }
 
@@ -54,14 +84,16 @@ $(() => {
     const categoryId = Number(strSplit);
     itemId = $(this).parent().parent()[0].id;
     num = itemId.split('item-id-')[1];
+    const itemName = $(this).parents('li').text()
 
     $('body').append(`
     <div id="mod-items-wrapper" class="mod-items-wrapper card">
     <div id="modify-item-form" class="card-body">
-      <h3 class="card-title">Item Name</h3>
+      <h3 class="card-title">${itemName}</h3>
       <div>
         <button class="submit-btn" id="edit-item-toggle" type="submit">Edit</button>
       </div>
+
       <div>
         <form id="edit-item-form" method="PATCH" action="/items/${num}">
           <input type="text" name="name" placeholder="New Item Name"></input>
@@ -103,6 +135,23 @@ $(() => {
         </div>
       </div>
 
+
+      <div class="dropdown mod-dropdown" id="change-priority-form">
+        <button class="submit-btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Set Priority
+        </button>
+        <div class="dropdown-menu mod-dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <form class="" id="change-to-high" method="PATCH" action="/items/${num}"">
+            <input type="hidden" name="category_id" value="true"></input>
+            <button class="submit-btn" form="change-to-high" type="submit">High</button>
+          </form>
+          <form class="" id="change-to-low" method="PATCH" action="/items/${num}"">
+            <input type="hidden" name="category_id" value="false"></input>
+            <button class="submit-btn" form="change-to-low" type="submit">Low</button>
+          </form>
+        </div>
+      </div>
+
       <div>
         <form id="cancel-modify">
           <button type="submit" form="cancel-modify" class="cancel-btn far fa-window-close"></button>
@@ -121,19 +170,25 @@ $(() => {
           $("#mod-items-wrapper").remove();
           $('.body-container').css('filter','blur(0px)')
       }
-   });
+    });
 
 
     $('#edit-item-form').hide()
     $('.body-container').css('filter','blur(1rem)')
 
     // TODO: add the other functions from the other apis.
-    $.get(`/details/${num}`).then(data => {
+    $.ajax({
+      url: `/details/${num}`,
+      timeout: 3000 // in milliseconds
+    }).then(data => {
+      console.log('data returned from server:', data);
       if (categoryId === 1) watchDetailStructure(data);
+      if (categoryId === 2) eatDetailStructure(data);
       if (categoryId === 3) readDetailStructure(data);
       if (categoryId === 4) buyDetailStructure(data);
       if (categoryId === 5) generalDetailStructure(data);
     }).catch(err => {
+      console.log('catch:',err);
       const $failHtml = `<p>Could not retrieve relevant details!</p>`;
       $('#extra-details').html($failHtml);
       console.log('GET error for extra details', err);
@@ -155,12 +210,11 @@ $(() => {
     $('#edit-item-form').slideToggle();
   })
 
+  //edit item name and delete item submit forms
   $(document).on('submit','#edit-item-form', updateItemNameHandler)
   $(document).on('submit','#delete-item-form', deleteItemHandler)
 
-
-  // change categories depending which drop down is selected and update styling
-
+  // change categories depending which drop down is selected
   $(document).on('submit','#change-to-watch', (e) => {
     newCat = 1;
     updateCategoryHandler(e)
@@ -182,7 +236,15 @@ $(() => {
     updateCategoryHandler(e)
   })
 
-
+  // change priorities depending on if high or low is selected
+  $(document).on('submit','#change-to-low', (e) => {
+    highPriority = false;
+    changePriorityHandler(e)
+  })
+  $(document).on('submit','#change-to-high', (e) => {
+    highPriority = true;
+    changePriorityHandler(e)
+  })
 
 })
 
@@ -201,6 +263,27 @@ const readDetailStructure = bookInfo => {
   $('#extra-details').html($buyHtml);
 };
 
+const eatDetailStructure = itemInfo => {
+  // remove spinner from details area
+  $('#extra-details').empty();
+
+  // add class for correct styling
+  $('#extra-details').addClass('watch');
+
+  // build html for details
+  let eatHTML = '';
+  eatHTML += `<a href="${itemInfo.url}" target="_blank" ><img src="${itemInfo.thumbnail}"/></a>`;
+  eatHTML += `<div id="details">`;
+  eatHTML += `<p>${itemInfo.name}</p>`;
+  eatHTML += `<p>${itemInfo.rating}/5⭐️</p>`;
+  eatHTML += `<p>Distance: ${Math.round(num * 10) / 100} km</p>`;
+  if (itemInfo.url) eatHTML += `<a href="${itemInfo.url}" target="_blank" >More details...</a>`;
+  eatHTML += `</div>`;
+
+  // add html to container div
+  $('#extra-details').html(eatHTML);
+};
+
 const watchDetailStructure = itemInfo => {
   // remove spinner from details area
   $('#extra-details').empty();
@@ -210,11 +293,11 @@ const watchDetailStructure = itemInfo => {
 
   // build html for details
   let watchHTML = '';
-  watchHTML += `<a href="${itemInfo.url}" target="_blank" ><img src="${itemInfo.thumbnail}"/></a>`;
+  if(itemInfo.thumbnail) watchHTML += `<a href="${itemInfo.url}" target="_blank" ><img src="${itemInfo.thumbnail}"/></a>`;
   watchHTML += `<div id="details">`;
   watchHTML += `<p>${itemInfo.title}</p>`;
-  watchHTML += `<p>${itemInfo.year}</p>`;
-  watchHTML += `<p>${itemInfo.rating}/10⭐️</p>`;
+  if(itemInfo.year) watchHTML += `<p>${itemInfo.year}</p>`;
+  if(itemInfo.rating) watchHTML += `<p>${itemInfo.rating}/10⭐️</p>`;
   if (itemInfo.url) watchHTML += `<a href="${itemInfo.url}" target="_blank" >More details...</a>`;
   watchHTML += `</div>`;
 

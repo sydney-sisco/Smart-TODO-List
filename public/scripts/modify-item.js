@@ -177,7 +177,10 @@ $(() => {
     $('.body-container').css('filter','blur(1rem)')
 
     // TODO: add the other functions from the other apis.
-    $.get(`/details/${num}`).then(data => {
+    $.ajax({
+      url: `/details/${num}`,
+      timeout: 3000 // in milliseconds
+    }).then(data => {
       console.log('data returned from server:', data);
       if (categoryId === 1) watchDetailStructure(data);
       if (categoryId === 2) eatDetailStructure(data);
@@ -289,11 +292,11 @@ const watchDetailStructure = itemInfo => {
 
   // build html for details
   let watchHTML = '';
-  watchHTML += `<a href="${itemInfo.url}" target="_blank" ><img src="${itemInfo.thumbnail}"/></a>`;
+  if(itemInfo.thumbnail) watchHTML += `<a href="${itemInfo.url}" target="_blank" ><img src="${itemInfo.thumbnail}"/></a>`;
   watchHTML += `<div id="details">`;
   watchHTML += `<p>${itemInfo.title}</p>`;
-  watchHTML += `<p>${itemInfo.year}</p>`;
-  watchHTML += `<p>${itemInfo.rating}/10⭐️</p>`;
+  if(itemInfo.year) watchHTML += `<p>${itemInfo.year}</p>`;
+  if(itemInfo.rating) watchHTML += `<p>${itemInfo.rating}/10⭐️</p>`;
   if (itemInfo.url) watchHTML += `<a href="${itemInfo.url}" target="_blank" >More details...</a>`;
   watchHTML += `</div>`;
 

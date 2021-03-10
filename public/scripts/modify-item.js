@@ -131,9 +131,11 @@ $(() => {
     $.get(`/details/${num}`).then(data => {
       console.log('data returned from server:', data);
       if (categoryId === 1) watchDetailStructure(data);
+      if (categoryId === 2) eatDetailStructure(data);
       if (categoryId === 3) readDetailStructure(data);
       if (categoryId === 5) generalDetailStructure(data);
     }).catch(err => {
+      console.log('catch:',err);
       const $failHtml = `<p>Could not retrieve relevant details!</p>`;
       $('#extra-details').html($failHtml);
     });
@@ -199,6 +201,28 @@ const readDetailStructure = bookInfo => {
 
   $('#extra-details').html($readHtml);
   // TODO: add and remove classes here when you get to styling.
+};
+
+const eatDetailStructure = itemInfo => {
+  console.log('data from server:', itemInfo);
+
+  // remove spinner from details area
+  $('#extra-details').empty();
+
+  // add class for correct styling
+  // TODO: add this class?
+  $('#extra-details').addClass('eat');
+
+  // build html for details
+  let eatHTML = '';
+  eatHTML += `<p>${itemInfo.name}</p>`;
+  eatHTML += `<p>${itemInfo.rating}/5⭐️</p>`;
+  eatHTML += `<p>Distance: ${Math.round(num * 10) / 100} km</p>`;
+  if (itemInfo.url) eatHTML += `<a href="${itemInfo.url}" target="_blank" >More details...</a>`;
+  eatHTML += `</div>`;
+
+  // add html to container div
+  $('#extra-details').html(eatHTML);
 };
 
 const watchDetailStructure = itemInfo => {

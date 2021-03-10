@@ -30,7 +30,9 @@ const changePriorityHandler = function(e) {
     data: `priority=${highPriority}`
   })
   .then(data => {
-    $(`#${itemId} span`).css('font', 'red')
+    if(data.priority){
+      $(`#${itemId} span`).css('color', 'red');
+    }
     $('#mod-items-wrapper').remove();
     $('.body-container').css('filter','blur(0px)')
   })

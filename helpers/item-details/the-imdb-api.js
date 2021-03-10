@@ -16,7 +16,8 @@ const getWatchDetails = (itemData) => {
       title: res.data[0].title,
       year: res.data[0].release_date.substring(0, 4),
       rating: res.data[0].content_rating,
-      thumbnail: res.data[0].poster.thumb
+      thumbnail: res.data[0].poster.thumb,
+      url: res.data[0].url.url,
     }
     return itemData
   }).catch(res => res);

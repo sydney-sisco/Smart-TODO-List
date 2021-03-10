@@ -125,7 +125,7 @@ $(() => {
       </div>
       <hr>
       <div id="item-details">
-        <p> Placeholder for details</p>
+        <i class="loader fas fa-spinner"></i>
       </div>
     </div>
   </div>
@@ -135,8 +135,43 @@ $(() => {
     getItemDetails(num)
     .then((item)=>{
       console.log('item details from server:', item.details);
-      // $('#details').text('');
-      $('#item-details').text(`${item.details.title} (${item.details.year}) ${item.details.rating}/10`);
+
+      // remove spinner from details area
+      $('#item-details').empty();
+
+      // add class for correct styling
+      $('#item-details').addClass('watch');
+
+      // build html for details
+      let watchHTML = '';
+      watchHTML += `<a href="${item.details.url}" target="_blank" ><img src="${item.details.thumbnail}"/></a>`;
+      watchHTML += `<div id="details">`;
+      watchHTML += `<p>${item.details.title}</p>`;
+      watchHTML += `<p>${item.details.year}</p>`;
+      watchHTML += `<p>${item.details.rating}/10⭐️</p>`;
+      watchHTML += `<a href="${item.details.url}" target="_blank" >More details...</a>`;
+      watchHTML += `</div>`;
+
+
+
+      // add html to container div
+      $('#item-details').html(watchHTML);
+
+
+      // const $img = $('<img>');
+      // $img.attr('src', item.details.thumbnail);
+      // $img.appendTo('#item-details');
+
+
+
+      // const $detailsDiv = $('<div>');
+      // $detailsDiv.append(item.details.title);
+      // $detailsDiv.appendTo('#item-details');
+
+
+
+      // $('#item-details').text(`${item.details.title} (${item.details.year}) ${item.details.rating}/10`);
+
     });
 
     $('#edit-item-form').hide()
@@ -198,7 +233,7 @@ $(() => {
 })
 
 const getItemDetails = (itemID) => {
-  return $.get(`/items/${itemID}`)
+  return $.get(`/details/${itemID}`)
   .then((details) => details)
   .catch((res)=>console.log(res))
 }

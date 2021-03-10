@@ -89,6 +89,36 @@ app.get('/logout', (req, res) => {
   res.redirect('/login');
 });
 
+// TEMP ROUTE - move to new file
+const { getItem } = require('./db/item-queries');
+const { getItemDetails } = require('./helpers/item-details')
+
+app.get('/details/:id', (req, res) => {
+  const userId = req.session.user_id;
+  const itemId = Number(req.params.id);
+
+  if (!userId) {
+    res.send('Not logged in!');
+    return;
+  }
+
+  getItem(itemId)
+  .then(data => {
+    console.log('item data:', data);
+
+    // get additional details from external API
+    return getItemDetails(data);
+  })
+  .then(data => {
+    console.log('sending:', data);
+    res.json(data);
+  })
+  .catch(err => res.status(500).json({ error: err.message }));
+})
+// END OF TEMP ROUTE
+
+
+
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
 });

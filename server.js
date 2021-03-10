@@ -43,11 +43,13 @@ app.use(methodOverride('_method'));
 // Note: Feel free to replace the example routes below with your own
 const usersRouter = require("./routes/users.js");
 const itemsRouter = require("./routes/items.js");
+const detailsRouter = require("./routes/details.js");
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
 app.use("/users", usersRouter);
 app.use("/items", itemsRouter);
+app.use("/details", detailsRouter);
 
 // app.use("api", apiRoutes(db)); replace with api routes call when done
 

@@ -32,8 +32,11 @@ const changePriorityHandler = function(e) {
 
     if(data.priority & !itemHTMLelem.hasClass("priority")){
       // adds the priority class if priority is set to high and class does not exist already
+      $(`#${itemId} span`).html(`<span class="fas fa-exclamation"></span>${data.name}`)
+      console.log('add priority class')
       itemHTMLelem.addClass("priority");
     } else if (!data.priority & itemHTMLelem.hasClass("priority")){
+      $(`#${itemId} span`).html(`${data.name}`)
       console.log('remove priority class')
       itemHTMLelem.removeClass("priority");
     }

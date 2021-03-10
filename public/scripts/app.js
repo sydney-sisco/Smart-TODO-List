@@ -1,3 +1,6 @@
+let itemPriorityClass = ''
+let itemPriorityDiv = '';
+
 $(() => {
   // call the resize handler when the page loads to draw the correct lists
   resizeHandler();
@@ -46,31 +49,28 @@ const loadItems = () => {
   .then((items) => {
     for (const item of items) {
 
-      let itemPriorityClass = "";
-
       if(item.priority){
         itemPriorityClass = "priority"
+        itemPriorityDiv = '<span class="fas fa-exclamation"></span>'
+      } else {
+        itemPriorityClass = ""
+        itemPriorityDiv = ""
       }
 
       if (item.done) {
         const $doneItem = $(`
         <li class="${itemPriorityClass}" id="item-id-${item.id}" class='completed'>
           <button><i class="complete-btn fas fa-circle"></i></button>
-          <span>${item.name}</span>
+          <span>${itemPriorityDiv}${item.name}</span>
           <div class="details-btn-circle"><button class="details-btn fas fa-ellipsis-h"></button></div>
-          </li>`);
+        </li>`);
 
         $doneItem.prependTo($(`.id-${item.category_id} .done-list`));
       } else {
-        let itemPriorityClass = "";
-
-        if(item.priority){
-          itemPriorityClass = "priority"
-        }
-
         const $newItem = $(`
         <li class="${itemPriorityClass}" id="item-id-${item.id}"><button>
-          <i class="complete-btn far fa-circle"></i></button><span>${item.name}</span>
+          <i class="complete-btn far fa-circle"></i></button>
+          <span>${itemPriorityDiv}${item.name}</span>
           <div class="details-btn-container"><button class="details-btn fas fa-ellipsis-h"></button></div>
         </li>`);
 
@@ -157,16 +157,19 @@ const formSubmissionHandler = function(event) {
   // POST the item to the server using AJAX
   $.post('/items/', $(this).serialize())
   .then(function(data){
-    let itemPriorityClass = "";
 
-        if(item.priority){
-          itemPriorityClass = "priority"
-        }
+    if(data.priority){
+      itemPriorityClass = "priority"
+      itemPriorityDiv = '<span class="fas fa-exclamation"></span>'
+    } else {
+      itemPriorityClass = ""
+      itemPriorityDiv = ""
+    }
 
     const $itemToList = $(`
       <li class="${itemPriorityClass}" id="item-id-${data.id}">
         <button><i class="complete-btn far fa-circle"></i></button>
-        <span>${data.name}</span>
+        <span>${itemPriorityDiv}${data.name}</span>
         <div class="details-btn-container"><button class="details-btn fas fa-ellipsis-h"></button></div>
       </li>`);
 

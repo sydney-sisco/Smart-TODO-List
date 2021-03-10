@@ -15,7 +15,6 @@ const updateItemNameHandler = function(e) {
     $(`#${itemId} span`).text(`${data.name}`)
     $('#mod-items-wrapper').remove();
     $('.body-container').css('filter','blur(0px)')
-    console.log(data)
   })
 }
 

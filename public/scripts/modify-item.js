@@ -127,7 +127,7 @@ $(() => {
         </form>
       </div>
       <hr>
-      <div id='extra-details'><i class="loader fas fa-spinner"></i></div>
+      <div id='extra-details'>Retrieving more details<i class="loader fas fa-spinner"></i></div>
 
     </div>
   </div>
@@ -148,6 +148,10 @@ $(() => {
     // TODO: add the other functions from the other apis.
     $.get(`/details/${num}`).then(data => {
       if (categoryId === 3) readDetailStructure(data);
+      if (categoryId === 5) generalDetailStructure(data);
+    }).catch(err => {
+      const $failHtml = `<p>Could not retrieve relevant details!</p>`;
+      $('#extra-details').html($failHtml);
     });
   });
 
@@ -210,4 +214,8 @@ const readDetailStructure = bookInfo => {
 
   $('#extra-details').html($readHtml);
   // TODO: add and remove classes here when you get to styling.
+};
+
+const generalDetailStructure = () => {
+  const $generalHtml = `<p>Could not retrieve relevant details!</p>`
 };

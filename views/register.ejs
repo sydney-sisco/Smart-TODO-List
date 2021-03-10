@@ -17,26 +17,28 @@
   </head>
 
   <body>
-    <%- include('partials/_header') %>
-    <div class="credential-card">
-      <header>
-        <h2>Register</h2>
-        <p><span>NotSoSmart</span> is not the smartest!</p>
-      </header>
-      <form action="/users/" method="POST">
-        <div class='credential-input'>
-          <label for="registerFname">First name:</label>
-          <input type='text' name="registerFname" id="registerFname">
-          <label for="registerLname">Last name:</label>
-          <input type="text" name="registerLname" id="registerLname">
-          <label for="registerEmail">Email:</label>
-          <input type="email" name="registerEmail" id="registerEmail">
-          <label for="registerPassword">Password:</label>
-          <input type="password" name="registerPassword" id="registerPassword">
-        </div>
-        <button type="submit">Register</button>
-      </form>
+    <div class='body-container'>
+      <%- include('partials/_header') %>
+      <div class="credential-card">
+        <header>
+          <h2>Register</h2>
+          <p><span>NotSoSmart</span> is not the smartest!</p>
+        </header>
+        <form action="/users/" method="POST">
+          <div class='credential-input'>
+            <label for="registerFname">First name:</label>
+            <input type='text' name="registerFname" id="registerFname">
+            <label for="registerLname">Last name:</label>
+            <input type="text" name="registerLname" id="registerLname">
+            <label for="registerEmail">Email:</label>
+            <input type="email" name="registerEmail" id="registerEmail">
+            <label for="registerPassword">Password:</label>
+            <input type="password" name="registerPassword" id="registerPassword">
+          </div>
+          <button type="submit">Register</button>
+        </form>
+      </div>
+      <%- include('partials/_footer') %>
     </div>
-    <%- include('partials/_footer') %>
   </body>
 </html>

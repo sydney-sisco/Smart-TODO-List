@@ -86,6 +86,17 @@ app.get("/login", (req, res) => {
   res.redirect('/');
 });
 
+app.get('/update', (req, res) => {
+  if (!req.session.user_id) {
+    res.redirect('/login');
+    return;
+  }
+  dataFetcher('id', req.session.user_id).then(data => {
+    const templateVars = { user: data.rows[0] };
+    res.render("update", templateVars);
+  });
+});
+
 app.get('/logout', (req, res) => {
   req.session.user_id = null;
   res.redirect('/login');

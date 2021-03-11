@@ -46,9 +46,6 @@ const watchDetails = itemName => {
     const movieResults = results[0].value;
     const showResults = results[1].value;
 
-    console.log('movieResults:',results[0].status, 'showResults:', results[1].status);
-    console.log('movieResults:',results[0].value, 'showResults:', results[1].value);
-
     if(!movieResults && !showResults) {
       return null;
     }

@@ -106,7 +106,7 @@
 }
 
 .priority {
-  color: red;
+  color: var(--errorTextColor);
   font-weight: bold;
 }
 
@@ -114,7 +114,7 @@
 // notifying users of an item add, edit or change category
 @keyframes change-fade {
   0% {
-    box-shadow: inset 0 0 0 0.3rem $rightColor;
+    box-shadow: inset 0 0 0 0.3rem var(--rightColor);
   }
 
   100% {
@@ -124,5 +124,5 @@
 
 .highlight {
   box-shadow: none;
-  animation: change-fade 1.5s ease-in 1;
+  animation: change-fade 1s ease-in 1;
 }

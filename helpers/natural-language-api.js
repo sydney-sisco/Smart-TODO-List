@@ -1,22 +1,16 @@
-
 // a dumb hack to get google credentials working on heroku
 if(process.env.ENV === 'PROD') {
-  // set up google key file
+  // get the credentials from env variable
   const googleKeyFileContents = process.env.GOOGLE_KEY;
-  // TODO: remove log
-  console.log('google key file contents:',googleKeyFileContents);
 
+  // write it to a file
   const fs = require('fs');
-
   try {
-    const data = fs.writeFileSync('/tmp/google-key.json', googleKeyFileContents)
-    //file written successfully
-    console.log('file written successfully');
+    const data = fs.writeFileSync('/tmp/google-key.json', googleKeyFileContents);
   } catch (err) {
-    console.error(err)
+    console.error(err);
   }
 }
-
 
 // Imports the Google Cloud client library
 const language = require('@google-cloud/language');
@@ -37,32 +31,3 @@ const naturalLangCategorize = function (text) {
 module.exports = {
   naturalLangCategorize
 }
-
-// categorize('A banana is an elongated, edible fruit – botanically a berry – produced by several kinds of large herbaceous flowering plants in the genus Musa. In some countries, bananas used for cooking may be called "plantains", distinguishing them from dessert bananas.')
-
-
-
-
-
-
-
-
-// const {auth} = require('google-auth-library');
-
-// // load the environment variable with our keys
-// const keysEnvVar = process.env.GOOGLE_KEY;
-// if (!keysEnvVar) {
-//   throw new Error('The $GOOGLE_KEY environment variable was not found!');
-// }
-// const keys = JSON.parse(keysEnvVar);
-
-// async function main() {
-//   // load the JWT or UserRefreshClient from the keys
-//   const client = auth.fromJSON(keys);
-//   client.scopes = ['https://www.googleapis.com/auth/cloud-platform'];
-//   const url = `https://dns.googleapis.com/dns/v1/projects/${keys.project_id}`;
-//   const res = await client.request({url});
-//   console.log(res.data);
-// }
-
-// main().catch(console.error);

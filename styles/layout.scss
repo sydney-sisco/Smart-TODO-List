@@ -335,7 +335,9 @@ ul::-webkit-scrollbar-thumb {
   html {
     font-size: 29px;
   }
+
   .body-container {
+
     main {
       form.list-switcher {
         background: blue;
@@ -352,8 +354,11 @@ ul::-webkit-scrollbar-thumb {
 
   .mod-items-wrapper {
     width: 85%;
-
   }
+
+  // .main-header {
+  //   font-size: 16px;
+  // }
 
   .main-footer {
     display: none;

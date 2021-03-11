@@ -11,7 +11,6 @@ const addAfterPriority = function(categoryId, $newItem){
   //continues traversing through all children until there is no priority class
   while (listNode.next().hasClass("priority")) {
     listNode = $(listNode.next());
-    counter += 1;
   }
   //appends new item after the last priority item
   listNode.after($newItem);

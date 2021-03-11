@@ -260,8 +260,8 @@ const listSwitcherHander = (event) => {
 
 // called when the page is resized
 const resizeHandler = () => {
-  // determine if mobile based on visibility of the dropdown
-  const mobile = $('form.list-switcher').css('display') === 'block';
+  // determine if mobile based on visibility of the footer
+  const mobile = $('.main-footer').css('display') === 'none';
 
   if(mobile) {
     // get the current value from  the dropdown
@@ -288,6 +288,9 @@ const showList = (listID) => {
 
     if (classArr.includes(`id-${listID}`)) {
       $(list).css('display', 'flex');
+
+      // set the dropdown value to match the list that is showing
+      $(list).children('form').children('select').val(listID);
     } else {
       $(list).css('display', 'none');
     }

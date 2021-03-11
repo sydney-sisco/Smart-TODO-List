@@ -342,10 +342,13 @@ ul::-webkit-scrollbar-thumb {
 
     main {
       form.list-switcher {
-        background: blue;
         display: inline;
       }
       .lists-container {
+
+        .list-card > h3:first-child {
+          display: none;
+        }
 
         .list-card {
           width: 85%;

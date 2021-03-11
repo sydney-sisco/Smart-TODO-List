@@ -152,22 +152,35 @@ const completedToggle = event => {
     }).then(function() {
       $listItem = $(event.target).parent().parent();
 
-      // highlights done list when item is moved
-      const $doneTitle = $($listItem.parents('.todo-list').siblings()[1]);
-      $doneTitle.addClass("highlight");
-      setTimeout(()=>{
-        $doneTitle.removeClass("highlight");
-      }, 1500)
-
       if (item.done) {
+
+        // highlights done list when item is moved
+        const $doneTitle = $($listItem.parents('.todo-list').siblings()[1]);
+        $doneTitle.addClass("highlight");
+        setTimeout(()=>{
+          $doneTitle.removeClass("highlight");
+        }, 1500)
+
+        // adds the item in order it was completed regardless of priority;
         $listItem.detach().prependTo(`.id-${categoryId} .done-list`);
         $listItem.addClass('completed');
         $listItem.find('.complete-btn').removeClass('far').addClass('fas');
       } else {
-        $listItem.detach().prependTo(`.id-${categoryId} .todo-list`);
+
+        // highlights list title when item is moved back to the main spot
+        const $listTitle = $($(`.id-${categoryId}`).children()[0]);
+        $listTitle.addClass("highlight");
+        setTimeout(()=>{
+          $listTitle.removeClass("highlight");
+        }, 1500)
+
+        addAfterPriority(categoryId, $listItem)
+        // $listItem.detach().prependTo(`.id-${categoryId} .todo-list`);
         $listItem.removeClass('completed');
         $listItem.find('.complete-btn').removeClass('fas').addClass('far');
       }
+
+
     }).catch(err => console.log('AJAX patch error:', err));
   });
 };

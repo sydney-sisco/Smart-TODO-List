@@ -17,6 +17,7 @@ const { dataFetcher } = require('./db/user-queries');
 const db = require('./lib/db.js');
 db.connect();
 
+console.log('server.js here');
 db.query('select * from items;').then((res) => {
   console.log('db connection:', res);
 }).catch((res) => {

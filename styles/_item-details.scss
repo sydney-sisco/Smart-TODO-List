@@ -1,5 +1,6 @@
 .mod-items-wrapper {
   @include flexCenter();
+  background-color: var(--cardColor);
   font-size: $primaryFontSize;
   text-align: center;
   color: var(--rightColor);
@@ -63,6 +64,7 @@
     outline: none;
     flex: 1;
     margin-right: 0.25rem;
+    background-color: var(--cardColor);
   }
 
   button {
@@ -81,6 +83,7 @@
 
 
 #modify-item-form {
+
   div {
     margin: 1rem;
   }
@@ -94,6 +97,7 @@
   left: 0;
   border-radius: 15px;
   width: 92%;
+  background-color: var(--cardColor);
 
   form {
     margin: 0.5rem;

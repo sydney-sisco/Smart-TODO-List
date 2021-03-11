@@ -49,7 +49,6 @@
     border: none;
     padding: none;
     margin: none;
-
   }
 }
 
@@ -106,23 +105,24 @@
 
 }
 
-// in case we want the circle
-.details-btn-container {
-  // margin-top: auto;
-  // margin-bottom: auto;
-  // width: 1em;
-  // height: 1em;
-  // border: 2px solid $textColorAlt;
-  // border-radius: 50%;
-  // @include flexCenter();
-}
-
-.body-container{
-  // intentially left blank; to be filled with blur later
-
-}
-
 .priority {
   color: red;
   font-weight: bold;
+}
+
+
+// notifying users of an item add, edit or change category
+@keyframes change-fade {
+  0% {
+    box-shadow: inset 0 0 0 0.3rem $rightColor;
+  }
+
+  100% {
+    box-shadow: none;
+  }
+}
+
+.highlight {
+  box-shadow: none;
+  animation: change-fade 1.5s ease-in 1;
 }

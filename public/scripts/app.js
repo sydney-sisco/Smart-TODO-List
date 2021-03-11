@@ -151,6 +151,14 @@ const completedToggle = event => {
       data: data
     }).then(function() {
       $listItem = $(event.target).parent().parent();
+
+      // highlights done list when item is moved
+      const $doneTitle = $($listItem.parents('.todo-list').siblings()[1]);
+      $doneTitle.addClass("highlight");
+      setTimeout(()=>{
+        $doneTitle.removeClass("highlight");
+      }, 1500)
+
       if (item.done) {
         $listItem.detach().prependTo(`.id-${categoryId} .done-list`);
         $listItem.addClass('completed');
@@ -220,7 +228,7 @@ const formSubmissionHandler = function(event) {
     }
 
     const $itemToList = $(`
-      <li class="${itemPriorityClass}" id="item-id-${data.id}">
+      <li class="${itemPriorityClass} highlight" id="item-id-${data.id}">
         <button><i class="complete-btn far fa-circle"></i></button>
         <span>${itemPriorityDiv}${data.name}</span>
         <div class="details-btn-container"><button class="details-btn fas fa-ellipsis-h"></button></div>

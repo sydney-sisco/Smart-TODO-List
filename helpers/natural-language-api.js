@@ -1,3 +1,17 @@
+// a dumb hack to get google credentials working on heroku
+if(process.env.ENV === 'PROD') {
+  // get the credentials from env variable
+  const googleKeyFileContents = process.env.GOOGLE_KEY;
+
+  // write it to a file
+  const fs = require('fs');
+  try {
+    const data = fs.writeFileSync('/tmp/google-key.json', googleKeyFileContents);
+  } catch (err) {
+    console.error(err);
+  }
+}
+
 // Imports the Google Cloud client library
 const language = require('@google-cloud/language');
 const client = new language.LanguageServiceClient();
@@ -17,11 +31,3 @@ const naturalLangCategorize = function (text) {
 module.exports = {
   naturalLangCategorize
 }
-
-// categorize('A banana is an elongated, edible fruit – botanically a berry – produced by several kinds of large herbaceous flowering plants in the genus Musa. In some countries, bananas used for cooking may be called "plantains", distinguishing them from dessert bananas.')
-
-
-
-
-
-

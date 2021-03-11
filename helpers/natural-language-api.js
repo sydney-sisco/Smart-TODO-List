@@ -1,8 +1,22 @@
-// set up google key file
-const googleKeyFileContents = process.env.GOOGLE_KEY;
-// TODO: remove log
-console.log('google key file contents:',googleKeyFileContents);
 
+// a dumb hack to get google credentials working on heroku
+if(process.env.ENV === 'PROD') {
+  // set up google key file
+  const googleKeyFileContents = process.env.GOOGLE_KEY;
+  // TODO: remove log
+  console.log('google key file contents:',googleKeyFileContents);
+
+
+  const fs = require('fs');
+
+  try {
+    const data = fs.writeFileSync('./google-key.json', googleKeyFileContents)
+    //file written successfully
+    console.log('file written successfully');
+  } catch (err) {
+    console.error(err)
+  }
+}
 
 
 // Imports the Google Cloud client library

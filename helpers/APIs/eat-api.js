@@ -6,7 +6,7 @@ const eatDetails = itemName => {
   const nameEncoded = encodeURI(itemName);
 
   const searchRequest = {
-    term: `${encodeURI(itemName)}`,
+    term: encodeURI(itemName),
     location: 'Vancouver',
     limit: 1,
   };

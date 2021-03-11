@@ -52,7 +52,7 @@ const enableDarkMode = $elem => {
   $elem.setProperty('--cardColor', '#2C303A');
   $elem.setProperty('--errorTextColor', 'rgb(255, 255, 255)');
   $('#logo').attr('src', 'https://see.fontimg.com/api/renderfont4/w1l49/eyJyIjoiZnMiLCJoIjo2NCwidyI6MjAwMCwiZnMiOjMyLCJmZ2MiOiIjRkZDODBDIiwiYmdjIjoiI0ZGRkZGRiIsInQiOjF9/Tm90U29TbWFydA/marshmallow-personal-use-regular.png');
-  $('#dark-switch').addClass('dark').children('button').html('Light Mode');
+  $('#dark-switch').addClass('dark').children('button').html('Light');
   $('body').css('background', 'var(--leftColor)');
   $('body').css('background-image', 'none');
   localStorage.setItem('darkMode', 'enabled');
@@ -69,7 +69,7 @@ const disableDarkMode = $elem => {
   $elem.setProperty('--cardColor', 'white');
   $elem.setProperty('--errorTextColor', 'rgb(255, 78, 78)');
   $('#logo').attr('src', 'https://see.fontimg.com/api/renderfont4/w1l49/eyJyIjoiZnMiLCJoIjo2NCwidyI6MjAwMCwiZnMiOjMyLCJmZ2MiOiIjRkZGRkZGIiwiYmdjIjoiI0ZGRkZGRiIsInQiOjF9/Tm90U29TbWFydA/marshmallow-personal-use-regular.png');
-  $('#dark-switch').removeClass('dark').children('button').html('Dark Mode');
+  $('#dark-switch').removeClass('dark').children('button').html('Dark');
   $('body').css('background', 'none');
   $('body').css('background-image', 'linear-gradient(135deg, var(--leftColor), var(--rightColor))');
   localStorage.setItem('darkMode', null);
@@ -153,7 +153,7 @@ const completedToggle = event => {
       $listItem = $(event.target).parent().parent();
 
       // highlights done list when item is moved
-      const $doneTitle = $($listItem.parents('.todo-list').siblings()[1]);
+      const $doneTitle = $($listItem.parents('.todo-list').siblings()[2]);
       $doneTitle.addClass("highlight");
       setTimeout(()=>{
         $doneTitle.removeClass("highlight");

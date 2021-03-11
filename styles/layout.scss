@@ -200,6 +200,25 @@ ul::-webkit-scrollbar-thumb {
           margin: 0;
         }
 
+        form {
+          display: none;
+          width: 100%;
+          justify-content: center;
+          align-items: center;
+
+          select {
+            -webkit-appearance: none;
+            text-align-last: center;
+            background: none;
+            font-size: 2.5rem;
+            color: var(--rightColor);
+            width: 100%;
+            border:none;
+            border-bottom: 1px solid var(--altTextColorSuperLight);
+            padding: 10px 0;
+          }
+        }
+
         .todo-list {
           font-size: 1.3rem;
           list-style: none;
@@ -341,11 +360,18 @@ ul::-webkit-scrollbar-thumb {
   .body-container {
 
     main {
-      form.list-switcher {
-        display: inline;
+
+      header {
+        .pending {
+          margin: 20px;
+        }
       }
+
       .lists-container {
 
+        form.list-switcher {
+          display: flex;
+        }
         .list-card > h3:first-child {
           display: none;
         }
@@ -360,10 +386,6 @@ ul::-webkit-scrollbar-thumb {
   .mod-items-wrapper {
     width: 85%;
   }
-
-  // .main-header {
-  //   font-size: 16px;
-  // }
 
   .main-footer {
     display: none;

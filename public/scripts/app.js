@@ -168,7 +168,7 @@ const completedToggle = event => {
       } else {
 
         // highlights list title when item is moved back to the main spot
-        const $listTitle = $($(`.id-${categoryId}`).children()[0]);
+        const $listTitle = $($(`.id-${categoryId}`).children()[1]);
         $listTitle.addClass("highlight");
         setTimeout(()=>{
           $listTitle.removeClass("highlight");

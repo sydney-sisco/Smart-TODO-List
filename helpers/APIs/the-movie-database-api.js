@@ -42,9 +42,12 @@ const watchDetails = itemName => {
     }
   })
 
-  return Promise.all([moviePromise, showPromise]).then((results) => {
-    const movieResults = results[0];
-    const showResults = results[1];
+  return Promise.allSettled([moviePromise, showPromise]).then((results) => {
+    const movieResults = results[0].value;
+    const showResults = results[1].value;
+
+    console.log('movieResults:',results[0].status, 'showResults:', results[1].status);
+    console.log('movieResults:',results[0].value, 'showResults:', results[1].value);
 
     if(!movieResults && !showResults) {
       return null;

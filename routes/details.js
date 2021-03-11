@@ -3,8 +3,8 @@ const router  = express.Router();
 const { getItem } = require('../db/item-queries.js');
 const { buyDetails } = require('../helpers/APIs/buy-api.js');
 const { readDetails } = require('../helpers/APIs/read-api');
-const { watchDetails } = require('../helpers/APIs/the-imdb-api');
-// const { watchDetails } = require('../helpers/APIs/the-movie-database-api');
+// const { watchDetails } = require('../helpers/APIs/the-imdb-api');
+const { watchDetails } = require('../helpers/APIs/the-movie-database-api');
 const { eatDetails } = require('../helpers/APIs/eat-api');
 
 router.get('/:id', (req, res) => {

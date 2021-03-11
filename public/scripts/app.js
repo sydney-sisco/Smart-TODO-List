@@ -207,6 +207,8 @@ const formSubmissionHandler = function(event) {
     return;
   }
 
+  if(easterEgg(item)) return;
+
   // reset error text
   $('main header h2').text('Let\'s get to sorting!');
   $('main header h2').removeClass('error');
@@ -292,4 +294,19 @@ const showList = (listID) => {
       $(list).css('display', 'none');
     }
   }
+};
+
+const easterEgg = string => {
+  const codeWords = ['Hosam Dahrooge', 'Connie Ho', 'Sydney Sisco'];
+
+  if (codeWords.includes(string)) {
+    const $elements = $( `p:contains("${string}")` );
+    console.log($elements);
+    $($elements[0]).addClass("highlight");
+       setTimeout(()=>{
+         $elements.removeClass("highlight");
+       }, 1500)
+    return true;
+  }
+  return false;
 };

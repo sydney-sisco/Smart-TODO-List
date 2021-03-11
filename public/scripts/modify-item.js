@@ -5,6 +5,11 @@ let highPriority = false;
 
 const updateItemNameHandler = function(e) {
   e.preventDefault();
+
+  if(!textErrorHandler(`#modify-item-form input`, `#modify-item-form h3`)) {
+    return;
+  }
+
   const data = $(this).serialize();
   $.ajax({
     method: 'PATCH',

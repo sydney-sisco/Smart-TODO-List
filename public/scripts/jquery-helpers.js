@@ -24,3 +24,24 @@ const resetCSS = function(selector) {
   $(`${selector}`).hasClass("highlight") ?  null : $(`${selector}`).addClass("highlight");
   setTimeout(()=>{$(`${selector}`).removeClass("highlight")}, 1500)
 }
+
+const textErrorHandler = function(inputSelector, headerSelector) {
+  // get the item text from the form
+  const inputText = escape($(inputSelector).val().trim());
+
+  // error conditionals
+  if (!inputText) {
+    $(headerSelector).hide().fadeIn(200).html('Input can\'t be blank!');
+    $(headerSelector).addClass('error');
+    return;
+  }
+
+  if (inputText.length > 99) {
+    $(headerSelector).hide().fadeIn(200).text('That\'s way too long!');
+    $(headerSelector).addClass('error');
+    return;
+  }
+
+  return inputText;
+
+}

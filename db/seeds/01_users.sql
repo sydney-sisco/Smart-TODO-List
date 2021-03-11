@@ -1,7 +1,7 @@
 INSERT INTO users (first_name, last_name, email, password) VALUES
-('Hosam', 'Dahrooge', 'hosam_dahrooge@hotmail.com', '$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u.'),
-('Connie', 'Ho', 'connie_ho@gmail.com', '$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u.'),
-('Sydney', 'Sisco', 'sydney_sisco@yahoo.com', '$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u.');
+('Hosam', 'Dahrooge', 'hosam_dahrooge@hotmail.com', '$2b$10$VGkYZWBp9IJZpq6Ca28VIuOHHP8Ag0dtkyI4LOTK1GW4of37/ACsS'),
+('Connie', 'Ho', 'connie_ho@gmail.com', '$2b$10$VGkYZWBp9IJZpq6Ca28VIuOHHP8Ag0dtkyI4LOTK1GW4of37/ACsS'),
+('Sydney', 'Sisco', 'sydney_sisco@yahoo.com', '$2b$10$VGkYZWBp9IJZpq6Ca28VIuOHHP8Ag0dtkyI4LOTK1GW4of37/ACsS');
 
 INSERT INTO categories (name) VALUES
 ('Watch'),

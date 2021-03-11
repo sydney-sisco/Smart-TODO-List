@@ -2,6 +2,9 @@ let itemPriorityClass = ''
 let itemPriorityDiv = '';
 
 $(() => {
+  // dark mode button listener
+  $('#dark-switch').on('click', darkModeToggle);
+
   // call the resize handler when the page loads to draw the correct lists
   resizeHandler();
 
@@ -21,6 +24,39 @@ $(() => {
   // listen for resize events to switch layout
   $(window).resize(resizeHandler);
 });
+
+const darkModeToggle = function() {
+  const $varElem = $('html').get(0).style;
+  const isDark = $('#dark-switch').attr('class') === 'dark';
+  console.log(isDark);
+  if (isDark) {
+    $varElem.setProperty('--leftColor', '#e2c35d');
+    $varElem.setProperty('--rightColor', '#da785d');
+    $varElem.setProperty('--rightColorDark', '#c74f2e');
+    $varElem.setProperty('--textColor', 'white');
+    $varElem.setProperty('--altTextColor', 'rgba(95, 95, 95, 0.932)');
+    $varElem.setProperty('--altTextColorLight', '#919191');
+    $varElem.setProperty('--altTextColorSuperLight', '#c4c4c4');
+    $varElem.setProperty('--cardColor', 'white');
+    $varElem.setProperty('--errorTextColor', 'rgb(255, 78, 78)');
+    $('#dark-switch').removeClass('dark');
+    $('body').css('background', 'none');
+    $('body').css('background-image', 'linear-gradient(135deg, var(--leftColor), var(--rightColor))');
+  } else {
+    $varElem.setProperty('--leftColor', '#1f1f1f');
+    $varElem.setProperty('--rightColor', '#e69a2a');
+    $varElem.setProperty('--rightColorDark', '#b87616');
+    $varElem.setProperty('--textColor', 'rgb(177, 177, 177)');
+    $varElem.setProperty('--altTextColor', 'rgba(179, 179, 179, 0.932)');
+    $varElem.setProperty('--altTextColorLight', '#e6e6e6');
+    $varElem.setProperty('--altTextColorSuperLight', '#e6e6e6');
+    $varElem.setProperty('--cardColor', '#2C303A');
+    $varElem.setProperty('--errorTextColor', 'rgb(255, 255, 255)');
+    $('#dark-switch').addClass('dark');
+    $('body').css('background', 'var(--leftColor)');
+    $('body').css('background-image', 'none');
+  }
+};
 
 const doneListToggle = function() {
   $this = $(this);
@@ -59,7 +95,7 @@ const loadItems = () => {
 
       if (item.done) {
         const $doneItem = $(`
-        <li class="${itemPriorityClass}" id="item-id-${item.id}" class='completed'>
+        <li class="${itemPriorityClass} completed" id="item-id-${item.id}" >
           <button><i class="complete-btn fas fa-circle"></i></button>
           <span>${itemPriorityDiv}${item.name}</span>
           <div class="details-btn-circle"><button class="details-btn fas fa-ellipsis-h"></button></div>

@@ -1,5 +1,5 @@
 .credential-card {
-  background: $cardColor;
+  background: var(--cardColor);
   padding-bottom: 45px;
   padding-top: 15px;
   margin: auto;
@@ -12,9 +12,8 @@
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  background: $textColor;
   border-radius: 20px;
-  color: $textColorAlt;
+  color: var(--altTextColor);
 
 
   header {
@@ -24,13 +23,13 @@
     align-items: center;
 
     h2 {
-      color: $rightColor;
+      color: var(--rightColor);
       font-size: 3.5rem;
       font-weight: bold;
     }
 
     span {
-      color: $rightColor;
+      color: var(--rightColor);
     }
   }
 
@@ -43,9 +42,9 @@
 
 
     button {
-      border: 1px solid $rightColor;
-      background-color: $rightColor;
-      color: $textColor;
+      border: 1px solid var(--rightColor);
+      background-color: var(--rightColor);
+      color: var(--cardColor);
       border-radius: 5px;
       align-self: center;
       padding: 10px 15px;
@@ -53,9 +52,9 @@
     }
 
     button:hover {
-      border: 1px solid $rightColor;
+      border: 1px solid var(--rightColor);
       background: none;
-      color: $rightColor;
+      color: var(--rightColor);
     }
 
     .credential-input {

@@ -13,20 +13,24 @@
 
     button {
       border: none;
-      background: $textColor;
+      background: var(--cardColor);
       border-radius: 5px;
       padding: 15px 15px;
-      color: $rightColor;
+      color: var(--rightColor);
       font-weight: bold;
       font-size: 1rem;
-      min-width: 120px;
+      min-width: 130px;
       font-size: 1.2rem;
     }
 
+    #logout-btn {
+      margin-right: 5px;
+    }
+
     button:hover {
-      color: $textColor;
-      background: $rightColor;
-      border: 1px solid $textColor;
+      color: var(--cardColor);
+      background: var(--rightColor);
+      border: 1px solid var(--textColor);
     }
 
     .header-details {
@@ -34,7 +38,7 @@
       align-items: center;
 
       .user-details {
-        color: $textColor;
+        color: var(--textColor);
         display: flex;
         flex-direction: column;
         align-items: flex-end;

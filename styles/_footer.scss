@@ -23,7 +23,7 @@
     flex-direction: column;
     justify-content: flex-end;
     align-items: center;
-    color: $textColor;
+    color: var(--textColor);
     font-weight: bolder;
     font-size: 1.2rem;
 
@@ -36,7 +36,7 @@
 
       i:hover {
         cursor: pointer;
-        color: darken($rightColor, 13%);
+        color: var(--rightColorDark);
       }
     }
 

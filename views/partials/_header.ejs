@@ -7,12 +7,14 @@
           <span class="details-name"><%= user.first_name %> <%= user.last_name %></span>
           <span class="details-email"><%= user.email %></span>
         </div>
-        <a href="/logout"><button>Logout</button></a>
+        <a href="/logout"><button id="logout-btn">Logout</button></a>
+        <a id="dark-switch"><button>Dark Mode</button></a>
       </div>
     <% } else { %>
       <div>
         <a href="/login"><button>Login</button></a>
         <a href="/register"><button>Register</button></a>
+        <a id="dark-switch"><button>Dark Mode</button></a>
       </div>
     <% } %>
 

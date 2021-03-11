@@ -6,12 +6,22 @@
 @import 'footer';
 @import 'item-details.scss';
 
-
+html {
+  --leftColor: #e2c35d;
+  --rightColor: #da785d;
+  --rightColorDark: #c74f2e;
+  --textColor: white;
+  --altTextColor: rgba(95, 95, 95, 0.932);
+  --altTextColorLight: #919191;
+  --altTextColorSuperLight: #c4c4c4;
+  --cardColor: white;
+  --errorTextColor: rgb(255, 78, 78);
+}
 
 body {
-  background-image: linear-gradient(135deg, $leftColor, $rightColor);
+  background-image: linear-gradient(135deg, var(--leftColor), var(--rightColor));
   font-family: 'Rubik', sans-serif;
-  color: $textColor;
+  color: var(--textColor);
 }
 
 ul::-webkit-scrollbar {
@@ -24,12 +34,12 @@ ul::-webkit-scrollbar-track {
 }
 
 ul::-webkit-scrollbar-thumb {
-  background: lighten($textColorAlt, 40%);
+  background: var(--altTextColorSuperLight);
   border-radius: 100px;
 }
 
 .loader {
-  color: $rightColor;
+  color: var(--rightColor);
   margin-left: 10px;
   animation: spin 1s linear infinite;
 }
@@ -56,7 +66,6 @@ ul::-webkit-scrollbar-thumb {
     flex-direction: column;
     align-items: center;
     margin-bottom: 88px;
-    // padding-bottom: 88px;
 
     form.list-switcher {
       display: none;
@@ -70,11 +79,11 @@ ul::-webkit-scrollbar-thumb {
       h2 {
         font-size: 2rem;
         padding: 5px;
-        color: $textColor;
+        color: var(--textColor);
       }
 
       .error {
-        background: $errorTextColor;
+        background: var(--errorTextColor);
         border-radius: 5px;
       }
 
@@ -113,8 +122,8 @@ ul::-webkit-scrollbar-thumb {
             justify-content: center;
             align-items: center;
             border-radius: 100px;
-            color: $textColorAlt;
-            background: $cardColor;
+            color: var(--altTextColor);
+            background: var(--cardColor);
             padding: 3px 15px;
             margin: 0 5px;
           }
@@ -128,35 +137,36 @@ ul::-webkit-scrollbar-thumb {
       .form-group {
         display: flex;
         justify-content: center;
-        background: $cardColor;
+        background: var(--cardColor);
         border-radius: 5px;
 
         input, button {
+          background: var(--cardColor);
           font-size: 1.5rem;
           border: none;
         }
 
         input:focus {
-          background: $cardColor;
-          color: $textColorAlt;
+          background: var(--cardColor);
+          color: var(--altTextColor);
           box-shadow: none;
         }
 
         button {
-          color: $rightColor;
-          background: $cardColor;
+          color: var(--rightColor);
+          background: var(--cardColor);
           border-radius: 0 5px 5px 0;
         }
 
         button:hover {
-          color: $textColor;
-          background: $rightColor;
+          color: var(--textColor);
+          background: var(--rightColor);
         }
 
         button:focus {
           box-shadow: none;
-          background: $cardColor;
-          color: $rightColor;
+          background: var(--cardColor);
+          color: var(--rightColor);
         }
       }
     }
@@ -166,13 +176,13 @@ ul::-webkit-scrollbar-thumb {
       width: 100%;
       display: flex;
       justify-content: space-evenly;
-      color: $textColorAlt;
+      color: var(--altTextColor);
 
       .list-card {
         justify-self: stretch;
         width: 18.5%;
         max-height: 60vh;
-        background: $cardColor;
+        background: var(--cardColor);
         border-radius: 15px;
         display: none;
         flex-direction: column;
@@ -181,9 +191,9 @@ ul::-webkit-scrollbar-thumb {
         h3 {
           font-size: 2.5rem;
           text-align: center;
-          color: $rightColor;
+          color: var(--rightColor);
           width: 100%;
-          border-bottom: 1px solid lighten($textColorAlt, 40%);
+          border-bottom: 1px solid var(--altTextColorSuperLight);
           padding: 10px 0;
           margin: 0;
         }
@@ -208,16 +218,16 @@ ul::-webkit-scrollbar-thumb {
             padding: 10px 0;
             display: flex;
             justify-content: space-between;
-            border-bottom: 1px solid lighten($textColorAlt, 40%);
+            border-bottom: 1px solid var(--altTextColorSuperLight);
 
             span {
               padding: 0 10px;
             }
 
             button {
-              color: lighten($textColorAlt, 20%);
+              color: var(--altTextColorLight);
               outline: none;
-              background: $cardColor;
+              background: var(--cardColor);
               border: none;
               padding: 0;
             }
@@ -226,7 +236,7 @@ ul::-webkit-scrollbar-thumb {
 
         .completed {
           .complete-btn {
-            color: $rightColor;
+            color: var(--rightColor);
           }
 
           span {
@@ -240,7 +250,7 @@ ul::-webkit-scrollbar-thumb {
 
           .open-border {
             border-top: none;
-            border-bottom: 1px solid lighten($textColorAlt, 40%);
+            border-bottom: 1px solid var(--altTextColorSuperLight);
           }
 
           .completed-title {
@@ -249,7 +259,7 @@ ul::-webkit-scrollbar-thumb {
             align-items: center;
             margin: 0;
             padding: 10px;
-            border-top: 1px solid lighten($textColorAlt, 40%);
+            border-top: 1px solid var(--altTextColorSuperLight);
 
             .rotate {
               transition: all 0.4s;
@@ -261,7 +271,7 @@ ul::-webkit-scrollbar-thumb {
             }
 
             h3 {
-              color: $textColorAlt;
+              color: var(--altTextColor);
               margin: 0;
               padding: 0;
               width: 83%;
@@ -270,7 +280,7 @@ ul::-webkit-scrollbar-thumb {
 
             i {
               font-size: 1.8rem;
-              color: $rightColor;
+              color: var(--rightColor);
               justify-self: flex-end;
             }
           }
@@ -297,16 +307,16 @@ ul::-webkit-scrollbar-thumb {
               padding: 10px 0;
               display: flex;
               justify-content: space-between;
-              border-bottom: 1px solid lighten($textColorAlt, 40%);
+              border-bottom: 1px solid var(--altTextColorSuperLight);
 
               span {
                 padding: 0 10px;
               }
 
               button {
-                color: lighten($textColorAlt, 20%);
+                color: var(--altTextColorLight);
                 outline: none;
-                background: $cardColor;
+                background: var(--cardColor);
                 border: none;
                 padding: 0;
               }

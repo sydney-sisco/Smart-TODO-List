@@ -12,15 +12,28 @@ const eatDetails = itemName => {
   };
 
   return client.search(searchRequest).then(response => {
-    const result = response.jsonBody.businesses[0];
-    return {
-      name: result.name,
-      distance: result.distance,
-      rating: result.rating,
-      thumbnail: result.image_url,
-      url: result.url,
+
+    // console.log(response.jsonBody.businesses);
+
+    if (response.jsonBody.businesses.length) {
+      const result = response.jsonBody.businesses[0];
+      const returnData = {
+        name: result.name,
+        distance: result.distance,
+        rating: result.rating,
+        thumbnail: result.image_url,
+        url: result.url,
+      }
+      return returnData;
+
+    } else {
+      return null;
     }
-  }).catch(res => res);
+
+  }).catch(res => {
+    console.log(res);
+    return res;
+  })
 };
 
 module.exports = {

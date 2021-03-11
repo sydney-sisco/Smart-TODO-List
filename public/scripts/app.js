@@ -29,7 +29,7 @@ $(() => {
 // checks user's localstorage to enable or disable dark mode
 const checkDarkMode = () => {
   const $varElem = $('html').get(0).style;
-  const isDarkOn = localStorage.getItem('darkMode');
+  const isDarkOn = localStorage.getItem('darkMode') === 'enabled';
 
   isDarkOn ? enableDarkMode($varElem) : disableDarkMode($varElem);
 };
@@ -51,7 +51,7 @@ const enableDarkMode = $elem => {
   $elem.setProperty('--altTextColorSuperLight', '#e6e6e6');
   $elem.setProperty('--cardColor', '#2C303A');
   $elem.setProperty('--errorTextColor', 'rgb(255, 255, 255)');
-  $('#logo').attr('src', 'https://see.fontimg.com/api/renderfont4/w1l49/eyJyIjoiZnMiLCJoIjo2NCwidyI6MjAwMCwiZnMiOjMyLCJmZ2MiOiIjRkZDODBDIiwiYmdjIjoiI0ZGRkZGRiIsInQiOjF9/Tm90U29TbWFydA/marshmallow-personal-use-regular.png');
+  $('#logo').attr('src', 'https://see.fontimg.com/api/renderfont4/w1l49/eyJyIjoiZnMiLCJoIjo2NCwidyI6MjAwMCwiZnMiOjMyLCJmZ2MiOiIjRjVDMDQyIiwiYmdjIjoiIzI1MkMzNSIsInQiOjF9/Tm90U29TbWFydA/marshmallow-personal-use-regular.png');
   $('#dark-switch').addClass('dark').children('button').html('Light Mode');
   $('body').css('background', 'var(--leftColor)');
   $('body').css('background-image', 'none');

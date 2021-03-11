@@ -4,7 +4,7 @@
     <% if (user) { %>
       <div class="header-details">
         <div class="user-details">
-          <span class="details-name"><%= user.first_name %> <%= user.last_name %></span>
+          <span class="details-name"><a href="/update"><i class="far fa-edit"></i></a><%= user.first_name %> <%= user.last_name %></span>
           <span class="details-email"><%= user.email %></span>
         </div>
         <a href="/logout"><button id="logout-btn">Logout</button></a>

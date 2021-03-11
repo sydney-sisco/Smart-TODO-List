@@ -5,7 +5,7 @@
  * See: https://expressjs.com/en/guide/using-middleware.html#middleware.router
  */
 
-const { dataFetcher, insertUserAndReturn } = require('../db/user-queries');
+const { dataFetcher, insertUserAndReturn, updateUserInfo } = require('../db/user-queries');
 const express = require('express');
 const router  = express.Router();
 
@@ -56,6 +56,25 @@ router.post('/login', (req, res) => {
     }
     res.send('Incorrect email/password');
   }).catch(err => console.log('ERROR:', err));
+});
+
+router.patch('/', (req, res) => {
+  if (!req.session.user_id) {
+    res.send('Not logged in!');
+    return;
+  }
+  const userInfo = {
+    userId: req.session.user_id,
+    newFname: req.body.updateFname,
+    newLname: req.body.updateLname,
+    newPassword: req.body.updatePassword
+  }
+  updateUserInfo(userInfo)
+    .then(data => res.redirect('/'))
+    .catch(err => {
+      console.log('ERROR UPDATING USER INFO', err.message);
+      res.send('Something went wrong updating your details');
+    });
 });
 
 module.exports = router;

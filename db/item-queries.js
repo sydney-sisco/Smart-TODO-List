@@ -3,8 +3,7 @@ const db = require('../lib/db.js');
 const getUsersItems = function(userId) {
   const text = `
   SELECT * FROM items
-  WHERE user_id = $1
-  ORDER BY priority`;
+  WHERE user_id = $1`;
   const values = [userId];
 
   return db.query(text, values)

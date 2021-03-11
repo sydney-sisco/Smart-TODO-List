@@ -6,11 +6,10 @@ if(process.env.ENV === 'PROD') {
   // TODO: remove log
   console.log('google key file contents:',googleKeyFileContents);
 
-
   const fs = require('fs');
 
   try {
-    const data = fs.writeFileSync('./google-key.json', googleKeyFileContents)
+    const data = fs.writeFileSync('/tmp/google-key.json', googleKeyFileContents)
     //file written successfully
     console.log('file written successfully');
   } catch (err) {

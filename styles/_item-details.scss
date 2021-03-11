@@ -2,7 +2,7 @@
   @include flexCenter();
   font-size: $primaryFontSize;
   text-align: center;
-  color: $rightColor;
+  color: var(--rightColor);
   width:500px;
   padding: 1rem 1rem;
   position: fixed;
@@ -10,7 +10,7 @@
   top: 50%;
   transform: translate(-50%, -50%);
   border-radius: 15px;
-  border: 1px solid $rightColor;
+  border: 1px solid var(--rightColor);
 
   .watch {
     display: flex;
@@ -59,8 +59,8 @@
   input {
     width: auto;
     text-align: center;
-    border: 1px solid $rightColor;
-    color: $rightColor;
+    border: 1px solid var(--rightColor);
+    color: var(--rightColor);
     outline: none;
     flex: 1;
     margin-right: 0.25rem;
@@ -69,11 +69,11 @@
   button {
     width: auto;
     color: white;
-    background-color: $rightColor;
+    background-color: var(--rightColor);
 
     &:hover {
       background-color: white;
-      color: $rightColor;
+      color: var(--rightColor);
 
     }
   }
@@ -91,7 +91,7 @@
 .mod-dropdown-menu {
   margin: 0;
   padding: 0;
-  border: 1px solid $rightColor;
+  border: 1px solid var(--rightColor);
   left: 0;
   border-radius: 15px;
   width: 92%;

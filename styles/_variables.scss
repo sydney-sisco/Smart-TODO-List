@@ -1,11 +1,24 @@
 // Variables
-$leftColor: #e2c35d;
-$rightColor: #da785d;
-$textColor: white;
-$textColorAlt: rgba(95, 95, 95, 0.932);
-$cardColor: white;
-$errorTextColor: rgb(255, 78, 78);
 $primaryFontSize: 1.3rem;
+
+// TODO: PLEASE KEEP COLORS FOR REFERENCE. KEEP KEEP KEEP KEEP KEEP KEEP
+
+// Dark Mode
+// $leftColor: #1f1f1f;
+// $rightColor: #e69a2a;
+// $textColor: rgb(177, 177, 177);
+// $textColorAlt: rgba(179, 179, 179, 0.932);
+// $cardColor: #2C303A;
+// $errorTextColor: rgb(255, 255, 255);
+
+// Light Mode
+// $leftColor: #e2c35d;
+// $rightColor: #da785d;
+// $textColor: white;
+// $textColorAlt: rgba(95, 95, 95, 0.932);
+// $cardColor: white;
+// $errorTextColor: rgb(255, 78, 78);
+// $primaryFontSize: 1.3rem;
 
 
 //Mix-ins
@@ -21,13 +34,13 @@ $primaryFontSize: 1.3rem;
   outline: none;
   width: 100%;
   background-color: transparent;
-  border: 1px solid $rightColor;
-  color: $rightColor;
+  border: 1px solid var(--rightColor);
+  color: var(--rightColor);
   border-radius: 5px;
   align-self: center;
 
   &:hover {
-    background-color: $rightColor;
+    background-color: var(--rightColor);
     color: white;
   }
 }

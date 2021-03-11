@@ -290,7 +290,7 @@ const watchDetailStructure = itemInfo => {
 
   let watchHTML = '';
 
-  if(!itemInfo && !itemInfo.title) {
+  if(!itemInfo || !itemInfo.title) {
     watchHTML = `<p>Could not retrieve relevant details!</p>`;
     $('#extra-details').html(watchHTML);
     return;

@@ -32,13 +32,16 @@ const changePriorityHandler = function(e) {
     if(data.priority & !itemHTMLelem.hasClass("priority")){
       // adds the priority class if priority is set to high and class does not exist already
       $(`#${itemId} span`).html(`<span class="fas fa-exclamation"></span>${data.name}`)
-      itemHTMLelem.addClass("priority");
-      itemHTMLelem.detach().prependTo($(`.id-${data.category_id}>ul`))
+      itemHTMLelem.addClass("priority highlight");
+      itemHTMLelem.detach()
+      addAfterPriority(data.category_id, itemHTMLelem)
 
     } else if (!data.priority & itemHTMLelem.hasClass("priority")){
       $(`#${itemId} span`).html(`${data.name}`)
       itemHTMLelem.removeClass("priority");
-      itemHTMLelem.detach().appendTo($(`.id-${data.category_id}>ul`))
+      itemHTMLelem.addClass("highlight")
+      itemHTMLelem.detach()
+      addAfterPriority(data.category_id, itemHTMLelem)
     }
 
     $('#mod-items-wrapper').remove();
@@ -59,6 +62,7 @@ const updateCategoryHandler = function(e) {
     const $itemToMove = $(`#${itemId}`)
     $itemToMove.detach()
     addAfterPriority(data.category_id, $itemToMove)
+    $itemToMove.addClass("highlight")
   })
 }
 

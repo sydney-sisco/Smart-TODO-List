@@ -167,7 +167,7 @@ const formSubmissionHandler = function(event) {
     }
 
     const $itemToList = $(`
-      <li class="${itemPriorityClass}" id="item-id-${data.id}">
+      <li class="${itemPriorityClass} highlight" id="item-id-${data.id}">
         <button><i class="complete-btn far fa-circle"></i></button>
         <span>${itemPriorityDiv}${data.name}</span>
         <div class="details-btn-container"><button class="details-btn fas fa-ellipsis-h"></button></div>

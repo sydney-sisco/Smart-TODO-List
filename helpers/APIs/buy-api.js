@@ -29,7 +29,7 @@ const buyDetails = (query) => {
 
 };
 
-buyDetails('popcorn');
+// buyDetails('popcorn');
 
 module.exports = { buyDetails };
 

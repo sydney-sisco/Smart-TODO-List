@@ -179,7 +179,7 @@ $(() => {
     // TODO: add the other functions from the other apis.
     $.ajax({
       url: `/details/${num}`,
-      timeout: 3000 // in milliseconds
+      timeout: 10000 // in milliseconds
     }).then(data => {
       console.log('data returned from server:', data);
       if (categoryId === 1) watchDetailStructure(data);
@@ -267,18 +267,25 @@ const eatDetailStructure = itemInfo => {
   // remove spinner from details area
   $('#extra-details').empty();
 
-  // add class for correct styling
-  $('#extra-details').addClass('watch');
-
   // build html for details
   let eatHTML = '';
-  eatHTML += `<a href="${itemInfo.url}" target="_blank" ><img src="${itemInfo.thumbnail}"/></a>`;
-  eatHTML += `<div id="details">`;
-  eatHTML += `<p>${itemInfo.name}</p>`;
-  eatHTML += `<p>${itemInfo.rating}/5⭐️</p>`;
-  eatHTML += `<p>Distance: ${Math.round(num * 10) / 100} km</p>`;
-  if (itemInfo.url) eatHTML += `<a href="${itemInfo.url}" target="_blank" >More details...</a>`;
-  eatHTML += `</div>`;
+
+  if(!itemInfo) {
+    eatHTML = `<p>Could not retrieve relevant details!</p>`;
+  } else {
+    // add class for correct styling
+    $('#extra-details').addClass('watch');
+
+    if(itemInfo.url && itemInfo.thumbnail) eatHTML += `<a href="${itemInfo.url}" target="_blank" ><img src="${itemInfo.thumbnail}"/></a>`;
+    if(itemInfo.name){
+      eatHTML += `<div id="details">`;
+      eatHTML += `<p>${itemInfo.name}</p>`;
+      if(itemInfo.rating) eatHTML += `<p>${itemInfo.rating}/5⭐️</p>`;
+      if(itemInfo.distance) eatHTML += `<p>Distance: ${Math.round((itemInfo.distance / 1000) * 10) / 10} km</p>`;
+      if(itemInfo.url) eatHTML += `<a href="${itemInfo.url}" target="_blank" >More details...</a>`;
+      eatHTML += `</div>`;
+    }
+  }
 
   // add html to container div
   $('#extra-details').html(eatHTML);
@@ -288,16 +295,23 @@ const watchDetailStructure = itemInfo => {
   // remove spinner from details area
   $('#extra-details').empty();
 
+  let watchHTML = '';
+
+  if(!itemInfo || !itemInfo.title) {
+    watchHTML = `<p>Could not retrieve relevant details!</p>`;
+    $('#extra-details').html(watchHTML);
+    return;
+  }
+
   // add class for correct styling
   $('#extra-details').addClass('watch');
 
   // build html for details
-  let watchHTML = '';
-  if(itemInfo.thumbnail) watchHTML += `<a href="${itemInfo.url}" target="_blank" ><img src="${itemInfo.thumbnail}"/></a>`;
+  if(itemInfo.thumbnail && itemInfo.url) watchHTML += `<a href="${itemInfo.url}" target="_blank" ><img src="${itemInfo.thumbnail}"/></a>`;
   watchHTML += `<div id="details">`;
   watchHTML += `<p>${itemInfo.title}</p>`;
   if(itemInfo.year) watchHTML += `<p>${itemInfo.year}</p>`;
-  if(itemInfo.rating) watchHTML += `<p>${itemInfo.rating}/10⭐️</p>`;
+  if(itemInfo.rating) watchHTML += `<p>${itemInfo.rating}/100⭐️</p>`;
   if (itemInfo.url) watchHTML += `<a href="${itemInfo.url}" target="_blank" >More details...</a>`;
   watchHTML += `</div>`;
 

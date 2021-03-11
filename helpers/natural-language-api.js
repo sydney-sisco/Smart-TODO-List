@@ -1,3 +1,10 @@
+// set up google key file
+const googleKeyFileContents = process.env.GOOGLE_KEY;
+// TODO: remove log
+console.log('google key file contents:',googleKeyFileContents);
+
+
+
 // Imports the Google Cloud client library
 const language = require('@google-cloud/language');
 const client = new language.LanguageServiceClient();
@@ -25,3 +32,24 @@ module.exports = {
 
 
 
+
+
+// const {auth} = require('google-auth-library');
+
+// // load the environment variable with our keys
+// const keysEnvVar = process.env.GOOGLE_KEY;
+// if (!keysEnvVar) {
+//   throw new Error('The $GOOGLE_KEY environment variable was not found!');
+// }
+// const keys = JSON.parse(keysEnvVar);
+
+// async function main() {
+//   // load the JWT or UserRefreshClient from the keys
+//   const client = auth.fromJSON(keys);
+//   client.scopes = ['https://www.googleapis.com/auth/cloud-platform'];
+//   const url = `https://dns.googleapis.com/dns/v1/projects/${keys.project_id}`;
+//   const res = await client.request({url});
+//   console.log(res.data);
+// }
+
+// main().catch(console.error);

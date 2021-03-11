@@ -49,7 +49,6 @@
     border: none;
     padding: none;
     margin: none;
-
   }
 }
 
@@ -115,7 +114,7 @@
 // notifying users of an item add, edit or change category
 @keyframes change-fade {
   0% {
-    box-shadow: inset 0 0 0 0.3em $rightColor;
+    box-shadow: inset 0 0 0 0.3rem $rightColor;
   }
 
   100% {

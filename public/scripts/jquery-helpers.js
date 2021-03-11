@@ -16,3 +16,11 @@ const addAfterPriority = function(categoryId, $newItem){
   listNode.after($newItem);
 
 }
+
+// after item is modified in anyway
+const resetCSS = function(selector) {
+  $('#mod-items-wrapper').remove();
+  $('.body-container').css('filter','blur(0px)')
+  $(`${selector}`).hasClass("highlight") ?  null : $(`${selector}`).addClass("highlight");
+  setTimeout(()=>{$(`${selector}`).removeClass("highlight")}, 1500)
+}

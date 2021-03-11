@@ -12,9 +12,8 @@ const updateItemNameHandler = function(e) {
     data
   })
   .then(data => {
-    $(`#${itemId} span`).html(`${data.priority? `<span class="fas fa-exclamation"></span>${data.name}`: data.name}`)
-    $('#mod-items-wrapper').remove();
-    $('.body-container').css('filter','blur(0px)')
+    $(`#item-id-${num} span`).html(`${data.priority? `<span class="fas fa-exclamation"></span>${data.name}`: data.name}`)
+    resetCSS(`#item-id-${num}`);
   })
 }
 
@@ -32,20 +31,16 @@ const changePriorityHandler = function(e) {
     if(data.priority & !itemHTMLelem.hasClass("priority")){
       // adds the priority class if priority is set to high and class does not exist already
       $(`#${itemId} span`).html(`<span class="fas fa-exclamation"></span>${data.name}`)
-      itemHTMLelem.addClass("priority highlight");
-      itemHTMLelem.detach()
-      addAfterPriority(data.category_id, itemHTMLelem)
+      itemHTMLelem.addClass("priority").detach();
+      addAfterPriority(data.category_id, itemHTMLelem);
 
     } else if (!data.priority & itemHTMLelem.hasClass("priority")){
-      $(`#${itemId} span`).html(`${data.name}`)
-      itemHTMLelem.removeClass("priority");
-      itemHTMLelem.addClass("highlight")
-      itemHTMLelem.detach()
+      $(`#${itemId} span`).html(`${data.name}`);
+      itemHTMLelem.removeClass("priority").detach();
       addAfterPriority(data.category_id, itemHTMLelem)
     }
 
-    $('#mod-items-wrapper').remove();
-    $('.body-container').css('filter','blur(0px)')
+    resetCSS(`#${itemId}`);
   })
 }
 
@@ -62,7 +57,7 @@ const updateCategoryHandler = function(e) {
     const $itemToMove = $(`#${itemId}`)
     $itemToMove.detach()
     addAfterPriority(data.category_id, $itemToMove)
-    $itemToMove.addClass("highlight")
+    resetCSS(`#${itemId}`);
   })
 }
 
@@ -73,9 +68,10 @@ const deleteItemHandler = function(e) {
     url: `/items/${num}`,
   })
   .then(data => {
-    $('#mod-items-wrapper').remove();
-    $('.body-container').css('filter','blur(0px)')
-    $(`#${itemId}`).remove()
+    resetCSS(`#${itemId}`);
+    setTimeout(()=>{
+      $(`#${itemId}`).remove();
+    }, 1500)
   })
 }
 
@@ -206,7 +202,6 @@ $(() => {
     $('.body-container').css('filter','blur(0px)')
     $('#mod-items-wrapper').remove();
   })
-
 
   // edit animation and functionality
   $('#edit-item-form').hide();

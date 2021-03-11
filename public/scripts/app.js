@@ -98,6 +98,14 @@ const completedToggle = event => {
       data: data
     }).then(function() {
       $listItem = $(event.target).parent().parent();
+
+      // highlights done list when item is moved
+      const $doneTitle = $($listItem.parents('.todo-list').siblings()[1]);
+      $doneTitle.addClass("highlight");
+      setTimeout(()=>{
+        $doneTitle.removeClass("highlight");
+      }, 1500)
+
       if (item.done) {
         $listItem.detach().prependTo(`.id-${categoryId} .done-list`);
         $listItem.addClass('completed');

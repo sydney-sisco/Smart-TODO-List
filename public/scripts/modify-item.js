@@ -295,16 +295,23 @@ const watchDetailStructure = itemInfo => {
   // remove spinner from details area
   $('#extra-details').empty();
 
+  let watchHTML = '';
+
+  if(!itemInfo || !itemInfo.title) {
+    watchHTML = `<p>Could not retrieve relevant details!</p>`;
+    $('#extra-details').html(watchHTML);
+    return;
+  }
+
   // add class for correct styling
   $('#extra-details').addClass('watch');
 
   // build html for details
-  let watchHTML = '';
-  if(itemInfo.thumbnail) watchHTML += `<a href="${itemInfo.url}" target="_blank" ><img src="${itemInfo.thumbnail}"/></a>`;
+  if(itemInfo.thumbnail && itemInfo.url) watchHTML += `<a href="${itemInfo.url}" target="_blank" ><img src="${itemInfo.thumbnail}"/></a>`;
   watchHTML += `<div id="details">`;
   watchHTML += `<p>${itemInfo.title}</p>`;
   if(itemInfo.year) watchHTML += `<p>${itemInfo.year}</p>`;
-  if(itemInfo.rating) watchHTML += `<p>${itemInfo.rating}/10⭐️</p>`;
+  if(itemInfo.rating) watchHTML += `<p>${itemInfo.rating}/100⭐️</p>`;
   if (itemInfo.url) watchHTML += `<a href="${itemInfo.url}" target="_blank" >More details...</a>`;
   watchHTML += `</div>`;
 

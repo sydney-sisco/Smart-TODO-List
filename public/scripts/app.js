@@ -2,6 +2,10 @@ let itemPriorityClass = ''
 let itemPriorityDiv = '';
 
 $(() => {
+  // Dark mode
+  checkDarkMode();
+  $('#dark-switch').on('click', darkModeToggle);
+
   // call the resize handler when the page loads to draw the correct lists
   resizeHandler();
 
@@ -21,6 +25,55 @@ $(() => {
   // listen for resize events to switch layout
   $(window).resize(resizeHandler);
 });
+
+// checks user's localstorage to enable or disable dark mode
+const checkDarkMode = () => {
+  const $varElem = $('html').get(0).style;
+  const isDarkOn = localStorage.getItem('darkMode');
+
+  isDarkOn ? enableDarkMode($varElem) : disableDarkMode($varElem);
+};
+
+const darkModeToggle = function() {
+  const $varElem = $('html').get(0).style;
+  const isDark = $('#dark-switch').attr('class') === 'dark';
+
+  isDark ? disableDarkMode($varElem) : enableDarkMode($varElem);
+};
+
+const enableDarkMode = $elem => {
+  $elem.setProperty('--leftColor', '#1f1f1f');
+  $elem.setProperty('--rightColor', '#e69a2a');
+  $elem.setProperty('--rightColorDark', '#e69a2a');
+  $elem.setProperty('--textColor', 'rgb(177, 177, 177)');
+  $elem.setProperty('--altTextColor', 'rgba(179, 179, 179, 0.932)');
+  $elem.setProperty('--altTextColorLight', '#e6e6e6');
+  $elem.setProperty('--altTextColorSuperLight', '#e6e6e6');
+  $elem.setProperty('--cardColor', '#2C303A');
+  $elem.setProperty('--errorTextColor', 'rgb(255, 255, 255)');
+  $('#logo').attr('src', 'https://see.fontimg.com/api/renderfont4/w1l49/eyJyIjoiZnMiLCJoIjo2NCwidyI6MjAwMCwiZnMiOjMyLCJmZ2MiOiIjRkZDODBDIiwiYmdjIjoiI0ZGRkZGRiIsInQiOjF9/Tm90U29TbWFydA/marshmallow-personal-use-regular.png');
+  $('#dark-switch').addClass('dark').children('button').html('Light Mode');
+  $('body').css('background', 'var(--leftColor)');
+  $('body').css('background-image', 'none');
+  localStorage.setItem('darkMode', 'enabled');
+};
+
+const disableDarkMode = $elem => {
+  $elem.setProperty('--leftColor', '#e2c35d');
+  $elem.setProperty('--rightColor', '#da785d');
+  $elem.setProperty('--rightColorDark', '#c74f2e');
+  $elem.setProperty('--textColor', 'white');
+  $elem.setProperty('--altTextColor', 'rgba(95, 95, 95, 0.932)');
+  $elem.setProperty('--altTextColorLight', '#919191');
+  $elem.setProperty('--altTextColorSuperLight', '#c4c4c4');
+  $elem.setProperty('--cardColor', 'white');
+  $elem.setProperty('--errorTextColor', 'rgb(255, 78, 78)');
+  $('#logo').attr('src', 'https://see.fontimg.com/api/renderfont4/w1l49/eyJyIjoiZnMiLCJoIjo2NCwidyI6MjAwMCwiZnMiOjMyLCJmZ2MiOiIjRkZGRkZGIiwiYmdjIjoiI0ZGRkZGRiIsInQiOjF9/Tm90U29TbWFydA/marshmallow-personal-use-regular.png');
+  $('#dark-switch').removeClass('dark').children('button').html('Dark Mode');
+  $('body').css('background', 'none');
+  $('body').css('background-image', 'linear-gradient(135deg, var(--leftColor), var(--rightColor))');
+  localStorage.setItem('darkMode', null);
+};
 
 const doneListToggle = function() {
   $this = $(this);
@@ -59,7 +112,7 @@ const loadItems = () => {
 
       if (item.done) {
         const $doneItem = $(`
-        <li class="${itemPriorityClass}" id="item-id-${item.id}" class='completed'>
+        <li class="${itemPriorityClass} completed" id="item-id-${item.id}" >
           <button><i class="complete-btn fas fa-circle"></i></button>
           <span>${itemPriorityDiv}${item.name}</span>
           <div class="details-btn-circle"><button class="details-btn fas fa-ellipsis-h"></button></div>

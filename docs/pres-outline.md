@@ -44,15 +44,11 @@ When something gets mis-categorized, hand over to next person for stretch featur
 
 # Watch
 * Attack on Titan
-* Harry Potter and the stone or prisoner
-
-# Eat 
-* Miku (mis-categorized)
+* Harry Potter and the stone
 
 # Read
 * 1984 
 * Harry Potter at first (rename to something specific)
 
-# Buy
-* toothpaste
-* cable 
+# Eat 
+* Miku (mis-categorized)

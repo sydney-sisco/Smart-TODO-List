@@ -313,12 +313,20 @@ const showList = (listID) => {
 };
 
 const easterEgg = string => {
-  const codeWords = ['Hosam Dahrooge', 'Connie Ho', 'Sydney Sisco'];
+  const codeWords = ['Hosam Dahrooge', 'Connie Ho', 'Sydney Sisco', 'Thank you!'];
+
+  if(!codeWords.includes(string)) {
+    return false;
+  }
+
+  if(string === 'Thank you!') {
+    window.location.replace("/thankyou");
+  }
 
   if (codeWords.includes(string)) {
     const $elements = $( `p:contains("${string}")` );
     console.log($elements);
-    $($elements[0]).addClass("highlight");
+    $($elements[0]).parent().addClass("highlight");
        setTimeout(()=>{
          $elements.removeClass("highlight");
        }, 1500)

@@ -9,12 +9,15 @@
 * Main sorting algorithm leverages google search & google natural language apis
 * Also used other APIs such as google-books, yelp, amazon, imdb, and moviedb for some special features
 
+Segway: LET'S GET SORTING! 
+
 Demo: 
 1) Add a couple of items to the list, then choose 1 of each watch, eat, read, buy to show the details card)
-(Do it fast to show off spinner, do the speed round here)
+(If you type more than one thing)
 2) Input error (maybe if there's time)
 
-When something gets mis-categorized, hand over to next person for stretch features 
+When something gets mis-categorized, hand over to next person for stretch features
+
 # Stretch Demo (R: Syd)
 1) Change the category of the mis-categorized item -> show the new details card
 2) Change the name of the item -> show the new details card

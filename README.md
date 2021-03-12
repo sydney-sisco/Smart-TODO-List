@@ -1,6 +1,6 @@
 # NotSoSmart
 
-Visit the hosted version of this project [here]().
+Visit the hosted version of this project [here](https://notsosmart.herokuapp.com/).
 
 NotSoSmart is a smart TODO list categorizer that takes away the hassle of having to categorize movies or series you wish to watch, books or comics you might want to read, food or products you want to buy in the future. While also providing you with more details regarding each item added to the lists using multiple APIs.
 
@@ -41,10 +41,11 @@ http://localhost:8080/
 
 ## Final Product
 
-!["Screenshot of Light Mode"]()
-!["Screenshot of Dark Mode"](https://github.com/Just-Hosam/tweeter/blob/master/docs/mobile-hidden-compose.png)
-!["Screenshot of Details Card"](https://github.com/Just-Hosam/tweeter/blob/master/docs/no-content-error.png)
-!["Screenshot of Mobile Version"](https://github.com/Just-Hosam/tweeter/blob/master/docs/too-many-char-error.png)
+!["Screenshot of Light Mode"](https://github.com/sydney-sisco/Smart-TODO-List/blob/master/docs/Readme-Screenshots/Light%20Mode.png)
+!["Screenshot of Dark Mode"](https://github.com/sydney-sisco/Smart-TODO-List/blob/master/docs/Readme-Screenshots/Dark%20Mode.png)
+!["Screenshot of Details Card"](https://github.com/sydney-sisco/Smart-TODO-List/blob/master/docs/Readme-Screenshots/Dark%20Details.png)
+!["GIF of Pending Bar"](https://github.com/sydney-sisco/Smart-TODO-List/blob/master/docs/Readme-Screenshots/Pending%20Bar.gif)
+!["Screenshot of Mobile Version"](https://github.com/sydney-sisco/Smart-TODO-List/blob/master/docs/Readme-Screenshots/Mobile%20Version.png)
 
 ## Known Issues/Bugs
 

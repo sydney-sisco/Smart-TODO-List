@@ -4,7 +4,7 @@ Visit the hosted version of this project [here]().
 
 NotSoSmart is a smart TODO list categorizer that takes away the hassle of having to categorize movies or series you wish to watch, books or comics you might want to read, food or products you want to buy in the future. While also providing you with more details regarding each item added to the lists using multiple APIs.
 
-This project was developed by [Hosam Dahrooge](), [Connie Ho](), and [Sydney Sisco]().
+This project was developed by [Hosam Dahrooge](https://github.com/Just-Hosam), [Connie Ho](https://github.com/connie-ho), and [Sydney Sisco](https://github.com/sydney-sisco).
 
 <br>
 
@@ -41,10 +41,10 @@ http://localhost:8080/
 
 ## Final Product
 
-!["Screenshot of Base page"](https://github.com/Just-Hosam/tweeter/blob/master/docs/Base-look.png)
-!["Screenshot of Mobile version"](https://github.com/Just-Hosam/tweeter/blob/master/docs/mobile-hidden-compose.png)
-!["Screenshot of no content error"](https://github.com/Just-Hosam/tweeter/blob/master/docs/no-content-error.png)
-!["Screenshot of over char limit error"](https://github.com/Just-Hosam/tweeter/blob/master/docs/too-many-char-error.png)
+!["Screenshot of Light Mode"]()
+!["Screenshot of Dark Mode"](https://github.com/Just-Hosam/tweeter/blob/master/docs/mobile-hidden-compose.png)
+!["Screenshot of Details Card"](https://github.com/Just-Hosam/tweeter/blob/master/docs/no-content-error.png)
+!["Screenshot of Mobile Version"](https://github.com/Just-Hosam/tweeter/blob/master/docs/too-many-char-error.png)
 
 ## Known Issues/Bugs
 
@@ -53,11 +53,25 @@ http://localhost:8080/
 ## Future Features
 
 - More categories to classify items into (games, activities...)
+- Drag and Drop
+- Multi-user colaboration (family plan)
+- Deadline and notification implementation
 
 ## Dependencies
 
-- Node.js
+- Google Natural Language
+- Axios
+- Bcrypt
+- Body-parser
+- Chalk
+- Cookie-session
+- Dotenv
+- EJS
 - Express
-- body-parser
-- chance
-- md5
+- Method-Override
+- Node-sass-middleware
+- PG
+- PG-native
+- Yelp-fusion
+
+

@@ -11,7 +11,6 @@ INSERT INTO categories (name) VALUES
 ('Uncategorized');
 
 INSERT INTO items (name, user_id, category_id) VALUES
-('Mulan', 1, 1),
 ('Banana', 3, 2),
 ('Sleep', 2, 5),
 ('80/20 Principle', 1, 3),
@@ -33,18 +32,20 @@ INSERT INTO items (name, user_id, category_id) VALUES
 ('2 fast 2 furious', 1, 1),
 ('12 rules for life', 1, 3),
 ('Keyboard', 1, 4),
-('Future Feature: Adding Dates',1,5),
-('Future Feature: Shared Lists',1,5),
-('Future Feature: Drag and Drop',1,5),
-('Future Feature: More Categories',1,5);
+('Adding Dates',1,5),
+('Shared Lists',1,5),
+('Drag and Drop',1,5),
+('More Categories',1,5),
+('Future Features:',1,5);
+
 
 INSERT INTO items (name, user_id, category_id, priority) VALUES
 ('Finish This Project', 1, 5, true),
 ('Finish This Project', 2, 5, true),
 ('Finish This Project', 3, 5, true),
-('Demo This Project', 1, 5, false),
-('Demo This Project', 2, 5, false),
-('Demo This Project', 3, 5, false);
+('Demo This Project', 1, 5, true),
+('Demo This Project', 2, 5, true),
+('Demo This Project', 3, 5, true);
 
 
 INSERT INTO items (name, user_id, category_id, done) VALUES
@@ -60,3 +61,54 @@ INSERT INTO items (name, user_id, category_id, done) VALUES
 ('Change Category Feature', 1, 5, true),
 ('Edit Name Feature', 1, 5, true),
 ('Categorize Algorithm', 1, 5, true);
+
+
+INSERT INTO items (name, user_id, category_id, done) VALUES
+('notsosmart.herokuapp.com',1,3,true),
+('Our App Link:',1,3,true);
+
+INSERT INTO items (name, user_id, category_id, done) VALUES
+('Free APIs are sometimes slow & unreliable',1,4,true),
+('Merge Conflicts',1,4,true),
+('Working Horizontally Was Tricky',1,4,true),
+('Challenges:',1,4,true);
+
+INSERT INTO items (name, user_id, category_id, done, priority) VALUES
+('Mulan', 1, 1, true, true),
+('Mulan', 1, 1, true, true),
+('Mulan', 1, 1, true, true),
+('Mulan', 1, 1, true, true),
+('Mulan', 1, 1, true, true),
+('Mulan', 1, 1, true, true),
+('Mulan', 1, 1, true, true),
+('Mulan', 1, 1, true, true),
+('Mulan', 1, 1, true, true),
+('Mulan', 1, 1, true, true),
+('Mulan', 1, 1, true, true),
+('Mulan', 1, 1, true, true),
+('Mulan', 1, 1, true, true),
+('Mulan', 1, 1, true, true),
+('Mulan', 1, 1, true, true),
+('Mulan', 1, 1, true, true),
+('Mulan', 1, 1, true, true),
+('Mulan', 1, 1, true, true),
+('Mulan', 1, 1, true, true),
+('Mulan', 1, 1, true, true),
+('Mulan', 1, 1, true, true),
+('Mulan', 1, 1, true, true),
+('Mulan', 1, 1, true, true),
+('Mulan', 1, 1, true, true),
+('Mulan', 1, 1, true, true),
+('Mulan', 1, 1, true, true),
+('Mulan', 1, 1, true, true),
+('Mulan', 1, 1, true, true),
+('Mulan', 1, 1, true, true),
+('Mulan', 1, 1, true, true),
+('Mulan', 1, 1, true, true),
+('Mulan', 1, 1, true, true),
+('Mulan', 1, 1, true, true),
+('Mulan', 1, 1, true, true),
+('Mulan', 1, 1, true, true),
+('Mulan', 1, 1, true, true),
+('Mulan', 1, 1, true, true),
+('Mulan', 1, 1, true, true);

@@ -328,8 +328,8 @@ const easterEgg = string => {
     console.log($elements);
     $($elements[0]).parent().addClass("highlight");
        setTimeout(()=>{
-         $elements.removeClass("highlight");
-       }, 1500)
+        $($elements[0]).parent().removeClass("highlight");
+       }, 2000);
     return true;
   }
   return false;

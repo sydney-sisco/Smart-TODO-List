@@ -186,7 +186,6 @@ $(() => {
       url: `/details/${num}`,
       timeout: 10000 // in milliseconds
     }).then(data => {
-      console.log('data returned from server:', data);
       if (categoryId === 1) watchDetailStructure(data);
       if (categoryId === 2) eatDetailStructure(data);
       if (categoryId === 3) readDetailStructure(data);

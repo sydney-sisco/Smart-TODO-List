@@ -50,12 +50,7 @@ router.post('/login', (req, res) => {
 
   dataFetcher('email', curEmail).then(data => {
     const userData = data.rows[0];
-    console.log('from the db:',userData);
-    console.log('login password:',curPassword);
-    console.log('bc:', bcrypt.compareSync(curPassword, userData.password));
-    // TODO:implement bcrypt (STRETCH)
 
-    // if (data.rowCount > 0 && userData.password === curPassword) {
     if (data.rowCount > 0 && bcrypt.compareSync(curPassword, userData.password)) {
       req.session.user_id = userData.id;
       res.redirect('/');
@@ -75,7 +70,6 @@ router.patch('/', (req, res) => {
     newFname: req.body.updateFname,
     newLname: req.body.updateLname,
     newPassword: bcrypt.hashSync(req.body.updatePassword, 10),
-    // newPassword: req.body.updatePassword
   }
   updateUserInfo(userInfo)
     .then(data => res.redirect('/'))

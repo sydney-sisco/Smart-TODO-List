@@ -276,7 +276,7 @@ const listSwitcherHander = (event) => {
 // called when the page is resized
 const resizeHandler = () => {
   // determine if mobile based on visibility of the footer
-  const mobile = $('.main-footer').css('display') === 'none';
+  const mobile = $('.pending').css('margin') === '20px';
 
   if(mobile) {
     // get the current value from  the dropdown

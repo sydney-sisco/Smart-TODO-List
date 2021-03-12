@@ -74,7 +74,6 @@ router.delete("/:id", (req, res) => {
     return;
   }
 
-  console.log(userId, Number(req.params.id))
   deleteItem(userId, Number(req.params.id))
     .then(data => res.send(data))
     .catch(err => res.status(500).json({ error: err.message }));

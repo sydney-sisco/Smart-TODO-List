@@ -39,7 +39,6 @@ When something gets mis-categorized, hand over to next person for stretch featur
 * Mention Heroku hosting (hashing passwords but mention dont actually used something real)
 * Say thank you with confetti
 
-
 ## List Items
 
 # Watch
@@ -48,7 +47,9 @@ When something gets mis-categorized, hand over to next person for stretch featur
 
 # Read
 * 1984 
-* Harry Potter at first (rename to something specific)
+
+# Buy
+* Toothpaste
 
 # Eat 
 * Miku (mis-categorized)

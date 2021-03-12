@@ -14,7 +14,6 @@ const addAfterPriority = function(categoryId, $newItem){
   }
   //appends new item after the last priority item
   listNode.after($newItem);
-
 }
 
 // after item is modified in anyway
@@ -43,5 +42,4 @@ const textErrorHandler = function(inputSelector, headerSelector) {
   }
 
   return inputText;
-
 }

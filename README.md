@@ -1,6 +1,7 @@
 # NotSoSmart
 
 Visit the hosted version of this project [here](https://notsosmart.herokuapp.com/).
+It is best viewed at a zoom of 67%.
 
 NotSoSmart is a smart TODO list categorizer that takes away the hassle of having to categorize movies or series you wish to watch, books or comics you might want to read, food or products you want to buy in the future. While also providing you with more details regarding each item added to the lists using multiple APIs.
 
@@ -74,5 +75,3 @@ http://localhost:8080/
 - PG
 - PG-native
 - Yelp-fusion
-
-

@@ -102,6 +102,17 @@ app.get('/logout', (req, res) => {
   res.redirect('/login');
 });
 
+app.get("/thankyou", (req, res) => {
+  if (!req.session.user_id) {
+    res.redirect('/login');
+    return;
+  }
+  dataFetcher('id', req.session.user_id).then(data => {
+    const templateVars = { user: data.rows[0] };
+    res.render("thankyou", templateVars);
+  });
+});
+
 app.listen(PORT, () => {
   console.log(`NotSoSmart listening on port ${PORT}`);
 });

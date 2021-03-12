@@ -24,11 +24,11 @@
         <form action="/users/?_method=PATCH" method="POST">
           <div class='credential-input'>
             <label for="updateFname">First name:</label>
-            <input type='text' name="updateFname" id="updateFname" value="<%= user.first_name %>">
+            <input type='text' name="updateFname" id="updateFname" value="<%= user.first_name %>" autocomplete="off">
             <label for="updateLname">Last name:</label>
-            <input type="text" name="updateLname" id="updateLname" value="<%= user.last_name %>">
+            <input type="text" name="updateLname" id="updateLname" value="<%= user.last_name %>" autocomplete="off">
             <label for="updatePassword">New Password:</label>
-            <input type="password" name="updatePassword" id="updatePassword">
+            <input type="password" name="updatePassword" id="updatePassword" autocomplete="off">
           </div>
           <button type="submit">Save Changes</button>
         </form>

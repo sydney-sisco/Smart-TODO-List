@@ -101,7 +101,7 @@ $(() => {
 
       <div>
         <form id="edit-item-form" method="PATCH" action="/items/${num}">
-          <input type="text" name="name" placeholder="New Item Name"></input>
+          <input type="text" name="name" autocomplete="off" placeholder="New Item Name"></input>
           <button class="submit-btn" form="edit-item-form" type="submit">Update</button>
         </form>
       </div>

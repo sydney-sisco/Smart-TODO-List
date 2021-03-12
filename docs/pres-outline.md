@@ -2,19 +2,30 @@
 
 # Introduction (R: Connie)
 * Say hi and introduce everyone's name // login as everyone is getting introduced 
-* Why we chose this project: wanted something seemingly simple but also challenging so that we could focus on implementing many stretch features (also because I refused to do the quiz app jkjk)
+* Why we chose this project: wanted something seemingly simple but also challenging so that we could focus on creating a fully functioining app as well as implementing some cool stretch features (also because I refused to do the quiz app jkjk)
 
 # Main features (R: Connie) 
-* Smart To-do list that auto-categorizes your to-dos into watch, eat, read, buy or general categories
-* Main sorting algorithm leverages google search & google natural language apis
-* Also used other APIs such as google-books, yelp, amazon, imdb, and moviedb for some special features
+* As you've seen already, the smart to-do list is one that auto-categorizes your to-dos into watch, eat, read, buy or general categories
+* Our main categorizing algorithm leverages google search & google natural language apis
+
+* Without further ado- LET'S GET SORTING
 
 Segway: LET'S GET SORTING! 
 
-Demo: 
-1) Add a couple of items to the list, then choose 1 of each watch, eat, read, buy to show the details card)
-(If you type more than one thing)
-2) Input error (maybe if there's time)
+# Watch
+* Attack on Titan
+* Harry Potter and the stone
+
+* Toothpaste
+* 1984
+* Banana
+* Guac
+* Nachos
+
+# Eat 
+* Miku (mis-categorized)
+
+
 
 When something gets mis-categorized, hand over to next person for stretch features
 

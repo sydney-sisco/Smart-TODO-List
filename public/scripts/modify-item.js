@@ -177,7 +177,6 @@ $(() => {
       }
     });
 
-
     $('#edit-item-form').hide()
     $('.body-container').css('filter','blur(1rem)')
 

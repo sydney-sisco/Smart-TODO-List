@@ -127,7 +127,6 @@ const loadItems = () => {
         </li>`);
 
         addAfterPriority(item.category_id, $newItem)
-        // $newItem.prependTo($(`.id-${item.category_id} .todo-list`));
       }
     }
     $('.complete-btn').on('click', completedToggle);
@@ -155,7 +154,7 @@ const completedToggle = event => {
       if (item.done) {
 
         // highlights done list when item is moved
-        const $doneTitle = $($listItem.parents('.todo-list').siblings()[2]);
+        const $doneTitle = $($listItem.parents('.todo-list').siblings()[2]); //1 for mobile
         $doneTitle.addClass("highlight");
         setTimeout(()=>{
           $doneTitle.removeClass("highlight");
@@ -168,14 +167,13 @@ const completedToggle = event => {
       } else {
 
         // highlights list title when item is moved back to the main spot
-        const $listTitle = $($(`.id-${categoryId}`).children()[1]);
+        const $listTitle = $($(`.id-${categoryId}`).children()[0]); //1 for mobile
         $listTitle.addClass("highlight");
         setTimeout(()=>{
           $listTitle.removeClass("highlight");
         }, 1500)
 
         addAfterPriority(categoryId, $listItem)
-        // $listItem.detach().prependTo(`.id-${categoryId} .todo-list`);
         $listItem.removeClass('completed');
         $listItem.find('.complete-btn').removeClass('fas').addClass('far');
       }
@@ -251,8 +249,10 @@ const formSubmissionHandler = function(event) {
 
     addAfterPriority(data.category_id, $itemToList)
 
-    // Prepend to beginning; uncomment if this priority thing is no good
-    // $itemToList.prependTo($(`.id-${data.category_id} .todo-list`));
+    // removes highlight so that toggle up on done
+    setTimeout(()=>{
+      $itemToList.removeClass("highlight");
+    }, 1500)
 
     // complete btn listener for finished
     $('.complete-btn').on('click', completedToggle);

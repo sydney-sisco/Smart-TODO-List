@@ -15,6 +15,11 @@
   border-radius: 20px;
   color: var(--altTextColor);
 
+  h2 {
+    color: var(--rightColor);
+    font-size: 3.5rem;
+    font-weight: bold;
+  }
 
   header {
     display: flex;
@@ -22,11 +27,6 @@
     justify-content: center;
     align-items: center;
 
-    h2 {
-      color: var(--rightColor);
-      font-size: 3.5rem;
-      font-weight: bold;
-    }
 
     span {
       color: var(--rightColor);

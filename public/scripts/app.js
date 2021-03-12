@@ -29,7 +29,7 @@ $(() => {
 // checks user's localstorage to enable or disable dark mode
 const checkDarkMode = () => {
   const $varElem = $('html').get(0).style;
-  const isDarkOn = localStorage.getItem('darkMode');
+  const isDarkOn = localStorage.getItem('darkMode') === 'enabled';
 
   isDarkOn ? enableDarkMode($varElem) : disableDarkMode($varElem);
 };
@@ -52,7 +52,7 @@ const enableDarkMode = $elem => {
   $elem.setProperty('--cardColor', '#2C303A');
   $elem.setProperty('--errorTextColor', 'rgb(255, 255, 255)');
   $('#logo').attr('src', 'https://see.fontimg.com/api/renderfont4/w1l49/eyJyIjoiZnMiLCJoIjo2NCwidyI6MjAwMCwiZnMiOjMyLCJmZ2MiOiIjRkZDODBDIiwiYmdjIjoiI0ZGRkZGRiIsInQiOjF9/Tm90U29TbWFydA/marshmallow-personal-use-regular.png');
-  $('#dark-switch').addClass('dark').children('button').html('Light Mode');
+  $('#dark-switch').addClass('dark').children('button').html('Light');
   $('body').css('background', 'var(--leftColor)');
   $('body').css('background-image', 'none');
   localStorage.setItem('darkMode', 'enabled');
@@ -69,7 +69,7 @@ const disableDarkMode = $elem => {
   $elem.setProperty('--cardColor', 'white');
   $elem.setProperty('--errorTextColor', 'rgb(255, 78, 78)');
   $('#logo').attr('src', 'https://see.fontimg.com/api/renderfont4/w1l49/eyJyIjoiZnMiLCJoIjo2NCwidyI6MjAwMCwiZnMiOjMyLCJmZ2MiOiIjRkZGRkZGIiwiYmdjIjoiI0ZGRkZGRiIsInQiOjF9/Tm90U29TbWFydA/marshmallow-personal-use-regular.png');
-  $('#dark-switch').removeClass('dark').children('button').html('Dark Mode');
+  $('#dark-switch').removeClass('dark').children('button').html('Dark');
   $('body').css('background', 'none');
   $('body').css('background-image', 'linear-gradient(135deg, var(--leftColor), var(--rightColor))');
   localStorage.setItem('darkMode', null);
@@ -152,22 +152,35 @@ const completedToggle = event => {
     }).then(function() {
       $listItem = $(event.target).parent().parent();
 
-      // highlights done list when item is moved
-      const $doneTitle = $($listItem.parents('.todo-list').siblings()[1]);
-      $doneTitle.addClass("highlight");
-      setTimeout(()=>{
-        $doneTitle.removeClass("highlight");
-      }, 1500)
-
       if (item.done) {
+
+        // highlights done list when item is moved
+        const $doneTitle = $($listItem.parents('.todo-list').siblings()[2]);
+        $doneTitle.addClass("highlight");
+        setTimeout(()=>{
+          $doneTitle.removeClass("highlight");
+        }, 1500)
+
+        // adds the item in order it was completed regardless of priority;
         $listItem.detach().prependTo(`.id-${categoryId} .done-list`);
         $listItem.addClass('completed');
         $listItem.find('.complete-btn').removeClass('far').addClass('fas');
       } else {
-        $listItem.detach().prependTo(`.id-${categoryId} .todo-list`);
+
+        // highlights list title when item is moved back to the main spot
+        const $listTitle = $($(`.id-${categoryId}`).children()[1]);
+        $listTitle.addClass("highlight");
+        setTimeout(()=>{
+          $listTitle.removeClass("highlight");
+        }, 1500)
+
+        addAfterPriority(categoryId, $listItem)
+        // $listItem.detach().prependTo(`.id-${categoryId} .todo-list`);
         $listItem.removeClass('completed');
         $listItem.find('.complete-btn').removeClass('fas').addClass('far');
       }
+
+
     }).catch(err => console.log('AJAX patch error:', err));
   });
 };
@@ -262,8 +275,8 @@ const listSwitcherHander = (event) => {
 
 // called when the page is resized
 const resizeHandler = () => {
-  // determine if mobile based on visibility of the dropdown
-  const mobile = $('form.list-switcher').css('display') === 'block';
+  // determine if mobile based on visibility of the footer
+  const mobile = $('.main-footer').css('display') === 'none';
 
   if(mobile) {
     // get the current value from  the dropdown
@@ -290,6 +303,9 @@ const showList = (listID) => {
 
     if (classArr.includes(`id-${listID}`)) {
       $(list).css('display', 'flex');
+
+      // set the dropdown value to match the list that is showing
+      $(list).children('form').children('select').val(listID);
     } else {
       $(list).css('display', 'none');
     }

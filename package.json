@@ -1,6 +1,9 @@
 {
   "name": "node-skeleton",
   "version": "1.0.0",
+  "engines": {
+    "node": "12.x"
+  },
   "description": "",
   "main": "server.js",
   "scripts": {
@@ -14,6 +17,7 @@
   "dependencies": {
     "@google-cloud/language": "^4.2.1",
     "axios": "^0.21.1",
+    "bcrypt": "^5.0.1",
     "body-parser": "^1.19.0",
     "chalk": "^2.4.2",
     "cookie-session": "^1.4.0",

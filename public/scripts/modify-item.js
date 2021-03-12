@@ -101,7 +101,7 @@ $(() => {
 
       <div>
         <form id="edit-item-form" method="PATCH" action="/items/${num}">
-          <input type="text" name="name" placeholder="New Item Name"></input>
+          <input type="text" name="name" autocomplete="off" placeholder="New Item Name"></input>
           <button class="submit-btn" form="edit-item-form" type="submit">Update</button>
         </form>
       </div>
@@ -186,7 +186,6 @@ $(() => {
       url: `/details/${num}`,
       timeout: 10000 // in milliseconds
     }).then(data => {
-      console.log('data returned from server:', data);
       if (categoryId === 1) watchDetailStructure(data);
       if (categoryId === 2) eatDetailStructure(data);
       if (categoryId === 3) readDetailStructure(data);

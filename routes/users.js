@@ -9,11 +9,8 @@ const { dataFetcher, insertUserAndReturn, updateUserInfo } = require('../db/user
 const express = require('express');
 const router  = express.Router();
 
-
-// router.get('/login/:id', (req, res) => {
-//   req.session.user_id = req.params.id;
-//   res.redirect('../../items/');
-// });
+// use bcrypt to hash passwords
+const bcrypt = require('bcrypt');
 
 router.post('/', (req, res) => {
   if(req.session.user_id) {
@@ -27,7 +24,12 @@ router.post('/', (req, res) => {
   dataFetcher('email', req.body.registerEmail)
     .then(data => {
     if (data.rowCount === 0) {
-      return insertUserAndReturn(req.body);
+      return insertUserAndReturn({
+        registerFname: req.body.registerFname,
+        registerLname: req.body.registerLname,
+        registerEmail: req.body.registerEmail,
+        registerPassword: bcrypt.hashSync(req.body.registerPassword, 10),
+      });
     }
     res.status(400).send('Email already present in our database.');
   }).then(userID => {
@@ -48,8 +50,8 @@ router.post('/login', (req, res) => {
 
   dataFetcher('email', curEmail).then(data => {
     const userData = data.rows[0];
-    // implement bcrypt (STRETCH)
-    if (data.rowCount > 0 && userData.password === curPassword) {
+
+    if (data.rowCount > 0 && bcrypt.compareSync(curPassword, userData.password)) {
       req.session.user_id = userData.id;
       res.redirect('/');
       return;
@@ -67,7 +69,7 @@ router.patch('/', (req, res) => {
     userId: req.session.user_id,
     newFname: req.body.updateFname,
     newLname: req.body.updateLname,
-    newPassword: req.body.updatePassword
+    newPassword: bcrypt.hashSync(req.body.updatePassword, 10),
   }
   updateUserInfo(userInfo)
     .then(data => res.redirect('/'))

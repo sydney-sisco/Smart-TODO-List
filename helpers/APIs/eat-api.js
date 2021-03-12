@@ -13,8 +13,6 @@ const eatDetails = itemName => {
 
   return client.search(searchRequest).then(response => {
 
-    // console.log(response.jsonBody.businesses);
-
     if (response.jsonBody.businesses.length) {
       const result = response.jsonBody.businesses[0];
       const returnData = {

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Smart TODO List</title>
+    <title>NotSoSmart - A Smart TODO</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
 
@@ -27,13 +27,13 @@
         <form action="/users/" method="POST">
           <div class='credential-input'>
             <label for="registerFname">First name:</label>
-            <input type='text' name="registerFname" id="registerFname">
+            <input type='text' name="registerFname" id="registerFname" autocomplete="off">
             <label for="registerLname">Last name:</label>
-            <input type="text" name="registerLname" id="registerLname">
+            <input type="text" name="registerLname" id="registerLname" autocomplete="off">
             <label for="registerEmail">Email:</label>
-            <input type="email" name="registerEmail" id="registerEmail">
+            <input type="email" name="registerEmail" id="registerEmail" autocomplete="off">
             <label for="registerPassword">Password:</label>
-            <input type="password" name="registerPassword" id="registerPassword">
+            <input type="password" name="registerPassword" id="registerPassword" autocomplete="off">
           </div>
           <button type="submit">Register</button>
         </form>
